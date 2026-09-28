@@ -19,9 +19,6 @@
             color: white;
         }
 
-
-        /* HEADER */
-
         header {
             padding: 25px;
             background: #181818;
@@ -33,7 +30,6 @@
             font-size: 32px;
             letter-spacing: 2px;
         }
-
 
         nav {
             margin-top: 15px;
@@ -50,15 +46,11 @@
             color: #cccccc;
         }
 
-
-        /* MAIN */
-
         .container {
             max-width: 1100px;
             margin: auto;
             padding: 50px 20px;
         }
-
 
         .title {
             text-align: center;
@@ -73,7 +65,6 @@
         .title p {
             color: #aaaaaa;
         }
-
 
         /* SEARCH */
 
@@ -91,7 +82,6 @@
             color: white;
             font-size: 16px;
             outline: none;
-            transition: 0.3s;
         }
 
         .search-box input:focus {
@@ -101,7 +91,6 @@
         .search-box input::placeholder {
             color: #888888;
         }
-
 
         /* CATEGORIES */
 
@@ -135,8 +124,7 @@
             border-color: white;
         }
 
-
-        /* WALLPAPER GRID */
+        /* GRID */
 
         .wallpaper-grid {
             display: grid;
@@ -144,10 +132,8 @@
                 auto-fit,
                 minmax(250px, 1fr)
             );
-
             gap: 25px;
         }
-
 
         /* CARD */
 
@@ -165,9 +151,9 @@
         .wallpaper-card:hover {
             transform: translateY(-6px);
             border-color: #444444;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.5);
         }
-
 
         /* IMAGE */
 
@@ -187,7 +173,6 @@
             transform: scale(1.04);
         }
 
-
         /* INFO */
 
         .wallpaper-info {
@@ -201,11 +186,20 @@
 
         .wallpaper-info p {
             color: #aaaaaa;
-            margin: 0;
+            margin: 6px 0;
         }
 
+        .resolution {
+            color: #888888;
+            font-size: 14px;
+        }
 
-        /* DOWNLOAD BUTTON */
+        .format {
+            color: #888888;
+            font-size: 14px;
+        }
+
+        /* DOWNLOAD */
 
         .button {
             display: inline-block;
@@ -226,7 +220,6 @@
             transform: translateY(-2px);
         }
 
-
         /* NO RESULT */
 
         .no-result {
@@ -237,7 +230,6 @@
             font-size: 16px;
         }
 
-
         /* FOOTER */
 
         footer {
@@ -246,7 +238,6 @@
             color: #777777;
             margin-top: 40px;
         }
-
 
         /* MOBILE */
 
@@ -281,7 +272,6 @@
             .category-btn {
                 padding: 9px 14px;
             }
-
         }
 
     </style>
@@ -362,14 +352,12 @@
                 All
             </button>
 
-
             <button
                 class="category-btn"
                 onclick="selectCategory('anime', this)"
             >
                 Anime
             </button>
-
 
             <button
                 class="category-btn"
@@ -378,7 +366,6 @@
                 Aesthetic
             </button>
 
-
             <button
                 class="category-btn"
                 onclick="selectCategory('dark', this)"
@@ -386,14 +373,12 @@
                 Dark
             </button>
 
-
             <button
                 class="category-btn"
                 onclick="selectCategory('gaming', this)"
             >
                 Gaming
             </button>
-
 
             <button
                 class="category-btn"
@@ -426,6 +411,7 @@
                     <img
                         src="wallpapers/black%20anime%20dp.jpeg"
                         alt="Black Anime DP"
+                        onload="showImageInfo(this)"
                     >
 
                 </div>
@@ -439,6 +425,18 @@
 
                     <p>
                         Anime • Dark
+                    </p>
+
+                    <p class="resolution">
+                        Resolution:
+                        <span class="image-resolution">
+                            Loading...
+                        </span>
+                    </p>
+
+                    <p class="format">
+                        Format:
+                        JPEG
                     </p>
 
 
@@ -468,6 +466,7 @@
                     <img
                         src="wallpapers/madara_uchiha.webp"
                         alt="Madara Uchiha"
+                        onload="showImageInfo(this)"
                     >
 
                 </div>
@@ -481,6 +480,18 @@
 
                     <p>
                         Anime • Dark
+                    </p>
+
+                    <p class="resolution">
+                        Resolution:
+                        <span class="image-resolution">
+                            Loading...
+                        </span>
+                    </p>
+
+                    <p class="format">
+                        Format:
+                        WEBP
                     </p>
 
 
@@ -532,7 +543,34 @@
         let selectedCategory = "all";
 
 
-        function selectCategory(category, button) {
+        /* AUTOMATIC IMAGE RESOLUTION */
+
+        function showImageInfo(image) {
+
+            let width = image.naturalWidth;
+
+            let height = image.naturalHeight;
+
+            let card =
+                image.closest(".wallpaper-card");
+
+            let resolution =
+                card.querySelector(
+                    ".image-resolution"
+                );
+
+            resolution.innerText =
+                width + " × " + height;
+        }
+
+
+
+        /* CATEGORY */
+
+        function selectCategory(
+            category,
+            button
+        ) {
 
             selectedCategory = category;
 
@@ -564,6 +602,8 @@
         }
 
 
+
+        /* SEARCH + FILTER */
 
         function filterWallpapers() {
 
@@ -598,12 +638,16 @@
 
                 let categories =
                     cards[i]
-                    .getAttribute("data-category")
+                    .getAttribute(
+                        "data-category"
+                    )
                     .toLowerCase();
 
 
                 let searchMatch =
-                    title.includes(searchText);
+                    title.includes(
+                        searchText
+                    );
 
 
                 let categoryMatch =
@@ -638,7 +682,9 @@
             document
                 .getElementById("noResult")
                 .style.display =
-                found ? "none" : "block";
+                found
+                ? "none"
+                : "block";
 
         }
 
@@ -646,4 +692,4 @@
 
 
 </body>
-</html>
+                </html>
