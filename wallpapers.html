@@ -178,6 +178,7 @@
 <body>
 
     <header>
+
         <h1>TENSEI</h1>
 
         <nav>
@@ -185,26 +186,39 @@
             <a href="wallpapers.html">Wallpapers</a>
             <a href="#">About</a>
         </nav>
+
     </header>
+
 
     <div class="container">
 
         <div class="title">
+
             <h2>Wallpapers</h2>
-            <p>Discover wallpapers from Tensei.</p>
+
+            <p>
+                Discover wallpapers from Tensei.
+            </p>
+
         </div>
 
+
         <!-- Search -->
+
         <div class="search-box">
+
             <input
                 type="text"
                 id="searchInput"
                 placeholder="Search wallpapers..."
                 onkeyup="filterWallpapers()"
             >
+
         </div>
 
+
         <!-- Categories -->
+
         <div class="categories">
 
             <button
@@ -245,10 +259,17 @@
 
         </div>
 
-        <!-- Gallery -->
-        <div class="wallpaper-grid" id="wallpaperGrid">
+
+        <!-- Wallpaper Gallery -->
+
+        <div
+            class="wallpaper-grid"
+            id="wallpaperGrid"
+        >
+
 
             <!-- Wallpaper 1 -->
+
             <div
                 class="wallpaper-card"
                 data-category="anime dark"
@@ -259,11 +280,16 @@
                     alt="Black Anime DP"
                 >
 
+
                 <div class="wallpaper-info">
 
-                    <h3>Black Anime DP</h3>
+                    <h3>
+                        Black Anime DP
+                    </h3>
 
-                    <p>Anime • Dark</p>
+                    <p>
+                        Anime • Dark
+                    </p>
 
                     <a
                         href="wallpapers/black%20anime%20dp.jpeg"
@@ -277,52 +303,91 @@
 
             </div>
 
+
         </div>
 
-        <div class="no-result" id="noResult">
+
+        <!-- No Result -->
+
+        <div
+            class="no-result"
+            id="noResult"
+        >
             No wallpaper found.
         </div>
 
+
     </div>
 
+
     <footer>
+
         © 2026 Tensei
+
     </footer>
+
 
     <script>
 
         let selectedCategory = "all";
 
+
         function selectCategory(category, button) {
 
             selectedCategory = category;
 
-            let buttons =
-                document.getElementsByClassName("category-btn");
 
-            for (let i = 0; i < buttons.length; i++) {
-                buttons[i].classList.remove("active");
+            let buttons =
+                document.getElementsByClassName(
+                    "category-btn"
+                );
+
+
+            for (
+                let i = 0;
+                i < buttons.length;
+                i++
+            ) {
+
+                buttons[i].classList.remove(
+                    "active"
+                );
+
             }
+
 
             button.classList.add("active");
 
+
             filterWallpapers();
+
         }
+
 
 
         function filterWallpapers() {
 
             let searchText =
-                document.getElementById("searchInput")
+                document
+                .getElementById("searchInput")
                 .value
                 .toLowerCase();
 
+
             let cards =
-                document.getElementsByClassName("wallpaper-card");
+                document.getElementsByClassName(
+                    "wallpaper-card"
+                );
+
 
             let found = false;
 
-            for (let i = 0; i < cards.length; i++) {
+
+            for (
+                let i = 0;
+                i < cards.length;
+                i++
+            ) {
 
                 let title =
                     cards[i]
@@ -330,36 +395,52 @@
                     .innerText
                     .toLowerCase();
 
+
                 let categories =
                     cards[i]
                     .getAttribute("data-category")
                     .toLowerCase();
 
+
                 let searchMatch =
                     title.includes(searchText);
 
+
                 let categoryMatch =
                     selectedCategory === "all" ||
-                    categories.includes(selectedCategory);
+                    categories.includes(
+                        selectedCategory
+                    );
 
-                if (searchMatch && categoryMatch) {
 
-                    cards[i].style.display = "block";
+                if (
+                    searchMatch &&
+                    categoryMatch
+                ) {
+
+                    cards[i].style.display =
+                        "block";
 
                     found = true;
 
                 } else {
 
-                    cards[i].style.display = "none";
+                    cards[i].style.display =
+                        "none";
 
                 }
+
             }
 
-            document.getElementById("noResult").style.display =
+
+            document
+                .getElementById("noResult")
+                .style.display =
                 found ? "none" : "block";
+
         }
 
     </script>
 
 </body>
-    </html>
+</html>
