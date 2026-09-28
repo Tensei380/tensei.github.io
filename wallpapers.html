@@ -7,12 +7,20 @@
     <title>Tensei Wallpapers</title>
 
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: #0f0f0f;
             color: white;
         }
+
+
+        /* HEADER */
 
         header {
             padding: 25px;
@@ -23,7 +31,9 @@
         header h1 {
             margin: 0;
             font-size: 32px;
+            letter-spacing: 2px;
         }
+
 
         nav {
             margin-top: 15px;
@@ -37,14 +47,18 @@
         }
 
         nav a:hover {
-            text-decoration: underline;
+            color: #cccccc;
         }
+
+
+        /* MAIN */
 
         .container {
             max-width: 1100px;
             margin: auto;
             padding: 50px 20px;
         }
+
 
         .title {
             text-align: center;
@@ -60,6 +74,9 @@
             color: #aaaaaa;
         }
 
+
+        /* SEARCH */
+
         .search-box {
             max-width: 600px;
             margin: 0 auto 25px auto;
@@ -67,19 +84,26 @@
 
         .search-box input {
             width: 100%;
-            box-sizing: border-box;
-            padding: 15px 18px;
-            border: none;
-            border-radius: 8px;
-            background: #202020;
+            padding: 16px 18px;
+            border: 1px solid #292929;
+            border-radius: 10px;
+            background: #1b1b1b;
             color: white;
             font-size: 16px;
             outline: none;
+            transition: 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #555555;
         }
 
         .search-box input::placeholder {
             color: #888888;
         }
+
+
+        /* CATEGORIES */
 
         .categories {
             display: flex;
@@ -91,22 +115,28 @@
 
         .category-btn {
             padding: 10px 18px;
-            border: none;
-            border-radius: 7px;
+            border: 1px solid #303030;
+            border-radius: 8px;
             background: #202020;
             color: white;
             cursor: pointer;
             font-size: 14px;
+            transition: 0.25s;
         }
 
         .category-btn:hover {
-            background: #333333;
+            background: #303030;
+            transform: translateY(-2px);
         }
 
         .category-btn.active {
             background: white;
             color: black;
+            border-color: white;
         }
+
+
+        /* WALLPAPER GRID */
 
         .wallpaper-grid {
             display: grid;
@@ -114,54 +144,101 @@
                 auto-fit,
                 minmax(250px, 1fr)
             );
+
             gap: 25px;
         }
 
+
+        /* CARD */
+
         .wallpaper-card {
             background: #181818;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
+            border: 1px solid #252525;
+            transition:
+                transform 0.3s,
+                border-color 0.3s,
+                box-shadow 0.3s;
+        }
+
+        .wallpaper-card:hover {
+            transform: translateY(-6px);
+            border-color: #444444;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+        }
+
+
+        /* IMAGE */
+
+        .image-container {
+            overflow: hidden;
+            background: #111111;
         }
 
         .wallpaper-card img {
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.4s ease;
         }
+
+        .wallpaper-card:hover img {
+            transform: scale(1.04);
+        }
+
+
+        /* INFO */
 
         .wallpaper-info {
             padding: 20px;
         }
 
         .wallpaper-info h3 {
-            margin-top: 0;
+            margin: 0 0 8px 0;
+            font-size: 20px;
         }
 
         .wallpaper-info p {
             color: #aaaaaa;
+            margin: 0;
         }
+
+
+        /* DOWNLOAD BUTTON */
 
         .button {
             display: inline-block;
-            margin-top: 10px;
-            padding: 12px 20px;
+            width: 100%;
+            margin-top: 18px;
+            padding: 13px 20px;
             background: white;
             color: black;
             text-decoration: none;
-            border-radius: 7px;
+            text-align: center;
+            border-radius: 8px;
             font-weight: bold;
+            transition: 0.25s;
         }
 
         .button:hover {
-            opacity: 0.8;
+            background: #dddddd;
+            transform: translateY(-2px);
         }
+
+
+        /* NO RESULT */
 
         .no-result {
             display: none;
             text-align: center;
             color: #888888;
             margin-top: 30px;
+            font-size: 16px;
         }
+
+
+        /* FOOTER */
 
         footer {
             text-align: center;
@@ -169,29 +246,87 @@
             color: #777777;
             margin-top: 40px;
         }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            nav a {
+                margin: 0 7px;
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 35px 15px;
+            }
+
+            .title h2 {
+                font-size: 30px;
+            }
+
+            .wallpaper-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .category-btn {
+                padding: 9px 14px;
+            }
+
+        }
+
     </style>
 </head>
 
+
 <body>
+
+
+    <!-- HEADER -->
 
     <header>
 
         <h1>TENSEI</h1>
 
         <nav>
-            <a href="index.html">Home</a>
-            <a href="wallpapers.html">Wallpapers</a>
-            <a href="#">About</a>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="wallpapers.html">
+                Wallpapers
+            </a>
+
+            <a href="#">
+                About
+            </a>
+
         </nav>
 
     </header>
 
 
+
+    <!-- MAIN -->
+
     <div class="container">
+
 
         <div class="title">
 
-            <h2>Wallpapers</h2>
+            <h2>
+                Wallpapers
+            </h2>
 
             <p>
                 Discover wallpapers from Tensei.
@@ -200,7 +335,8 @@
         </div>
 
 
-        <!-- Search -->
+
+        <!-- SEARCH -->
 
         <div class="search-box">
 
@@ -214,50 +350,63 @@
         </div>
 
 
-        <!-- Categories -->
+
+        <!-- CATEGORIES -->
 
         <div class="categories">
 
             <button
                 class="category-btn active"
-                onclick="selectCategory('all', this)">
+                onclick="selectCategory('all', this)"
+            >
                 All
             </button>
 
+
             <button
                 class="category-btn"
-                onclick="selectCategory('anime', this)">
+                onclick="selectCategory('anime', this)"
+            >
                 Anime
             </button>
 
+
             <button
                 class="category-btn"
-                onclick="selectCategory('aesthetic', this)">
+                onclick="selectCategory('aesthetic', this)"
+            >
                 Aesthetic
             </button>
 
+
             <button
                 class="category-btn"
-                onclick="selectCategory('dark', this)">
+                onclick="selectCategory('dark', this)"
+            >
                 Dark
             </button>
 
-            <button
-                class="category-btn"
-                onclick="selectCategory('gaming', this)">
-                Gaming
-            </button>
 
             <button
                 class="category-btn"
-                onclick="selectCategory('nature', this)">
+                onclick="selectCategory('gaming', this)"
+            >
+                Gaming
+            </button>
+
+
+            <button
+                class="category-btn"
+                onclick="selectCategory('nature', this)"
+            >
                 Nature
             </button>
 
         </div>
 
 
-        <!-- Wallpaper Gallery -->
+
+        <!-- WALLPAPER GRID -->
 
         <div
             class="wallpaper-grid"
@@ -265,17 +414,22 @@
         >
 
 
-            <!-- Wallpaper 1 -->
+            <!-- BLACK ANIME DP -->
 
             <div
                 class="wallpaper-card"
                 data-category="anime dark"
             >
 
-                <img
-                    src="wallpapers/black%20anime%20dp.jpeg"
-                    alt="Black Anime DP"
-                >
+                <div class="image-container">
+
+                    <img
+                        src="wallpapers/black%20anime%20dp.jpeg"
+                        alt="Black Anime DP"
+                    >
+
+                </div>
+
 
                 <div class="wallpaper-info">
 
@@ -286,6 +440,7 @@
                     <p>
                         Anime • Dark
                     </p>
+
 
                     <a
                         href="wallpapers/black%20anime%20dp.jpeg"
@@ -300,17 +455,23 @@
             </div>
 
 
-            <!-- Wallpaper 2 -->
+
+            <!-- MADARA UCHIHA -->
 
             <div
                 class="wallpaper-card"
                 data-category="anime dark"
             >
 
-                <img
-                    src="wallpapers/madara_uchiha.webp"
-                    alt="Madara Uchiha"
-                >
+                <div class="image-container">
+
+                    <img
+                        src="wallpapers/madara_uchiha.webp"
+                        alt="Madara Uchiha"
+                    >
+
+                </div>
+
 
                 <div class="wallpaper-info">
 
@@ -321,6 +482,7 @@
                     <p>
                         Anime • Dark
                     </p>
+
 
                     <a
                         href="wallpapers/madara_uchiha.webp"
@@ -338,7 +500,8 @@
         </div>
 
 
-        <!-- No Result -->
+
+        <!-- NO RESULT -->
 
         <div
             class="no-result"
@@ -351,12 +514,18 @@
     </div>
 
 
+
+    <!-- FOOTER -->
+
     <footer>
 
         © 2026 Tensei
 
     </footer>
 
+
+
+    <!-- JAVASCRIPT -->
 
     <script>
 
@@ -393,6 +562,7 @@
             filterWallpapers();
 
         }
+
 
 
         function filterWallpapers() {
@@ -453,7 +623,9 @@
 
                     found = true;
 
-                } else {
+                }
+
+                else {
 
                     cards[i].style.display =
                         "none";
@@ -472,5 +644,6 @@
 
     </script>
 
+
 </body>
-    </html>
+</html>
