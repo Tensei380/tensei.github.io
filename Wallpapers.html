@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tensei Wallpapers</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f0f0f;
+            color: white;
+        }
+
+        header {
+            padding: 25px;
+            background: #181818;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 50px 20px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            color: #aaaaaa;
+        }
+
+        .wallpaper-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .wallpaper-card {
+            background: #181818;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .wallpaper-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .wallpaper-info {
+            padding: 20px;
+        }
+
+        .wallpaper-info h3 {
+            margin-top: 0;
+        }
+
+        .wallpaper-info p {
+            color: #aaaaaa;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 20px;
+            background: white;
+            color: black;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            opacity: 0.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #777777;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>TENSEI</h1>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="wallpapers.html">Wallpapers</a>
+            <a href="#">About</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <div class="title">
+            <h2>Wallpapers</h2>
+            <p>Discover wallpapers from Tensei.</p>
+        </div>
+
+        <div class="wallpaper-grid">
+
+            <div class="wallpaper-card">
+                <img src="https://placehold.co/600x900" alt="Wallpaper">
+
+                <div class="wallpaper-info">
+                    <h3>Wallpaper 01</h3>
+                    <p>Mobile Wallpaper</p>
+
+                    <a href="https://placehold.co/600x900"
+                       class="button"
+                       target="_blank">
+                        Download
+                    </a>
+                </div>
+            </div>
+
+            <div class="wallpaper-card">
+                <img src="https://placehold.co/600x900" alt="Wallpaper">
+
+                <div class="wallpaper-info">
+                    <h3>Wallpaper 02</h3>
+                    <p>Mobile Wallpaper</p>
+
+                    <a href="https://placehold.co/600x900"
+                       class="button"
+                       target="_blank">
+                        Download
+                    </a>
+                </div>
+            </div>
+
+            <div class="wallpaper-card">
+                <img src="https://placehold.co/600x900" alt="Wallpaper">
+
+                <div class="wallpaper-info">
+                    <h3>Wallpaper 03</h3>
+                    <p>Mobile Wallpaper</p>
+
+                    <a href="https://placehold.co/600x900"
+                       class="button"
+                       target="_blank">
+                        Download
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        © 2026 Tensei
+    </footer>
+
+</body>
+</html>
