@@ -48,7 +48,7 @@
 
         .title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .title h2 {
@@ -60,9 +60,34 @@
             color: #aaaaaa;
         }
 
+        /* Search Box */
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+
+        .search-box input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 15px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #202020;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: #888888;
+        }
+
         .wallpaper-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(250px, 1fr)
+            );
             gap: 25px;
         }
 
@@ -76,7 +101,6 @@
             width: 100%;
             height: auto;
             display: block;
-        }
         }
 
         .wallpaper-info {
@@ -104,6 +128,13 @@
 
         .button:hover {
             opacity: 0.8;
+        }
+
+        .no-result {
+            display: none;
+            text-align: center;
+            color: #888888;
+            margin-top: 30px;
         }
 
         footer {
@@ -134,29 +165,43 @@
             <p>Discover wallpapers from Tensei.</p>
         </div>
 
-        <div class="wallpaper-grid">
+        <!-- Search -->
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search wallpapers..."
+                onkeyup="searchWallpapers()"
+            >
+        </div>
+
+        <!-- Wallpaper Gallery -->
+        <div class="wallpaper-grid" id="wallpaperGrid">
 
             <div class="wallpaper-card">
-
-                <img src="wallpapers/black%20anime%20dp.jpeg"
-                     alt="Black Anime Wallpaper">
+                <img
+                    src="wallpapers/black%20anime%20dp.jpeg"
+                    alt="Black Anime DP"
+                >
 
                 <div class="wallpaper-info">
-
                     <h3>Black Anime DP</h3>
-
                     <p>Anime Wallpaper</p>
 
-                    <a href="wallpapers/black%20anime%20dp.jpeg"
-                       class="button"
-                       download>
+                    <a
+                        href="wallpapers/black%20anime%20dp.jpeg"
+                        class="button"
+                        download
+                    >
                         Download
                     </a>
-
                 </div>
-
             </div>
 
+        </div>
+
+        <div class="no-result" id="noResult">
+            No wallpaper found.
         </div>
 
     </div>
@@ -164,6 +209,39 @@
     <footer>
         © 2026 Tensei
     </footer>
+
+    <script>
+        function searchWallpapers() {
+
+            let input = document
+                .getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+            let cards = document
+                .getElementsByClassName("wallpaper-card");
+
+            let found = false;
+
+            for (let i = 0; i < cards.length; i++) {
+
+                let title = cards[i]
+                    .getElementsByTagName("h3")[0]
+                    .innerText
+                    .toLowerCase();
+
+                if (title.includes(input)) {
+                    cards[i].style.display = "block";
+                    found = true;
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+
+            document.getElementById("noResult").style.display =
+                found ? "none" : "block";
+        }
+    </script>
 
 </body>
 </html>
