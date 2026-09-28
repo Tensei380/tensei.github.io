@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Tensei Wallpapers</title>
+
 
     <style>
 
         * {
             box-sizing: border-box;
         }
+
 
         body {
             margin: 0;
@@ -19,11 +27,15 @@
             color: white;
         }
 
+
+        /* HEADER */
+
         header {
             padding: 25px;
             background: #181818;
             text-align: center;
         }
+
 
         header h1 {
             margin: 0;
@@ -31,9 +43,11 @@
             letter-spacing: 2px;
         }
 
+
         nav {
             margin-top: 15px;
         }
+
 
         nav a {
             color: white;
@@ -42,9 +56,13 @@
             font-size: 15px;
         }
 
+
         nav a:hover {
             color: #cccccc;
         }
+
+
+        /* MAIN */
 
         .container {
             max-width: 1100px;
@@ -52,19 +70,23 @@
             padding: 50px 20px;
         }
 
+
         .title {
             text-align: center;
             margin-bottom: 30px;
         }
+
 
         .title h2 {
             font-size: 36px;
             margin-bottom: 10px;
         }
 
+
         .title p {
             color: #aaaaaa;
         }
+
 
         /* SEARCH */
 
@@ -72,6 +94,7 @@
             max-width: 600px;
             margin: 0 auto 25px auto;
         }
+
 
         .search-box input {
             width: 100%;
@@ -84,13 +107,16 @@
             outline: none;
         }
 
+
         .search-box input:focus {
             border-color: #555555;
         }
 
+
         .search-box input::placeholder {
             color: #888888;
         }
+
 
         /* CATEGORIES */
 
@@ -101,6 +127,7 @@
             gap: 10px;
             margin-bottom: 40px;
         }
+
 
         .category-btn {
             padding: 10px 18px;
@@ -113,10 +140,12 @@
             transition: 0.25s;
         }
 
+
         .category-btn:hover {
             background: #303030;
             transform: translateY(-2px);
         }
+
 
         .category-btn.active {
             background: white;
@@ -124,16 +153,21 @@
             border-color: white;
         }
 
+
         /* GRID */
 
         .wallpaper-grid {
             display: grid;
-            grid-template-columns: repeat(
-                auto-fit,
-                minmax(250px, 1fr)
-            );
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(250px, 1fr)
+                );
+
             gap: 25px;
         }
+
 
         /* CARD */
 
@@ -142,18 +176,23 @@
             border-radius: 14px;
             overflow: hidden;
             border: 1px solid #252525;
+
             transition:
                 transform 0.3s,
                 border-color 0.3s,
                 box-shadow 0.3s;
         }
 
+
         .wallpaper-card:hover {
             transform: translateY(-6px);
             border-color: #444444;
+
             box-shadow:
-                0 12px 30px rgba(0, 0, 0, 0.5);
+                0 12px 30px
+                rgba(0, 0, 0, 0.5);
         }
+
 
         /* IMAGE */
 
@@ -162,16 +201,21 @@
             background: #111111;
         }
 
+
         .wallpaper-card img {
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.4s ease;
+
+            transition:
+                transform 0.4s ease;
         }
+
 
         .wallpaper-card:hover img {
             transform: scale(1.04);
         }
+
 
         /* INFO */
 
@@ -179,25 +223,30 @@
             padding: 20px;
         }
 
+
         .wallpaper-info h3 {
             margin: 0 0 8px 0;
             font-size: 20px;
         }
 
+
         .wallpaper-info p {
             color: #aaaaaa;
-            margin: 6px 0;
+            margin: 7px 0;
         }
+
 
         .resolution {
             color: #888888;
             font-size: 14px;
         }
 
+
         .format {
             color: #888888;
             font-size: 14px;
         }
+
 
         /* DOWNLOAD */
 
@@ -206,19 +255,34 @@
             width: 100%;
             margin-top: 18px;
             padding: 13px 20px;
+
             background: white;
             color: black;
+
             text-decoration: none;
             text-align: center;
+
             border-radius: 8px;
             font-weight: bold;
+
             transition: 0.25s;
         }
+
 
         .button:hover {
             background: #dddddd;
             transform: translateY(-2px);
         }
+
+
+        /* LOADING */
+
+        .loading {
+            text-align: center;
+            color: #888888;
+            padding: 40px;
+        }
+
 
         /* NO RESULT */
 
@@ -227,8 +291,8 @@
             text-align: center;
             color: #888888;
             margin-top: 30px;
-            font-size: 16px;
         }
+
 
         /* FOOTER */
 
@@ -239,6 +303,7 @@
             margin-top: 40px;
         }
 
+
         /* MOBILE */
 
         @media (max-width: 600px) {
@@ -247,34 +312,42 @@
                 padding: 20px;
             }
 
+
             header h1 {
                 font-size: 28px;
             }
+
 
             nav a {
                 margin: 0 7px;
                 font-size: 14px;
             }
 
+
             .container {
                 padding: 35px 15px;
             }
 
+
             .title h2 {
                 font-size: 30px;
             }
+
 
             .wallpaper-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
 
+
             .category-btn {
                 padding: 9px 14px;
             }
+
         }
 
     </style>
+
 </head>
 
 
@@ -287,15 +360,18 @@
 
         <h1>TENSEI</h1>
 
+
         <nav>
 
             <a href="index.html">
                 Home
             </a>
 
+
             <a href="wallpapers.html">
                 Wallpapers
             </a>
+
 
             <a href="#">
                 About
@@ -317,6 +393,7 @@
             <h2>
                 Wallpapers
             </h2>
+
 
             <p>
                 Discover wallpapers from Tensei.
@@ -352,12 +429,14 @@
                 All
             </button>
 
+
             <button
                 class="category-btn"
                 onclick="selectCategory('anime', this)"
             >
                 Anime
             </button>
+
 
             <button
                 class="category-btn"
@@ -366,6 +445,7 @@
                 Aesthetic
             </button>
 
+
             <button
                 class="category-btn"
                 onclick="selectCategory('dark', this)"
@@ -373,12 +453,14 @@
                 Dark
             </button>
 
+
             <button
                 class="category-btn"
                 onclick="selectCategory('gaming', this)"
             >
                 Gaming
             </button>
+
 
             <button
                 class="category-btn"
@@ -391,128 +473,23 @@
 
 
 
-        <!-- WALLPAPER GRID -->
+        <!-- AUTOMATIC GALLERY -->
 
         <div
             class="wallpaper-grid"
             id="wallpaperGrid"
         >
 
-
-            <!-- BLACK ANIME DP -->
-
             <div
-                class="wallpaper-card"
-                data-category="anime dark"
+                class="loading"
+                id="loading"
             >
-
-                <div class="image-container">
-
-                    <img
-                        src="wallpapers/black%20anime%20dp.jpeg"
-                        alt="Black Anime DP"
-                        onload="showImageInfo(this)"
-                    >
-
-                </div>
-
-
-                <div class="wallpaper-info">
-
-                    <h3>
-                        Black Anime DP
-                    </h3>
-
-                    <p>
-                        Anime • Dark
-                    </p>
-
-                    <p class="resolution">
-                        Resolution:
-                        <span class="image-resolution">
-                            Loading...
-                        </span>
-                    </p>
-
-                    <p class="format">
-                        Format:
-                        JPEG
-                    </p>
-
-
-                    <a
-                        href="wallpapers/black%20anime%20dp.jpeg"
-                        class="button"
-                        download
-                    >
-                        Download
-                    </a>
-
-                </div>
-
+                Loading wallpapers...
             </div>
-
-
-
-            <!-- MADARA UCHIHA -->
-
-            <div
-                class="wallpaper-card"
-                data-category="anime dark"
-            >
-
-                <div class="image-container">
-
-                    <img
-                        src="wallpapers/madara_uchiha.webp"
-                        alt="Madara Uchiha"
-                        onload="showImageInfo(this)"
-                    >
-
-                </div>
-
-
-                <div class="wallpaper-info">
-
-                    <h3>
-                        Madara Uchiha
-                    </h3>
-
-                    <p>
-                        Anime • Dark
-                    </p>
-
-                    <p class="resolution">
-                        Resolution:
-                        <span class="image-resolution">
-                            Loading...
-                        </span>
-                    </p>
-
-                    <p class="format">
-                        Format:
-                        WEBP
-                    </p>
-
-
-                    <a
-                        href="wallpapers/madara_uchiha.webp"
-                        class="button"
-                        download
-                    >
-                        Download
-                    </a>
-
-                </div>
-
-            </div>
-
 
         </div>
 
 
-
-        <!-- NO RESULT -->
 
         <div
             class="no-result"
@@ -536,31 +513,350 @@
 
 
 
-    <!-- JAVASCRIPT -->
-
     <script>
+
+
+        const username = "Tensei380";
+
+        const repository = "Tensei380.github.io";
+
+        const folder = "wallpapers";
+
 
         let selectedCategory = "all";
 
+        let wallpapers = [];
 
-        /* AUTOMATIC IMAGE RESOLUTION */
 
-        function showImageInfo(image) {
 
-            let width = image.naturalWidth;
+        /* GET FILES FROM GITHUB */
 
-            let height = image.naturalHeight;
+        async function loadWallpapers() {
 
-            let card =
-                image.closest(".wallpaper-card");
+            const url =
+                "https://api.github.com/repos/" +
+                username +
+                "/" +
+                repository +
+                "/contents/" +
+                folder;
 
-            let resolution =
-                card.querySelector(
-                    ".image-resolution"
+
+            try {
+
+                const response =
+                    await fetch(url);
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Could not load wallpapers."
+                    );
+
+                }
+
+
+                const files =
+                    await response.json();
+
+
+                wallpapers =
+                    files.filter(function(file) {
+
+                        return (
+                            file.type === "file" &&
+                            /\.(jpg|jpeg|png|webp|gif)$/i
+                            .test(file.name)
+                        );
+
+                    });
+
+
+                displayWallpapers();
+
+
+            }
+
+            catch (error) {
+
+                document
+                    .getElementById("loading")
+                    .innerText =
+                    "Unable to load wallpapers.";
+
+                console.error(error);
+
+            }
+
+        }
+
+
+
+        /* CREATE TITLE FROM FILENAME */
+
+        function createTitle(filename) {
+
+            let name =
+                filename
+                .replace(
+                    /\.(jpg|jpeg|png|webp|gif)$/i,
+                    ""
                 );
 
-            resolution.innerText =
-                width + " × " + height;
+
+            const categories = [
+                "anime",
+                "aesthetic",
+                "dark",
+                "gaming",
+                "nature"
+            ];
+
+
+            let words =
+                name.split("_");
+
+
+            words =
+                words.filter(function(word) {
+
+                    return !categories.includes(
+                        word.toLowerCase()
+                    );
+
+                });
+
+
+            return words
+                .map(function(word) {
+
+                    return (
+                        word.charAt(0).toUpperCase() +
+                        word.slice(1)
+                    );
+
+                })
+                .join(" ");
+
+        }
+
+
+
+        /* GET CATEGORIES */
+
+        function getCategories(filename) {
+
+            let name =
+                filename
+                .toLowerCase();
+
+
+            const categories = [
+                "anime",
+                "aesthetic",
+                "dark",
+                "gaming",
+                "nature"
+            ];
+
+
+            return categories.filter(
+                function(category) {
+
+                    return name.includes(
+                        "_" + category
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* GET FORMAT */
+
+        function getFormat(filename) {
+
+            let extension =
+                filename
+                .split(".")
+                .pop()
+                .toUpperCase();
+
+
+            return extension;
+
+        }
+
+
+
+        /* DISPLAY WALLPAPERS */
+
+        function displayWallpapers() {
+
+            const grid =
+                document.getElementById(
+                    "wallpaperGrid"
+                );
+
+
+            grid.innerHTML = "";
+
+
+            if (wallpapers.length === 0) {
+
+                document
+                    .getElementById("noResult")
+                    .style.display =
+                    "block";
+
+                return;
+
+            }
+
+
+            wallpapers.forEach(
+                function(file) {
+
+                    const categories =
+                        getCategories(
+                            file.name
+                        );
+
+
+                    const title =
+                        createTitle(
+                            file.name
+                        );
+
+
+                    const categoryText =
+                        categories.length > 0
+                        ? categories
+                            .map(function(category) {
+
+                                return (
+                                    category
+                                    .charAt(0)
+                                    .toUpperCase() +
+                                    category.slice(1)
+                                );
+
+                            })
+                            .join(" • ")
+                        : "Wallpaper";
+
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "wallpaper-card";
+
+
+                    card.setAttribute(
+                        "data-category",
+                        categories.join(" ")
+                    );
+
+
+                    card.setAttribute(
+                        "data-title",
+                        title.toLowerCase()
+                    );
+
+
+                    card.innerHTML = `
+
+                        <div class="image-container">
+
+                            <img
+                                src="${file.download_url}"
+                                alt="${title}"
+                            >
+
+                        </div>
+
+
+                        <div class="wallpaper-info">
+
+                            <h3>
+                                ${title}
+                            </h3>
+
+
+                            <p>
+                                ${categoryText}
+                            </p>
+
+
+                            <p class="resolution">
+
+                                Resolution:
+                                <span class="image-resolution">
+                                    Loading...
+                                </span>
+
+                            </p>
+
+
+                            <p class="format">
+
+                                Format:
+                                ${getFormat(file.name)}
+
+                            </p>
+
+
+                            <a
+                                href="${file.download_url}"
+                                class="button"
+                                download
+                            >
+                                Download
+                            </a>
+
+                        </div>
+
+                    `;
+
+
+                    const image =
+                        card.querySelector(
+                            "img"
+                        );
+
+
+                    image.onload =
+                        function() {
+
+                            const resolution =
+                                card.querySelector(
+                                    ".image-resolution"
+                                );
+
+
+                            resolution.innerText =
+                                image.naturalWidth +
+                                " × " +
+                                image.naturalHeight;
+
+                        };
+
+
+                    grid.appendChild(card);
+
+                }
+            );
+
+
+            filterWallpapers();
+
         }
 
 
@@ -572,10 +868,11 @@
             button
         ) {
 
-            selectedCategory = category;
+            selectedCategory =
+                category;
 
 
-            let buttons =
+            const buttons =
                 document.getElementsByClassName(
                     "category-btn"
                 );
@@ -587,14 +884,16 @@
                 i++
             ) {
 
-                buttons[i].classList.remove(
-                    "active"
-                );
+                buttons[i]
+                    .classList
+                    .remove("active");
 
             }
 
 
-            button.classList.add("active");
+            button.classList.add(
+                "active"
+            );
 
 
             filterWallpapers();
@@ -607,14 +906,16 @@
 
         function filterWallpapers() {
 
-            let searchText =
+            const searchText =
                 document
-                .getElementById("searchInput")
+                .getElementById(
+                    "searchInput"
+                )
                 .value
                 .toLowerCase();
 
 
-            let cards =
+            const cards =
                 document.getElementsByClassName(
                     "wallpaper-card"
                 );
@@ -629,28 +930,27 @@
                 i++
             ) {
 
-                let title =
+                const title =
                     cards[i]
-                    .getElementsByTagName("h3")[0]
-                    .innerText
-                    .toLowerCase();
+                    .getAttribute(
+                        "data-title"
+                    );
 
 
-                let categories =
+                const categories =
                     cards[i]
                     .getAttribute(
                         "data-category"
-                    )
-                    .toLowerCase();
+                    );
 
 
-                let searchMatch =
+                const searchMatch =
                     title.includes(
                         searchText
                     );
 
 
-                let categoryMatch =
+                const categoryMatch =
                     selectedCategory === "all" ||
                     categories.includes(
                         selectedCategory
@@ -662,7 +962,9 @@
                     categoryMatch
                 ) {
 
-                    cards[i].style.display =
+                    cards[i]
+                        .style
+                        .display =
                         "block";
 
                     found = true;
@@ -671,7 +973,9 @@
 
                 else {
 
-                    cards[i].style.display =
+                    cards[i]
+                        .style
+                        .display =
                         "none";
 
                 }
@@ -680,7 +984,9 @@
 
 
             document
-                .getElementById("noResult")
+                .getElementById(
+                    "noResult"
+                )
                 .style.display =
                 found
                 ? "none"
@@ -688,8 +994,16 @@
 
         }
 
+
+
+        /* START */
+
+        loadWallpapers();
+
+
     </script>
 
 
 </body>
+
                 </html>
