@@ -7,7 +7,9 @@
 <title>Tensei Wallpapers</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
@@ -104,7 +106,8 @@ h2{
 .card img{
     width:100%;
     height:320px;
-    object-fit:cover;
+    object-fit:contain;
+    background:#111;
     display:block;
 }
 
@@ -174,18 +177,43 @@ footer{
     <h2>Wallpapers</h2>
 
     <div class="controls">
-        <input id="search" type="search" placeholder="Search wallpapers...">
 
-        <button class="filter active" data-cat="all">All</button>
-        <button class="filter" data-cat="anime">Anime</button>
-        <button class="filter" data-cat="aesthetic">Aesthetic</button>
-        <button class="filter" data-cat="dark">Dark</button>
-        <button class="filter" data-cat="gaming">Gaming</button>
-        <button class="filter" data-cat="nature">Nature</button>
+        <input
+            id="search"
+            type="search"
+            placeholder="Search wallpapers..."
+        >
+
+        <button class="filter active" data-cat="all">
+            All
+        </button>
+
+        <button class="filter" data-cat="anime">
+            Anime
+        </button>
+
+        <button class="filter" data-cat="aesthetic">
+            Aesthetic
+        </button>
+
+        <button class="filter" data-cat="dark">
+            Dark
+        </button>
+
+        <button class="filter" data-cat="gaming">
+            Gaming
+        </button>
+
+        <button class="filter" data-cat="nature">
+            Nature
+        </button>
+
     </div>
 
     <div id="grid" class="grid">
-        <div class="loading">Loading wallpapers...</div>
+        <div class="loading">
+            Loading wallpapers...
+        </div>
     </div>
 
 </div>
@@ -195,14 +223,21 @@ footer{
 </footer>
 
 <script>
+
 const API =
 "https://api.github.com/repos/Tensei380/Tensei380.github.io/contents/wallpapers";
 
-const categories =
-["anime","aesthetic","dark","gaming","nature"];
+const categories = [
+    "anime",
+    "aesthetic",
+    "dark",
+    "gaming",
+    "nature"
+];
 
 let wallpapers = [];
 let selectedCategory = "all";
+
 
 function cleanTitle(filename){
 
@@ -210,27 +245,43 @@ function cleanTitle(filename){
 
     name = name
         .replace(/[_-]/g," ")
-        .replace(/\b(anime|aesthetic|dark|gaming|nature)\b/gi,"")
+        .replace(
+            /\b(anime|aesthetic|dark|gaming|nature)\b/gi,
+            ""
+        )
         .replace(/\s+/g," ")
         .trim();
 
-    return name.replace(/\b\w/g,c=>c.toUpperCase()) || "Wallpaper";
+    return name
+        .replace(/\b\w/g,c=>c.toUpperCase())
+        || "Wallpaper";
 }
+
 
 function getCategories(filename){
 
     const lower = filename.toLowerCase();
 
     return categories.filter(cat =>
-        new RegExp("(^|[_\\-\\s])"+cat+"([_\\-\\s.]|$)","i").test(lower)
+        new RegExp(
+            "(^|[_\\-\\s])" +
+            cat +
+            "([_\\-\\s.]|$)",
+            "i"
+        ).test(lower)
     );
 }
+
 
 function getFormat(filename){
 
     const match = filename.match(/\.([^.]+)$/);
-    return match ? match[1].toUpperCase() : "IMAGE";
+
+    return match
+        ? match[1].toUpperCase()
+        : "IMAGE";
 }
+
 
 function createCard(file){
 
@@ -240,31 +291,48 @@ function createCard(file){
     const card = document.createElement("div");
     card.className = "card";
 
+
     const img = document.createElement("img");
+
     img.src = imageUrl;
     img.alt = cleanTitle(file.name);
     img.loading = "lazy";
 
+
     const info = document.createElement("div");
     info.className = "info";
 
+
     const title = document.createElement("h3");
-    title.textContent = cleanTitle(file.name);
+
+    title.textContent =
+        cleanTitle(file.name);
+
 
     const meta = document.createElement("div");
+
     meta.className = "meta";
 
-    const cats = getCategories(file.name);
+
+    const cats =
+        getCategories(file.name);
+
 
     meta.textContent =
         "Category: " +
-        (cats.length ? cats.join(" • ") : "Wallpaper") +
+        (cats.length
+            ? cats.join(" • ")
+            : "Wallpaper") +
         " | Format: " +
         getFormat(file.name);
 
-    const resolution = document.createElement("div");
+
+    const resolution =
+        document.createElement("div");
+
 
     img.onload = () => {
+
         resolution.textContent =
             "Resolution: " +
             img.naturalWidth +
@@ -274,11 +342,18 @@ function createCard(file){
         meta.appendChild(resolution);
     };
 
-    const download = document.createElement("a");
+
+    const download =
+        document.createElement("a");
+
     download.className = "download";
+
     download.href = imageUrl;
+
     download.download = file.name;
+
     download.textContent = "Download";
+
 
     info.appendChild(title);
     info.appendChild(meta);
@@ -287,97 +362,163 @@ function createCard(file){
     card.appendChild(img);
     card.appendChild(info);
 
+
     return card;
 }
 
+
 function displayWallpapers(){
 
-    const grid = document.getElementById("grid");
+    const grid =
+        document.getElementById("grid");
+
     const search =
-        document.getElementById("search").value.toLowerCase().trim();
+        document
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
+
 
     grid.innerHTML = "";
 
-    const filtered = wallpapers.filter(file => {
 
-        const title = cleanTitle(file.name).toLowerCase();
-        const cats = getCategories(file.name);
+    const filtered =
+        wallpapers.filter(file => {
 
-        const searchMatch =
-            !search || title.includes(search);
+            const title =
+                cleanTitle(file.name)
+                    .toLowerCase();
 
-        const categoryMatch =
-            selectedCategory === "all" ||
-            cats.includes(selectedCategory);
+            const cats =
+                getCategories(file.name);
 
-        return searchMatch && categoryMatch;
-    });
+
+            const searchMatch =
+                !search ||
+                title.includes(search);
+
+
+            const categoryMatch =
+                selectedCategory === "all" ||
+                cats.includes(selectedCategory);
+
+
+            return searchMatch &&
+                   categoryMatch;
+        });
+
 
     if(!filtered.length){
 
         grid.innerHTML =
-            '<div class="empty">No wallpapers found.</div>';
+            '<div class="empty">' +
+            'No wallpapers found.' +
+            '</div>';
 
         return;
     }
 
+
     filtered.forEach(file => {
-        grid.appendChild(createCard(file));
+
+        grid.appendChild(
+            createCard(file)
+        );
+
     });
 }
 
+
 async function loadWallpapers(){
 
-    const grid = document.getElementById("grid");
+    const grid =
+        document.getElementById("grid");
+
 
     try{
 
-        const response = await fetch(API);
+        const response =
+            await fetch(API);
+
 
         if(!response.ok){
-            throw new Error("GitHub API error");
+
+            throw new Error(
+                "GitHub API error"
+            );
+
         }
 
-        const files = await response.json();
 
-        wallpapers = files.filter(file =>
-            file.type === "file" &&
-            /\.(jpg|jpeg|png|webp|gif)$/i.test(file.name)
-        );
+        const files =
+            await response.json();
+
+
+        wallpapers =
+            files.filter(file =>
+                file.type === "file" &&
+                /\.(jpg|jpeg|png|webp|gif)$/i
+                    .test(file.name)
+            );
+
 
         displayWallpapers();
+
 
     }catch(error){
 
         console.error(error);
 
+
         grid.innerHTML =
-            '<div class="empty">Unable to load wallpapers.</div>';
+            '<div class="empty">' +
+            'Unable to load wallpapers.' +
+            '</div>';
     }
 }
 
-document.querySelectorAll(".filter").forEach(button => {
 
-    button.addEventListener("click", () => {
+document
+    .querySelectorAll(".filter")
+    .forEach(button => {
 
-        document
-            .querySelectorAll(".filter")
-            .forEach(b => b.classList.remove("active"));
+        button.addEventListener(
+            "click",
+            () => {
 
-        button.classList.add("active");
+                document
+                    .querySelectorAll(".filter")
+                    .forEach(b =>
+                        b.classList.remove("active")
+                    );
 
-        selectedCategory = button.dataset.cat;
 
-        displayWallpapers();
+                button.classList.add("active");
+
+
+                selectedCategory =
+                    button.dataset.cat;
+
+
+                displayWallpapers();
+            }
+        );
+
     });
-});
+
 
 document
     .getElementById("search")
-    .addEventListener("input", displayWallpapers);
+    .addEventListener(
+        "input",
+        displayWallpapers
+    );
+
 
 loadWallpapers();
+
 </script>
 
 </body>
-</html>
+    </html>
