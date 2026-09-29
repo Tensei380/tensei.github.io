@@ -99,10 +99,13 @@
         .search-box input {
             width: 100%;
             padding: 16px 18px;
+
             border: 1px solid #292929;
             border-radius: 10px;
+
             background: #1b1b1b;
             color: white;
+
             font-size: 16px;
             outline: none;
         }
@@ -124,6 +127,7 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
+
             gap: 10px;
             margin-bottom: 40px;
         }
@@ -131,12 +135,16 @@
 
         .category-btn {
             padding: 10px 18px;
+
             border: 1px solid #303030;
             border-radius: 8px;
+
             background: #202020;
             color: white;
+
             cursor: pointer;
             font-size: 14px;
+
             transition: 0.25s;
         }
 
@@ -173,8 +181,10 @@
 
         .wallpaper-card {
             background: #181818;
+
             border-radius: 14px;
             overflow: hidden;
+
             border: 1px solid #252525;
 
             transition:
@@ -186,6 +196,7 @@
 
         .wallpaper-card:hover {
             transform: translateY(-6px);
+
             border-color: #444444;
 
             box-shadow:
@@ -205,6 +216,7 @@
         .wallpaper-card img {
             width: 100%;
             height: auto;
+
             display: block;
 
             transition:
@@ -248,12 +260,15 @@
         }
 
 
-        /* DOWNLOAD */
+        /* DOWNLOAD BUTTON */
 
         .button {
-            display: inline-block;
+            display: block;
+
             width: 100%;
+
             margin-top: 18px;
+
             padding: 13px 20px;
 
             background: white;
@@ -262,8 +277,13 @@
             text-decoration: none;
             text-align: center;
 
+            border: none;
             border-radius: 8px;
+
             font-weight: bold;
+            font-size: 15px;
+
+            cursor: pointer;
 
             transition: 0.25s;
         }
@@ -271,15 +291,21 @@
 
         .button:hover {
             background: #dddddd;
-            transform: translateY(-2px);
+
+            transform:
+                translateY(-2px);
         }
 
 
         /* LOADING */
 
         .loading {
+            grid-column: 1 / -1;
+
             text-align: center;
+
             color: #888888;
+
             padding: 40px;
         }
 
@@ -288,8 +314,11 @@
 
         .no-result {
             display: none;
+
             text-align: center;
+
             color: #888888;
+
             margin-top: 30px;
         }
 
@@ -298,8 +327,11 @@
 
         footer {
             text-align: center;
+
             padding: 25px;
+
             color: #777777;
+
             margin-top: 40px;
         }
 
@@ -336,6 +368,7 @@
 
             .wallpaper-grid {
                 grid-template-columns: 1fr;
+
                 gap: 20px;
             }
 
@@ -516,20 +549,30 @@
     <script>
 
 
-        const username = "Tensei380";
+        /* GITHUB REPOSITORY */
 
-        const repository = "Tensei380.github.io";
-
-        const folder = "wallpapers";
-
-
-        let selectedCategory = "all";
-
-        let wallpapers = [];
+        const username =
+            "Tensei380";
 
 
+        const repository =
+            "Tensei380.github.io";
 
-        /* GET FILES FROM GITHUB */
+
+        const folder =
+            "wallpapers";
+
+
+        let selectedCategory =
+            "all";
+
+
+        let wallpapers =
+            [];
+
+
+
+        /* LOAD WALLPAPERS FROM GITHUB */
 
         async function loadWallpapers() {
 
@@ -562,21 +605,23 @@
 
 
                 wallpapers =
-                    files.filter(function(file) {
+                    files.filter(
+                        function(file) {
 
-                        return (
-                            file.type === "file" &&
-                            /\.(jpg|jpeg|png|webp|gif)$/i
-                            .test(file.name)
-                        );
+                            return (
+                                file.type === "file" &&
+                                /\.(jpg|jpeg|png|webp|gif)$/i
+                                .test(file.name)
+                            );
 
-                    });
+                        }
+                    );
 
 
                 displayWallpapers();
 
-
             }
+
 
             catch (error) {
 
@@ -593,13 +638,12 @@
 
 
 
-        /* CREATE TITLE FROM FILENAME */
+        /* CREATE TITLE */
 
         function createTitle(filename) {
 
             let name =
-                filename
-                .replace(
+                filename.replace(
                     /\.(jpg|jpeg|png|webp|gif)$/i,
                     ""
                 );
@@ -615,28 +659,32 @@
 
 
             let words =
-                name.split("_");
+                name.split(/[_\-\s]+/);
 
 
             words =
-                words.filter(function(word) {
+                words.filter(
+                    function(word) {
 
-                    return !categories.includes(
-                        word.toLowerCase()
-                    );
+                        return !categories.includes(
+                            word.toLowerCase()
+                        );
 
-                });
+                    }
+                );
 
 
             return words
-                .map(function(word) {
+                .map(
+                    function(word) {
 
-                    return (
-                        word.charAt(0).toUpperCase() +
-                        word.slice(1)
-                    );
+                        return (
+                            word.charAt(0).toUpperCase() +
+                            word.slice(1)
+                        );
 
-                })
+                    }
+                )
                 .join(" ");
 
         }
@@ -648,8 +696,7 @@
         function getCategories(filename) {
 
             let name =
-                filename
-                .toLowerCase();
+                filename.toLowerCase();
 
 
             const categories = [
@@ -664,8 +711,10 @@
             return categories.filter(
                 function(category) {
 
-                    return name.includes(
-                        "_" + category
+                    return (
+                        name
+                        .split(/[_\-\s]+/)
+                        .includes(category)
                     );
 
                 }
@@ -679,14 +728,10 @@
 
         function getFormat(filename) {
 
-            let extension =
-                filename
+            return filename
                 .split(".")
                 .pop()
                 .toUpperCase();
-
-
-            return extension;
 
         }
 
@@ -732,21 +777,31 @@
                         );
 
 
-                    const categoryText =
+                    let categoryText =
+                        "Wallpaper";
+
+
+                    if (
                         categories.length > 0
-                        ? categories
-                            .map(function(category) {
+                    ) {
 
-                                return (
-                                    category
-                                    .charAt(0)
-                                    .toUpperCase() +
-                                    category.slice(1)
-                                );
+                        categoryText =
+                            categories
+                            .map(
+                                function(category) {
 
-                            })
-                            .join(" • ")
-                        : "Wallpaper";
+                                    return (
+                                        category
+                                        .charAt(0)
+                                        .toUpperCase() +
+                                        category.slice(1)
+                                    );
+
+                                }
+                            )
+                            .join(" • ");
+
+                    }
 
 
                     const card =
@@ -778,6 +833,7 @@
                             <img
                                 src="${file.download_url}"
                                 alt="${title}"
+                                loading="lazy"
                             >
 
                         </div>
@@ -813,13 +869,15 @@
                             </p>
 
 
-                            <a
-                                href="${file.download_url}"
+                            <button
                                 class="button"
-                                download
+                                onclick="downloadWallpaper(
+                                    '${file.download_url}',
+                                    '${file.name.replace(/'/g, "\\'")}'
+                                )"
                             >
                                 Download
-                            </a>
+                            </button>
 
                         </div>
 
@@ -861,7 +919,89 @@
 
 
 
-        /* CATEGORY */
+        /* DOWNLOAD WALLPAPER */
+
+        async function downloadWallpaper(
+            url,
+            filename
+        ) {
+
+            try {
+
+                const response =
+                    await fetch(url);
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Download failed"
+                    );
+
+                }
+
+
+                const blob =
+                    await response.blob();
+
+
+                const blobUrl =
+                    URL.createObjectURL(
+                        blob
+                    );
+
+
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.href =
+                    blobUrl;
+
+
+                link.download =
+                    filename;
+
+
+                document.body.appendChild(
+                    link
+                );
+
+
+                link.click();
+
+
+                link.remove();
+
+
+                URL.revokeObjectURL(
+                    blobUrl
+                );
+
+            }
+
+
+            catch (error) {
+
+                console.error(error);
+
+
+                /* FALLBACK */
+
+                window.open(
+                    url,
+                    "_blank"
+                );
+
+            }
+
+        }
+
+
+
+        /* CATEGORY FILTER */
 
         function selectCategory(
             category,
@@ -902,7 +1042,7 @@
 
 
 
-        /* SEARCH + FILTER */
+        /* SEARCH + CATEGORY FILTER */
 
         function filterWallpapers() {
 
@@ -912,7 +1052,8 @@
                     "searchInput"
                 )
                 .value
-                .toLowerCase();
+                .toLowerCase()
+                .trim();
 
 
             const cards =
@@ -921,7 +1062,8 @@
                 );
 
 
-            let found = false;
+            let found =
+                false;
 
 
             for (
@@ -941,7 +1083,8 @@
                     cards[i]
                     .getAttribute(
                         "data-category"
-                    );
+                    )
+                    .split(" ");
 
 
                 const searchMatch =
@@ -965,29 +1108,6 @@
                     cards[i]
                         .style
                         .display =
-                        "block";
-
-                    found = true;
-
-                }
-
-                else {
-
-                    cards[i]
-                        .style
-                        .display =
-                        "none";
-
-                }
-
-            }
-
-
-            document
-                .getElementById(
-                    "noResult"
-                )
-                .style.display =
                 found
                 ? "none"
                 : "block";
@@ -1006,4 +1126,4 @@
 
 </body>
 
-                </html>
+</html>
