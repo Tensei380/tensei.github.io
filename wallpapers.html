@@ -88,7 +88,10 @@ h2{
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    grid-template-columns:repeat(
+        auto-fit,
+        minmax(240px,1fr)
+    );
     gap:22px;
 }
 
@@ -109,6 +112,7 @@ h2{
     object-fit:contain;
     background:#111;
     display:block;
+    cursor:pointer;
 }
 
 .info{
@@ -126,21 +130,34 @@ h2{
     line-height:1.7;
 }
 
-.download{
-    display:block;
-    width:100%;
+.buttons{
+    display:flex;
+    gap:8px;
     margin-top:14px;
+}
+
+.button{
+    flex:1;
     padding:11px;
-    background:white;
-    color:black;
-    text-align:center;
-    text-decoration:none;
+    border:0;
     border-radius:7px;
     font-weight:bold;
     cursor:pointer;
+    text-align:center;
+    text-decoration:none;
 }
 
-.download:hover{
+.preview{
+    background:#333;
+    color:white;
+}
+
+.download{
+    background:white;
+    color:black;
+}
+
+.button:hover{
     opacity:.8;
 }
 
@@ -157,12 +174,184 @@ footer{
     text-align:center;
     color:#777;
 }
+
+
+/* =========================
+   FULLSCREEN PREVIEW
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.92);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-content{
+    width:100%;
+    max-width:1100px;
+    max-height:95vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:relative;
+}
+
+.modal-image{
+    max-width:100%;
+    max-height:70vh;
+    object-fit:contain;
+    border-radius:8px;
+    box-shadow:0 0 30px rgba(0,0,0,.8);
+}
+
+.close{
+    position:absolute;
+    top:-10px;
+    right:0;
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:50%;
+    background:white;
+    color:black;
+    font-size:24px;
+    cursor:pointer;
+    z-index:2;
+}
+
+.preview-info{
+    width:100%;
+    max-width:800px;
+    margin-top:18px;
+    background:#181818;
+    padding:18px;
+    border-radius:10px;
+}
+
+.preview-title{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.preview-url{
+    display:flex;
+    gap:8px;
+    margin-top:12px;
+}
+
+.preview-url input{
+    flex:1;
+    min-width:0;
+    padding:11px;
+    border:0;
+    border-radius:7px;
+    background:#252525;
+    color:#ddd;
+}
+
+.copy{
+    padding:11px 16px;
+    border:0;
+    border-radius:7px;
+    background:white;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.modal-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:12px;
+}
+
+.modal-buttons a,
+.modal-buttons button{
+    padding:11px 18px;
+    border:0;
+    border-radius:7px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.modal-download{
+    background:white;
+    color:black;
+}
+
+.modal-close{
+    background:#333;
+    color:white;
+}
+
+
+/* Mobile */
+
+@media(max-width:600px){
+
+    .grid{
+        grid-template-columns:
+            repeat(2,1fr);
+        gap:12px;
+    }
+
+    .card img{
+        height:230px;
+    }
+
+    .info{
+        padding:12px;
+    }
+
+    .info h3{
+        font-size:15px;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+    .modal{
+        padding:12px;
+    }
+
+    .modal-image{
+        max-height:55vh;
+    }
+
+    .preview-url{
+        flex-direction:column;
+    }
+
+    .modal-buttons{
+        width:100%;
+        flex-direction:column;
+    }
+
+    .modal-buttons a,
+    .modal-buttons button{
+        width:100%;
+    }
+
+}
 </style>
 </head>
 
 <body>
 
 <header>
+
     <h1>TENSEI</h1>
 
     <nav>
@@ -170,11 +359,14 @@ footer{
         <a href="wallpapers.html">Wallpapers</a>
         <a href="#">About</a>
     </nav>
+
 </header>
+
 
 <div class="container">
 
     <h2>Wallpapers</h2>
+
 
     <div class="controls">
 
@@ -184,48 +376,160 @@ footer{
             placeholder="Search wallpapers..."
         >
 
-        <button class="filter active" data-cat="all">
+        <button
+            class="filter active"
+            data-cat="all"
+        >
             All
         </button>
 
-        <button class="filter" data-cat="anime">
+        <button
+            class="filter"
+            data-cat="anime"
+        >
             Anime
         </button>
 
-        <button class="filter" data-cat="aesthetic">
+        <button
+            class="filter"
+            data-cat="aesthetic"
+        >
             Aesthetic
         </button>
 
-        <button class="filter" data-cat="dark">
+        <button
+            class="filter"
+            data-cat="dark"
+        >
             Dark
         </button>
 
-        <button class="filter" data-cat="gaming">
+        <button
+            class="filter"
+            data-cat="gaming"
+        >
             Gaming
         </button>
 
-        <button class="filter" data-cat="nature">
+        <button
+            class="filter"
+            data-cat="nature"
+        >
             Nature
         </button>
 
     </div>
 
+
     <div id="grid" class="grid">
+
         <div class="loading">
             Loading wallpapers...
         </div>
+
     </div>
 
 </div>
+
 
 <footer>
     © 2026 Tensei
 </footer>
 
+
+<!-- =========================
+     PREVIEW MODAL
+========================= -->
+
+<div
+    id="modal"
+    class="modal"
+>
+
+    <div class="modal-content">
+
+        <button
+            id="closeModal"
+            class="close"
+        >
+            ×
+        </button>
+
+
+        <img
+            id="modalImage"
+            class="modal-image"
+            src=""
+            alt=""
+        >
+
+
+        <div class="preview-info">
+
+            <div
+                id="modalTitle"
+                class="preview-title"
+            >
+                Wallpaper
+            </div>
+
+
+            <div
+                id="modalMeta"
+                class="meta"
+            ></div>
+
+
+            <div class="preview-url">
+
+                <input
+                    id="imageUrl"
+                    type="text"
+                    readonly
+                >
+
+                <button
+                    id="copyUrl"
+                    class="copy"
+                >
+                    Copy URL
+                </button>
+
+            </div>
+
+
+            <div class="modal-buttons">
+
+                <a
+                    id="modalDownload"
+                    class="modal-download"
+                    href=""
+                    download
+                >
+                    Download
+                </a>
+
+                <button
+                    id="modalCloseButton"
+                    class="modal-close"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
 
 const API =
 "https://api.github.com/repos/Tensei380/Tensei380.github.io/contents/wallpapers";
+
 
 const categories = [
     "anime",
@@ -235,15 +539,27 @@ const categories = [
     "nature"
 ];
 
+
 let wallpapers = [];
+
 let selectedCategory = "all";
 
 
+/* =========================
+   TITLE
+========================= */
+
 function cleanTitle(filename){
 
-    let name = filename.replace(/\.[^/.]+$/,"");
+    let name =
+        filename.replace(
+            /\.[^/.]+$/,
+            ""
+        );
 
-    name = name
+
+    name =
+        name
         .replace(/[_-]/g," ")
         .replace(
             /\b(anime|aesthetic|dark|gaming|nature)\b/gi,
@@ -252,64 +568,125 @@ function cleanTitle(filename){
         .replace(/\s+/g," ")
         .trim();
 
+
     return name
-        .replace(/\b\w/g,c=>c.toUpperCase())
+        .replace(
+            /\b\w/g,
+            c => c.toUpperCase()
+        )
         || "Wallpaper";
 }
 
 
+/* =========================
+   CATEGORY
+========================= */
+
 function getCategories(filename){
 
-    const lower = filename.toLowerCase();
+    const lower =
+        filename.toLowerCase();
+
 
     return categories.filter(cat =>
+
         new RegExp(
             "(^|[_\\-\\s])" +
             cat +
             "([_\\-\\s.]|$)",
             "i"
         ).test(lower)
+
     );
+
 }
 
 
+/* =========================
+   FORMAT
+========================= */
+
 function getFormat(filename){
 
-    const match = filename.match(/\.([^.]+)$/);
+    const match =
+        filename.match(
+            /\.([^.]+)$/
+        );
+
 
     return match
         ? match[1].toUpperCase()
         : "IMAGE";
+
 }
 
+
+/* =========================
+   CREATE CARD
+========================= */
 
 function createCard(file){
 
     const imageUrl =
-        "wallpapers/" + encodeURIComponent(file.name);
+        "wallpapers/" +
+        encodeURIComponent(file.name);
 
-    const card = document.createElement("div");
+
+    const card =
+        document.createElement("div");
+
     card.className = "card";
 
 
-    const img = document.createElement("img");
+    /* IMAGE */
+
+    const img =
+        document.createElement("img");
 
     img.src = imageUrl;
-    img.alt = cleanTitle(file.name);
+
+    img.alt =
+        cleanTitle(file.name);
+
     img.loading = "lazy";
 
 
-    const info = document.createElement("div");
+    /* CLICK IMAGE */
+
+    img.addEventListener(
+        "click",
+        () => {
+
+            openPreview(
+                file,
+                imageUrl
+            );
+
+        }
+    );
+
+
+    /* INFO */
+
+    const info =
+        document.createElement("div");
+
     info.className = "info";
 
 
-    const title = document.createElement("h3");
+    /* TITLE */
+
+    const title =
+        document.createElement("h3");
 
     title.textContent =
         cleanTitle(file.name);
 
 
-    const meta = document.createElement("div");
+    /* META */
+
+    const meta =
+        document.createElement("div");
 
     meta.className = "meta";
 
@@ -320,12 +697,16 @@ function createCard(file){
 
     meta.textContent =
         "Category: " +
-        (cats.length
+        (
+            cats.length
             ? cats.join(" • ")
-            : "Wallpaper") +
+            : "Wallpaper"
+        ) +
         " | Format: " +
         getFormat(file.name);
 
+
+    /* RESOLUTION */
 
     const resolution =
         document.createElement("div");
@@ -339,42 +720,354 @@ function createCard(file){
             " × " +
             img.naturalHeight;
 
-        meta.appendChild(resolution);
+        meta.appendChild(
+            resolution
+        );
+
     };
 
+
+    /* BUTTONS */
+
+    const buttons =
+        document.createElement("div");
+
+    buttons.className = "buttons";
+
+
+    /* PREVIEW BUTTON */
+
+    const preview =
+        document.createElement("button");
+
+    preview.className =
+        "button preview";
+
+    preview.textContent =
+        "Preview";
+
+
+    preview.addEventListener(
+        "click",
+        () => {
+
+            openPreview(
+                file,
+                imageUrl
+            );
+
+        }
+    );
+
+
+    /* DOWNLOAD */
 
     const download =
         document.createElement("a");
 
-    download.className = "download";
+    download.className =
+        "button download";
 
-    download.href = imageUrl;
+    download.href =
+        imageUrl;
 
-    download.download = file.name;
+    download.download =
+        file.name;
 
-    download.textContent = "Download";
+    download.textContent =
+        "Download";
 
 
-    info.appendChild(title);
-    info.appendChild(meta);
-    info.appendChild(download);
+    buttons.appendChild(
+        preview
+    );
 
-    card.appendChild(img);
-    card.appendChild(info);
+    buttons.appendChild(
+        download
+    );
+
+
+    info.appendChild(
+        title
+    );
+
+    info.appendChild(
+        meta
+    );
+
+    info.appendChild(
+        buttons
+    );
+
+
+    card.appendChild(
+        img
+    );
+
+    card.appendChild(
+        info
+    );
 
 
     return card;
 }
 
 
+/* =========================
+   OPEN PREVIEW
+========================= */
+
+function openPreview(
+    file,
+    imageUrl
+){
+
+    const modal =
+        document.getElementById(
+            "modal"
+        );
+
+
+    const modalImage =
+        document.getElementById(
+            "modalImage"
+        );
+
+
+    const modalTitle =
+        document.getElementById(
+            "modalTitle"
+        );
+
+
+    const modalMeta =
+        document.getElementById(
+            "modalMeta"
+        );
+
+
+    const imageUrlInput =
+        document.getElementById(
+            "imageUrl"
+        );
+
+
+    const modalDownload =
+        document.getElementById(
+            "modalDownload"
+        );
+
+
+    /* FULL URL */
+
+    const fullUrl =
+        new URL(
+            imageUrl,
+            window.location.href
+        ).href;
+
+
+    modalImage.src =
+        fullUrl;
+
+    modalImage.alt =
+        cleanTitle(file.name);
+
+
+    modalTitle.textContent =
+        cleanTitle(file.name);
+
+
+    modalMeta.textContent =
+        "Format: " +
+        getFormat(file.name);
+
+
+    imageUrlInput.value =
+        fullUrl;
+
+
+    modalDownload.href =
+        fullUrl;
+
+
+    modalDownload.download =
+        file.name;
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================
+   CLOSE PREVIEW
+========================= */
+
+function closePreview(){
+
+    const modal =
+        document.getElementById(
+            "modal"
+        );
+
+
+    modal.classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =========================
+   COPY URL
+========================= */
+
+document
+    .getElementById("copyUrl")
+    .addEventListener(
+        "click",
+        async () => {
+
+            const input =
+                document.getElementById(
+                    "imageUrl"
+                );
+
+
+            try{
+
+                await navigator.clipboard
+                    .writeText(
+                        input.value
+                    );
+
+
+                const button =
+                    document.getElementById(
+                        "copyUrl"
+                    );
+
+
+                button.textContent =
+                    "Copied!";
+
+
+                setTimeout(
+                    () => {
+
+                        button.textContent =
+                            "Copy URL";
+
+                    },
+                    1500
+                );
+
+
+            }catch(error){
+
+                input.select();
+
+                document.execCommand(
+                    "copy"
+                );
+
+            }
+
+        }
+    );
+
+
+/* =========================
+   CLOSE BUTTONS
+========================= */
+
+document
+    .getElementById("closeModal")
+    .addEventListener(
+        "click",
+        closePreview
+    );
+
+
+document
+    .getElementById("modalCloseButton")
+    .addEventListener(
+        "click",
+        closePreview
+    );
+
+
+/* =========================
+   CLICK OUTSIDE
+========================= */
+
+document
+    .getElementById("modal")
+    .addEventListener(
+        "click",
+        event => {
+
+            if(
+                event.target.id ===
+                "modal"
+            ){
+
+                closePreview();
+
+            }
+
+        }
+    );
+
+
+/* =========================
+   ESC KEY
+========================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closePreview();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   DISPLAY WALLPAPERS
+========================= */
+
 function displayWallpapers(){
 
     const grid =
-        document.getElementById("grid");
+        document.getElementById(
+            "grid"
+        );
+
 
     const search =
         document
-            .getElementById("search")
+            .getElementById(
+                "search"
+            )
             .value
             .toLowerCase()
             .trim();
@@ -384,32 +1077,49 @@ function displayWallpapers(){
 
 
     const filtered =
-        wallpapers.filter(file => {
+        wallpapers.filter(
+            file => {
 
-            const title =
-                cleanTitle(file.name)
+                const title =
+                    cleanTitle(
+                        file.name
+                    )
                     .toLowerCase();
 
-            const cats =
-                getCategories(file.name);
+
+                const cats =
+                    getCategories(
+                        file.name
+                    );
 
 
-            const searchMatch =
-                !search ||
-                title.includes(search);
+                const searchMatch =
+                    !search ||
+                    title.includes(
+                        search
+                    );
 
 
-            const categoryMatch =
-                selectedCategory === "all" ||
-                cats.includes(selectedCategory);
+                const categoryMatch =
+                    selectedCategory ===
+                    "all" ||
+                    cats.includes(
+                        selectedCategory
+                    );
 
 
-            return searchMatch &&
-                   categoryMatch;
-        });
+                return (
+                    searchMatch &&
+                    categoryMatch
+                );
+
+            }
+        );
 
 
-    if(!filtered.length){
+    if(
+        !filtered.length
+    ){
 
         grid.innerHTML =
             '<div class="empty">' +
@@ -417,23 +1127,33 @@ function displayWallpapers(){
             '</div>';
 
         return;
+
     }
 
 
-    filtered.forEach(file => {
+    filtered.forEach(
+        file => {
 
-        grid.appendChild(
-            createCard(file)
-        );
+            grid.appendChild(
+                createCard(file)
+            );
 
-    });
+        }
+    );
+
 }
 
+
+/* =========================
+   LOAD FROM GITHUB
+========================= */
 
 async function loadWallpapers(){
 
     const grid =
-        document.getElementById("grid");
+        document.getElementById(
+            "grid"
+        );
 
 
     try{
@@ -442,7 +1162,9 @@ async function loadWallpapers(){
             await fetch(API);
 
 
-        if(!response.ok){
+        if(
+            !response.ok
+        ){
 
             throw new Error(
                 "GitHub API error"
@@ -456,10 +1178,15 @@ async function loadWallpapers(){
 
 
         wallpapers =
-            files.filter(file =>
-                file.type === "file" &&
-                /\.(jpg|jpeg|png|webp|gif)$/i
-                    .test(file.name)
+            files.filter(
+                file =>
+                    file.type ===
+                    "file" &&
+
+                    /\.(jpg|jpeg|png|webp|gif)$/i
+                        .test(
+                            file.name
+                        )
             );
 
 
@@ -475,38 +1202,61 @@ async function loadWallpapers(){
             '<div class="empty">' +
             'Unable to load wallpapers.' +
             '</div>';
+
     }
+
 }
 
 
+/* =========================
+   FILTER BUTTONS
+========================= */
+
 document
-    .querySelectorAll(".filter")
-    .forEach(button => {
+    .querySelectorAll(
+        ".filter"
+    )
+    .forEach(
+        button => {
 
-        button.addEventListener(
-            "click",
-            () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-                document
-                    .querySelectorAll(".filter")
-                    .forEach(b =>
-                        b.classList.remove("active")
+                    document
+                        .querySelectorAll(
+                            ".filter"
+                        )
+                        .forEach(
+                            b =>
+                                b.classList
+                                .remove(
+                                    "active"
+                                )
+                        );
+
+
+                    button.classList.add(
+                        "active"
                     );
 
 
-                button.classList.add("active");
+                    selectedCategory =
+                        button.dataset.cat;
 
 
-                selectedCategory =
-                    button.dataset.cat;
+                    displayWallpapers();
+
+                }
+            );
+
+        }
+    );
 
 
-                displayWallpapers();
-            }
-        );
-
-    });
-
+/* =========================
+   SEARCH
+========================= */
 
 document
     .getElementById("search")
@@ -516,9 +1266,11 @@ document
     );
 
 
+/* START */
+
 loadWallpapers();
 
 </script>
 
 </body>
-    </html>
+</html>
