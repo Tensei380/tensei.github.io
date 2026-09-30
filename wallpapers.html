@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Tensei Wallpapers</title>
 
+
 <style>
+
+/* =========================
+   BASIC
+========================= */
+
 *{
     box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
@@ -17,6 +33,11 @@ body{
     background:#0f0f0f;
     color:white;
 }
+
+
+/* =========================
+   HEADER
+========================= */
 
 header{
     padding:25px;
@@ -27,6 +48,7 @@ header{
 header h1{
     margin:0;
     font-size:32px;
+    letter-spacing:2px;
 }
 
 nav{
@@ -44,6 +66,11 @@ nav a:hover{
     text-decoration:underline;
 }
 
+
+/* =========================
+   CONTAINER
+========================= */
+
 .container{
     max-width:1200px;
     margin:auto;
@@ -54,6 +81,11 @@ h2{
     text-align:center;
     margin-bottom:25px;
 }
+
+
+/* =========================
+   CONTROLS
+========================= */
 
 .controls{
     display:flex;
@@ -69,6 +101,7 @@ h2{
     border:0;
     border-radius:8px;
     outline:none;
+    font-size:14px;
 }
 
 .filter{
@@ -78,6 +111,7 @@ h2{
     cursor:pointer;
     background:#222;
     color:white;
+    font-weight:bold;
 }
 
 .filter.active,
@@ -86,25 +120,45 @@ h2{
     color:black;
 }
 
+
+/* =========================
+   WALLPAPER GRID
+========================= */
+
 .grid{
     display:grid;
-    grid-template-columns:repeat(
-        auto-fit,
-        minmax(240px,1fr)
-    );
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(240px,1fr)
+        );
     gap:22px;
 }
+
+
+/* =========================
+   CARD
+========================= */
 
 .card{
     background:#181818;
     border-radius:12px;
     overflow:hidden;
-    transition:.2s;
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
 }
 
 .card:hover{
     transform:translateY(-4px);
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35);
 }
+
+
+/* =========================
+   WALLPAPER IMAGE
+========================= */
 
 .card img{
     width:100%;
@@ -114,6 +168,11 @@ h2{
     display:block;
     cursor:pointer;
 }
+
+
+/* =========================
+   INFO
+========================= */
 
 .info{
     padding:16px;
@@ -130,6 +189,11 @@ h2{
     line-height:1.7;
 }
 
+
+/* =========================
+   CARD BUTTONS
+========================= */
+
 .buttons{
     display:flex;
     gap:8px;
@@ -145,6 +209,7 @@ h2{
     cursor:pointer;
     text-align:center;
     text-decoration:none;
+    font-size:14px;
 }
 
 .preview{
@@ -161,6 +226,11 @@ h2{
     opacity:.8;
 }
 
+
+/* =========================
+   LOADING / EMPTY
+========================= */
+
 .loading,
 .empty{
     text-align:center;
@@ -168,6 +238,19 @@ h2{
     padding:40px;
     grid-column:1/-1;
 }
+
+#loadMore{
+    width:100%;
+    text-align:center;
+    padding:30px;
+    color:#aaa;
+    grid-column:1/-1;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
 
 footer{
     padding:30px;
@@ -183,11 +266,17 @@ footer{
 .modal{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.92);
+
+    background:
+        rgba(0,0,0,.94);
+
     display:none;
+
     align-items:center;
     justify-content:center;
+
     z-index:9999;
+
     padding:20px;
 }
 
@@ -199,89 +288,155 @@ footer{
     width:100%;
     max-width:1100px;
     max-height:95vh;
+
     display:flex;
     flex-direction:column;
+
     align-items:center;
+
     position:relative;
+
+    overflow:auto;
 }
+
+
+/* =========================
+   PREVIEW IMAGE
+========================= */
 
 .modal-image{
     max-width:100%;
-    max-height:70vh;
+    max-height:65vh;
+
     object-fit:contain;
+
     border-radius:8px;
-    box-shadow:0 0 30px rgba(0,0,0,.8);
+
+    box-shadow:
+        0 0 30px rgba(0,0,0,.8);
 }
 
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
 .close{
-    position:absolute;
-    top:-10px;
-    right:0;
-    width:42px;
-    height:42px;
+    position:fixed;
+
+    top:20px;
+    right:20px;
+
+    width:44px;
+    height:44px;
+
     border:0;
     border-radius:50%;
+
     background:white;
     color:black;
-    font-size:24px;
+
+    font-size:26px;
+
     cursor:pointer;
-    z-index:2;
+
+    z-index:10000;
 }
+
+
+/* =========================
+   PREVIEW INFO
+========================= */
 
 .preview-info{
     width:100%;
     max-width:800px;
+
     margin-top:18px;
+
     background:#181818;
+
     padding:18px;
+
     border-radius:10px;
 }
 
 .preview-title{
     font-size:20px;
     font-weight:bold;
+
     margin-bottom:10px;
 }
+
+
+/* =========================
+   URL BOX
+========================= */
 
 .preview-url{
     display:flex;
     gap:8px;
-    margin-top:12px;
+    margin-top:14px;
 }
 
 .preview-url input{
     flex:1;
+
     min-width:0;
+
     padding:11px;
+
     border:0;
     border-radius:7px;
+
     background:#252525;
+
     color:#ddd;
+
+    outline:none;
 }
 
 .copy{
     padding:11px 16px;
+
     border:0;
     border-radius:7px;
+
     background:white;
+
     color:black;
+
     font-weight:bold;
+
     cursor:pointer;
 }
 
+
+/* =========================
+   MODAL BUTTONS
+========================= */
+
 .modal-buttons{
     display:flex;
+
     gap:10px;
+
     margin-top:12px;
 }
 
 .modal-buttons a,
 .modal-buttons button{
+
     padding:11px 18px;
+
     border:0;
+
     border-radius:7px;
+
     font-weight:bold;
+
     cursor:pointer;
+
     text-decoration:none;
 }
 
@@ -296,13 +451,33 @@ footer{
 }
 
 
-/* Mobile */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:600px){
+
+    header{
+        padding:20px 15px;
+    }
+
+    header h1{
+        font-size:28px;
+    }
+
+    nav a{
+        margin:0 7px;
+        font-size:14px;
+    }
+
+    .container{
+        padding:30px 12px;
+    }
 
     .grid{
         grid-template-columns:
             repeat(2,1fr);
+
         gap:12px;
     }
 
@@ -316,6 +491,10 @@ footer{
 
     .info h3{
         font-size:15px;
+    }
+
+    .meta{
+        font-size:12px;
     }
 
     .buttons{
@@ -334,6 +513,10 @@ footer{
         flex-direction:column;
     }
 
+    .copy{
+        width:100%;
+    }
+
     .modal-buttons{
         width:100%;
         flex-direction:column;
@@ -345,28 +528,69 @@ footer{
     }
 
 }
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *{
+        scroll-behavior:auto !important;
+        transition:none !important;
+    }
+
+}
+
 </style>
+
 </head>
 
+
 <body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
 
 <header>
 
     <h1>TENSEI</h1>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="wallpapers.html">Wallpapers</a>
-        <a href="#">About</a>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="wallpapers.html">
+            Wallpapers
+        </a>
+
+        <a href="#">
+            About
+        </a>
+
     </nav>
 
 </header>
 
 
+
+<!-- =========================
+     MAIN
+========================= -->
+
 <div class="container">
 
-    <h2>Wallpapers</h2>
+    <h2>
+        Wallpapers
+    </h2>
 
+
+    <!-- CONTROLS -->
 
     <div class="controls">
 
@@ -376,12 +600,14 @@ footer{
             placeholder="Search wallpapers..."
         >
 
+
         <button
             class="filter active"
             data-cat="all"
         >
             All
         </button>
+
 
         <button
             class="filter"
@@ -390,12 +616,14 @@ footer{
             Anime
         </button>
 
+
         <button
             class="filter"
             data-cat="aesthetic"
         >
             Aesthetic
         </button>
+
 
         <button
             class="filter"
@@ -404,12 +632,14 @@ footer{
             Dark
         </button>
 
+
         <button
             class="filter"
             data-cat="gaming"
         >
             Gaming
         </button>
+
 
         <button
             class="filter"
@@ -421,7 +651,13 @@ footer{
     </div>
 
 
-    <div id="grid" class="grid">
+
+    <!-- WALLPAPER GRID -->
+
+    <div
+        id="grid"
+        class="grid"
+    >
 
         <div class="loading">
             Loading wallpapers...
@@ -432,9 +668,17 @@ footer{
 </div>
 
 
+
+<!-- =========================
+     FOOTER
+========================= -->
+
 <footer>
+
     © 2026 Tensei
+
 </footer>
+
 
 
 <!-- =========================
@@ -448,13 +692,20 @@ footer{
 
     <div class="modal-content">
 
+
+        <!-- CLOSE -->
+
         <button
             id="closeModal"
             class="close"
+            aria-label="Close preview"
         >
             ×
         </button>
 
+
+
+        <!-- IMAGE -->
 
         <img
             id="modalImage"
@@ -464,7 +715,11 @@ footer{
         >
 
 
+
+        <!-- INFORMATION -->
+
         <div class="preview-info">
+
 
             <div
                 id="modalTitle"
@@ -480,6 +735,9 @@ footer{
             ></div>
 
 
+
+            <!-- INDIVIDUAL URL -->
+
             <div class="preview-url">
 
                 <input
@@ -487,6 +745,7 @@ footer{
                     type="text"
                     readonly
                 >
+
 
                 <button
                     id="copyUrl"
@@ -498,7 +757,11 @@ footer{
             </div>
 
 
+
+            <!-- ACTIONS -->
+
             <div class="modal-buttons">
+
 
                 <a
                     id="modalDownload"
@@ -508,6 +771,7 @@ footer{
                 >
                     Download
                 </a>
+
 
                 <button
                     id="modalCloseButton"
@@ -525,28 +789,50 @@ footer{
 </div>
 
 
+
 <script>
 
-const API =
-"https://api.github.com/repos/Tensei380/Tensei380.github.io/contents/wallpapers";
 
+/* =========================
+   GITHUB API
+========================= */
+
+const API =
+"https://api.github.com/repos/Tensei380/tensei380.github.io/contents/wallpapers";
+
+
+/* =========================
+   CATEGORIES
+========================= */
 
 const categories = [
+
     "anime",
     "aesthetic",
     "dark",
     "gaming",
     "nature"
+
 ];
 
+
+/* =========================
+   VARIABLES
+========================= */
 
 let wallpapers = [];
 
 let selectedCategory = "all";
 
+const batchSize = 12;
+
+let displayedCount = 0;
+
+let isLoadingBatch = false;
+
 
 /* =========================
-   TITLE
+   CLEAN TITLE
 ========================= */
 
 function cleanTitle(filename){
@@ -560,12 +846,18 @@ function cleanTitle(filename){
 
     name =
         name
-        .replace(/[_-]/g," ")
+        .replace(
+            /[_-]/g,
+            " "
+        )
         .replace(
             /\b(anime|aesthetic|dark|gaming|nature)\b/gi,
             ""
         )
-        .replace(/\s+/g," ")
+        .replace(
+            /\s+/g,
+            " "
+        )
         .trim();
 
 
@@ -575,11 +867,12 @@ function cleanTitle(filename){
             c => c.toUpperCase()
         )
         || "Wallpaper";
+
 }
 
 
 /* =========================
-   CATEGORY
+   GET CATEGORIES
 ========================= */
 
 function getCategories(filename){
@@ -588,14 +881,15 @@ function getCategories(filename){
         filename.toLowerCase();
 
 
-    return categories.filter(cat =>
+    return categories.filter(
+        cat =>
 
-        new RegExp(
-            "(^|[_\\-\\s])" +
-            cat +
-            "([_\\-\\s.]|$)",
-            "i"
-        ).test(lower)
+            new RegExp(
+                "(^|[_\\-\\s])" +
+                cat +
+                "([_\\-\\s.]|$)",
+                "i"
+            ).test(lower)
 
     );
 
@@ -603,7 +897,7 @@ function getCategories(filename){
 
 
 /* =========================
-   FORMAT
+   GET FORMAT
 ========================= */
 
 function getFormat(filename){
@@ -629,29 +923,43 @@ function createCard(file){
 
     const imageUrl =
         "wallpapers/" +
-        encodeURIComponent(file.name);
+        encodeURIComponent(
+            file.name
+        );
 
 
     const card =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    card.className = "card";
+    card.className =
+        "card";
 
 
     /* IMAGE */
 
     const img =
-        document.createElement("img");
+        document.createElement(
+            "img"
+        );
 
-    img.src = imageUrl;
+
+    img.src =
+        imageUrl;
+
 
     img.alt =
-        cleanTitle(file.name);
+        cleanTitle(
+            file.name
+        );
 
-    img.loading = "lazy";
+
+    img.loading =
+        "lazy";
 
 
-    /* CLICK IMAGE */
+    /* PREVIEW */
 
     img.addEventListener(
         "click",
@@ -669,79 +977,113 @@ function createCard(file){
     /* INFO */
 
     const info =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    info.className = "info";
+    info.className =
+        "info";
 
 
     /* TITLE */
 
     const title =
-        document.createElement("h3");
+        document.createElement(
+            "h3"
+        );
+
 
     title.textContent =
-        cleanTitle(file.name);
+        cleanTitle(
+            file.name
+        );
 
 
     /* META */
 
     const meta =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    meta.className = "meta";
+    meta.className =
+        "meta";
 
 
     const cats =
-        getCategories(file.name);
+        getCategories(
+            file.name
+        );
 
 
     meta.textContent =
         "Category: " +
+
         (
             cats.length
             ? cats.join(" • ")
             : "Wallpaper"
-        ) +
+        )
+
+        +
+
         " | Format: " +
-        getFormat(file.name);
+
+        getFormat(
+            file.name
+        );
 
 
     /* RESOLUTION */
 
     const resolution =
-        document.createElement("div");
-
-
-    img.onload = () => {
-
-        resolution.textContent =
-            "Resolution: " +
-            img.naturalWidth +
-            " × " +
-            img.naturalHeight;
-
-        meta.appendChild(
-            resolution
+        document.createElement(
+            "div"
         );
 
-    };
+
+    img.onload =
+        () => {
+
+            resolution.textContent =
+                "Resolution: " +
+
+                img.naturalWidth +
+
+                " × " +
+
+                img.naturalHeight;
+
+
+            meta.appendChild(
+                resolution
+            );
+
+        };
 
 
     /* BUTTONS */
 
     const buttons =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
-    buttons.className = "buttons";
+    buttons.className =
+        "buttons";
 
 
     /* PREVIEW BUTTON */
 
     const preview =
-        document.createElement("button");
+        document.createElement(
+            "button"
+        );
+
 
     preview.className =
         "button preview";
+
 
     preview.textContent =
         "Preview";
@@ -763,16 +1105,22 @@ function createCard(file){
     /* DOWNLOAD */
 
     const download =
-        document.createElement("a");
+        document.createElement(
+            "a"
+        );
+
 
     download.className =
         "button download";
 
+
     download.href =
         imageUrl;
 
+
     download.download =
         file.name;
+
 
     download.textContent =
         "Download";
@@ -782,18 +1130,23 @@ function createCard(file){
         preview
     );
 
+
     buttons.appendChild(
         download
     );
 
 
+    /* ADD */
+
     info.appendChild(
         title
     );
 
+
     info.appendChild(
         meta
     );
+
 
     info.appendChild(
         buttons
@@ -804,13 +1157,274 @@ function createCard(file){
         img
     );
 
+
     card.appendChild(
         info
     );
 
 
     return card;
+
 }
+
+
+/* =========================
+   FILTER WALLPAPERS
+========================= */
+
+function getFilteredWallpapers(){
+
+    const search =
+        document
+        .getElementById(
+            "search"
+        )
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    return wallpapers.filter(
+        file => {
+
+            const title =
+                cleanTitle(
+                    file.name
+                )
+                .toLowerCase();
+
+
+            const cats =
+                getCategories(
+                    file.name
+                );
+
+
+            const searchMatch =
+                !search ||
+                title.includes(
+                    search
+                );
+
+
+            const categoryMatch =
+                selectedCategory ===
+                "all" ||
+
+                cats.includes(
+                    selectedCategory
+                );
+
+
+            return (
+                searchMatch &&
+                categoryMatch
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   LOAD NEXT BATCH
+========================= */
+
+function loadNextBatch(){
+
+    if(isLoadingBatch){
+        return;
+    }
+
+
+    const filtered =
+        getFilteredWallpapers();
+
+
+    if(
+        displayedCount >=
+        filtered.length
+    ){
+
+        updateLoadingIndicator();
+
+        return;
+
+    }
+
+
+    isLoadingBatch = true;
+
+
+    const grid =
+        document.getElementById(
+            "grid"
+        );
+
+
+    const nextItems =
+        filtered.slice(
+            displayedCount,
+            displayedCount +
+            batchSize
+        );
+
+
+    nextItems.forEach(
+        file => {
+
+            grid.appendChild(
+                createCard(file)
+            );
+
+        }
+    );
+
+
+    displayedCount +=
+        nextItems.length;
+
+
+    isLoadingBatch = false;
+
+
+    updateLoadingIndicator();
+
+}
+
+
+/* =========================
+   LOADING INDICATOR
+========================= */
+
+function updateLoadingIndicator(){
+
+    const old =
+        document.getElementById(
+            "loadMore"
+        );
+
+
+    if(old){
+        old.remove();
+    }
+
+
+    const filtered =
+        getFilteredWallpapers();
+
+
+    if(
+        displayedCount <
+        filtered.length
+    ){
+
+        const indicator =
+            document.createElement(
+                "div"
+            );
+
+
+        indicator.id =
+            "loadMore";
+
+
+        indicator.className =
+            "loading";
+
+
+        indicator.textContent =
+            "Scroll down to load more...";
+
+
+        document
+            .getElementById(
+                "grid"
+            )
+            .appendChild(
+                indicator
+            );
+
+    }
+
+}
+
+
+/* =========================
+   RESET GALLERY
+========================= */
+
+function resetGallery(){
+
+    const grid =
+        document.getElementById(
+            "grid"
+        );
+
+
+    grid.innerHTML =
+        "";
+
+
+    displayedCount =
+        0;
+
+
+    isLoadingBatch =
+        false;
+
+
+    const filtered =
+        getFilteredWallpapers();
+
+
+    if(!filtered.length){
+
+        grid.innerHTML =
+            '<div class="empty">' +
+            'No wallpapers found.' +
+            '</div>';
+
+        return;
+
+    }
+
+
+    loadNextBatch();
+
+}
+
+
+/* =========================
+   INFINITE SCROLL
+========================= */
+
+window.addEventListener(
+    "scroll",
+    () => {
+
+        const distanceFromBottom =
+            document.documentElement
+                .scrollHeight -
+
+            (
+                window.scrollY +
+                window.innerHeight
+            );
+
+
+        if(
+            distanceFromBottom <
+            600
+        ){
+
+            loadNextBatch();
+
+        }
+
+    }
+);
 
 
 /* =========================
@@ -867,38 +1481,74 @@ function openPreview(
         ).href;
 
 
+    /* IMAGE */
+
     modalImage.src =
         fullUrl;
 
-    modalImage.alt =
-        cleanTitle(file.name);
 
+    modalImage.alt =
+        cleanTitle(
+            file.name
+        );
+
+
+    /* TITLE */
 
     modalTitle.textContent =
-        cleanTitle(file.name);
+        cleanTitle(
+            file.name
+        );
 
+
+    /* META */
 
     modalMeta.textContent =
         "Format: " +
-        getFormat(file.name);
+        getFormat(
+            file.name
+        );
 
+
+    /* RESOLUTION */
+
+    modalImage.onload =
+        () => {
+
+            modalMeta.textContent =
+                "Resolution: " +
+                modalImage.naturalWidth +
+                " × " +
+                modalImage.naturalHeight +
+                " | Format: " +
+                getFormat(file.name);
+
+        };
+
+
+    /* URL */
 
     imageUrlInput.value =
         fullUrl;
 
 
+    /* DOWNLOAD */
+
     modalDownload.href =
         fullUrl;
-
 
     modalDownload.download =
         file.name;
 
 
+    /* SHOW MODAL */
+
     modal.classList.add(
         "show"
     );
 
+
+    /* STOP BACKGROUND SCROLL */
 
     document.body.style.overflow =
         "hidden";
@@ -926,6 +1576,11 @@ function closePreview(){
     document.body.style.overflow =
         "";
 
+
+    document.getElementById(
+        "modalImage"
+    ).src = "";
+
 }
 
 
@@ -934,78 +1589,92 @@ function closePreview(){
 ========================= */
 
 document
-    .getElementById("copyUrl")
-    .addEventListener(
-        "click",
-        async () => {
+.getElementById("copyUrl")
+.addEventListener(
+    "click",
+    async () => {
 
-            const input =
-                document.getElementById(
-                    "imageUrl"
+        const input =
+            document.getElementById(
+                "imageUrl"
+            );
+
+        const button =
+            document.getElementById(
+                "copyUrl"
+            );
+
+
+        try{
+
+            await navigator.clipboard
+                .writeText(
+                    input.value
                 );
 
 
-            try{
-
-                await navigator.clipboard
-                    .writeText(
-                        input.value
-                    );
+            button.textContent =
+                "Copied!";
 
 
-                const button =
-                    document.getElementById(
-                        "copyUrl"
-                    );
+            setTimeout(
+                () => {
+
+                    button.textContent =
+                        "Copy URL";
+
+                },
+                1500
+            );
 
 
-                button.textContent =
-                    "Copied!";
+        }catch(error){
+
+            input.select();
+
+            document.execCommand(
+                "copy"
+            );
 
 
-                setTimeout(
-                    () => {
-
-                        button.textContent =
-                            "Copy URL";
-
-                    },
-                    1500
-                );
+            button.textContent =
+                "Copied!";
 
 
-            }catch(error){
+            setTimeout(
+                () => {
 
-                input.select();
+                    button.textContent =
+                        "Copy URL";
 
-                document.execCommand(
-                    "copy"
-                );
-
-            }
+                },
+                1500
+            );
 
         }
-    );
+
+    }
+);
 
 
 /* =========================
-   CLOSE BUTTONS
+   CLOSE BUTTON
 ========================= */
 
 document
-    .getElementById("closeModal")
-    .addEventListener(
-        "click",
-        closePreview
-    );
+.getElementById("closeModal")
+.addEventListener(
+    "click",
+    closePreview
+);
 
 
 document
-    .getElementById("modalCloseButton")
-    .addEventListener(
-        "click",
-        closePreview
-    );
+.getElementById("modalCloseButton")
+.addEventListener(
+    "click",
+    closePreview
+);
 
 
 /* =========================
@@ -1013,34 +1682,14 @@ document
 ========================= */
 
 document
-    .getElementById("modal")
-    .addEventListener(
-        "click",
-        event => {
-
-            if(
-                event.target.id ===
-                "modal"
-            ){
-
-                closePreview();
-
-            }
-
-        }
-    );
-
-
-/* =========================
-   ESC KEY
-========================= */
-
-document.addEventListener(
-    "keydown",
+.getElementById("modal")
+.addEventListener(
+    "click",
     event => {
 
         if(
-            event.key === "Escape"
+            event.target.id ===
+            "modal"
         ){
 
             closePreview();
@@ -1052,100 +1701,86 @@ document.addEventListener(
 
 
 /* =========================
-   DISPLAY WALLPAPERS
+   ESC KEY
 ========================= */
 
-function displayWallpapers(){
+document.addEventListener(
+    "keydown",
+    event => {
 
-    const grid =
-        document.getElementById(
-            "grid"
-        );
+        if(
+            event.key ===
+            "Escape"
+        ){
 
+            closePreview();
 
-    const search =
-        document
-            .getElementById(
-                "search"
-            )
-            .value
-            .toLowerCase()
-            .trim();
+        }
 
-
-    grid.innerHTML = "";
+    }
+);
 
 
-    const filtered =
-        wallpapers.filter(
-            file => {
+/* =========================
+   FILTER BUTTONS
+========================= */
 
-                const title =
-                    cleanTitle(
-                        file.name
-                    )
-                    .toLowerCase();
+document
+.querySelectorAll(".filter")
+.forEach(
+    button => {
 
+        button.addEventListener(
+            "click",
+            () => {
 
-                const cats =
-                    getCategories(
-                        file.name
-                    );
+                document
+                .querySelectorAll(
+                    ".filter"
+                )
+                .forEach(
+                    b => {
 
+                        b.classList.remove(
+                            "active"
+                        );
 
-                const searchMatch =
-                    !search ||
-                    title.includes(
-                        search
-                    );
-
-
-                const categoryMatch =
-                    selectedCategory ===
-                    "all" ||
-                    cats.includes(
-                        selectedCategory
-                    );
-
-
-                return (
-                    searchMatch &&
-                    categoryMatch
+                    }
                 );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                selectedCategory =
+                    button.dataset.cat;
+
+
+                resetGallery();
 
             }
         );
 
-
-    if(
-        !filtered.length
-    ){
-
-        grid.innerHTML =
-            '<div class="empty">' +
-            'No wallpapers found.' +
-            '</div>';
-
-        return;
-
     }
-
-
-    filtered.forEach(
-        file => {
-
-            grid.appendChild(
-                createCard(file)
-            );
-
-        }
-    );
-
-}
+);
 
 
 /* =========================
-   LOAD FROM GITHUB
+   SEARCH
+========================= */
+
+document
+.getElementById("search")
+.addEventListener(
+    "input",
+    resetGallery
+);
+
+
+/* =========================
+   LOAD WALLPAPERS
 ========================= */
 
 async function loadWallpapers(){
@@ -1180,22 +1815,28 @@ async function loadWallpapers(){
         wallpapers =
             files.filter(
                 file =>
+
                     file.type ===
-                    "file" &&
+                    "file"
+
+                    &&
 
                     /\.(jpg|jpeg|png|webp|gif)$/i
-                        .test(
-                            file.name
-                        )
+                    .test(
+                        file.name
+                    )
+
             );
 
 
-        displayWallpapers();
+        resetGallery();
 
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
 
 
         grid.innerHTML =
@@ -1209,68 +1850,13 @@ async function loadWallpapers(){
 
 
 /* =========================
-   FILTER BUTTONS
+   START
 ========================= */
-
-document
-    .querySelectorAll(
-        ".filter"
-    )
-    .forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    document
-                        .querySelectorAll(
-                            ".filter"
-                        )
-                        .forEach(
-                            b =>
-                                b.classList
-                                .remove(
-                                    "active"
-                                )
-                        );
-
-
-                    button.classList.add(
-                        "active"
-                    );
-
-
-                    selectedCategory =
-                        button.dataset.cat;
-
-
-                    displayWallpapers();
-
-                }
-            );
-
-        }
-    );
-
-
-/* =========================
-   SEARCH
-========================= */
-
-document
-    .getElementById("search")
-    .addEventListener(
-        "input",
-        displayWallpapers
-    );
-
-
-/* START */
 
 loadWallpapers();
 
 </script>
 
 </body>
+
 </html>
