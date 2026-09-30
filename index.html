@@ -7,6 +7,14 @@
     <title>Tensei</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -15,14 +23,181 @@
             text-align: center;
         }
 
+        /* =========================
+           ANIMATED BACKGROUND
+        ========================== */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -10;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.48),
+                    rgba(0, 0, 0, 0.72)
+                ),
+                url("YOUR_RAW_IMAGE_URL_HERE");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            animation: backgroundMove 18s ease-in-out infinite alternate;
+        }
+
+        @keyframes backgroundMove {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.08);
+            }
+        }
+
+
+        /* =========================
+           MIST
+        ========================== */
+
+        .mist {
+            position: fixed;
+            inset: -20%;
+            z-index: -5;
+
+            background:
+                radial-gradient(
+                    ellipse at 20% 70%,
+                    rgba(255, 255, 255, 0.08),
+                    transparent 45%
+                ),
+                radial-gradient(
+                    ellipse at 80% 30%,
+                    rgba(255, 255, 255, 0.05),
+                    transparent 45%
+                );
+
+            filter: blur(30px);
+
+            animation: mistMove 20s ease-in-out infinite alternate;
+
+            pointer-events: none;
+        }
+
+        @keyframes mistMove {
+            0% {
+                transform: translateX(-3%) translateY(2%);
+            }
+
+            100% {
+                transform: translateX(3%) translateY(-2%);
+            }
+        }
+
+
+        /* =========================
+           FLOATING PARTICLES
+        ========================== */
+
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+
+            width: 3px;
+            height: 3px;
+
+            background: rgba(255, 255, 255, 0.55);
+
+            border-radius: 50%;
+
+            animation: float 8s linear infinite;
+        }
+
+        .particle:nth-child(1) {
+            left: 10%;
+            top: 80%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            left: 25%;
+            top: 60%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(3) {
+            left: 40%;
+            top: 90%;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(4) {
+            left: 60%;
+            top: 70%;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(5) {
+            left: 75%;
+            top: 85%;
+            animation-delay: 3s;
+        }
+
+        .particle:nth-child(6) {
+            left: 90%;
+            top: 55%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-180px);
+                opacity: 0;
+            }
+        }
+
+
+        /* =========================
+           HEADER
+        ========================== */
+
         header {
             padding: 25px;
-            background: #181818;
+
+            background: rgba(24, 24, 24, 0.72);
+
+            backdrop-filter: blur(8px);
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         header h1 {
             margin: 0;
+
             font-size: 32px;
+
+            letter-spacing: 4px;
         }
 
         nav {
@@ -31,78 +206,545 @@
 
         nav a {
             color: white;
+
             text-decoration: none;
+
             margin: 0 12px;
+
             font-size: 15px;
+
+            transition: 0.2s;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            opacity: 0.7;
         }
 
+
+        /* =========================
+           HERO
+        ========================== */
+
         .hero {
+            min-height: 70vh;
+
             padding: 100px 20px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
         }
 
         .hero h2 {
             font-size: 42px;
+
             margin-bottom: 15px;
+
+            animation: fadeUp 1.2s ease;
         }
 
         .hero p {
-            color: #bbbbbb;
+            color: #dddddd;
+
             font-size: 18px;
+
+            animation: fadeUp 1.5s ease;
         }
 
         .button {
             display: inline-block;
+
             margin-top: 25px;
+
             padding: 14px 28px;
+
             background: white;
+
             color: black;
+
             text-decoration: none;
+
             border-radius: 8px;
+
             font-weight: bold;
+
+            transition: 0.25s;
         }
 
         .button:hover {
-            opacity: 0.8;
+            transform: translateY(-3px);
+
+            opacity: 0.85;
         }
 
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================
+           FEEDBACK SECTION
+        ========================== */
+
+        .feedback {
+            padding: 70px 20px;
+
+            background: rgba(8, 8, 8, 0.78);
+
+            backdrop-filter: blur(5px);
+        }
+
+        .feedback-box {
+            max-width: 600px;
+
+            margin: auto;
+
+            background: rgba(24, 24, 24, 0.90);
+
+            padding: 30px;
+
+            border-radius: 14px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .feedback-box h2 {
+            margin-top: 0;
+
+            font-size: 28px;
+        }
+
+        .feedback-box > p {
+            color: #aaaaaa;
+
+            line-height: 1.6;
+        }
+
+        .feedback-box label {
+            display: block;
+
+            text-align: left;
+
+            margin-top: 18px;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        .feedback-box input,
+        .feedback-box select,
+        .feedback-box textarea {
+            width: 100%;
+
+            padding: 12px;
+
+            background: #0f0f0f;
+
+            color: white;
+
+            border: 1px solid #333333;
+
+            border-radius: 7px;
+
+            font-family: Arial, sans-serif;
+        }
+
+        .feedback-box textarea {
+            min-height: 120px;
+
+            resize: vertical;
+        }
+
+        .feedback-box input:focus,
+        .feedback-box select:focus,
+        .feedback-box textarea:focus {
+            outline: none;
+
+            border-color: #777777;
+        }
+
+        .submit-button {
+            width: 100%;
+
+            margin-top: 22px;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: white;
+
+            color: black;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .submit-button:hover {
+            opacity: 0.8;
+
+            transform: translateY(-1px);
+        }
+
+        .note {
+            font-size: 12px !important;
+
+            color: #666666 !important;
+
+            margin-top: 15px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================== */
+
         footer {
-            padding: 20px;
+            padding: 25px;
+
             color: #777777;
+
+            background: rgba(10, 10, 10, 0.85);
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 27px;
+            }
+
+            nav a {
+                margin: 0 7px;
+
+                font-size: 14px;
+            }
+
+            .hero {
+                padding: 80px 20px;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .feedback-box {
+                padding: 22px;
+            }
         }
     </style>
 </head>
 
+
 <body>
 
+    <!-- Animated Background -->
+
+    <div class="background"></div>
+
+    <div class="mist"></div>
+
+    <div class="particles">
+
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+
+    </div>
+
+
+    <!-- Header -->
+
     <header>
+
         <h1>TENSEI</h1>
 
         <nav>
-            <a href="index.html">Home</a>
-            <a href="wallpapers.html">Wallpapers</a>
-            <a href="#">About</a>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="wallpapers.html">
+                Wallpapers
+            </a>
+
+            <a href="#feedback">
+                Feedback
+            </a>
+
         </nav>
+
     </header>
 
+
+    <!-- Hero -->
+
     <section class="hero">
-        <h2>Welcome to Tensei</h2>
+
+        <h2>
+            Welcome to Tensei
+        </h2>
 
         <p>
             Discover wallpapers from Tensei.
         </p>
 
-        <a href="wallpapers.html" class="button">
+        <a
+            href="wallpapers.html"
+            class="button"
+        >
             Explore Wallpapers
         </a>
+
     </section>
 
+
+    <!-- Feedback & Report -->
+
+    <section
+        class="feedback"
+        id="feedback"
+    >
+
+        <div class="feedback-box">
+
+            <h2>
+                Feedback & Report
+            </h2>
+
+            <p>
+                Found a problem with a wallpaper or the website?
+                Let us know so we can fix it.
+            </p>
+
+
+            <form id="feedbackForm">
+
+                <label for="type">
+                    What would you like to report?
+                </label>
+
+                <select
+                    id="type"
+                    required
+                >
+
+                    <option value="">
+                        Select an option
+                    </option>
+
+                    <option value="Broken Download Link">
+                        Broken Download Link
+                    </option>
+
+                    <option value="Wallpaper Not Loading">
+                        Wallpaper Not Loading
+                    </option>
+
+                    <option value="Wrong Resolution">
+                        Wrong Resolution
+                    </option>
+
+                    <option value="Low Quality Wallpaper">
+                        Low Quality Wallpaper
+                    </option>
+
+                    <option value="Website Bug">
+                        Website Bug
+                    </option>
+
+                    <option value="Other Feedback">
+                        Other Feedback
+                    </option>
+
+                </select>
+
+
+                <label for="wallpaper">
+                    Wallpaper URL (optional)
+                </label>
+
+                <input
+                    type="url"
+                    id="wallpaper"
+                    placeholder="https://..."
+                >
+
+
+                <label for="rating">
+                    Website Rating
+                </label>
+
+                <select id="rating">
+
+                    <option value="Not rated">
+                        No rating
+                    </option>
+
+                    <option value="5 Stars">
+                        ⭐⭐⭐⭐⭐
+                    </option>
+
+                    <option value="4 Stars">
+                        ⭐⭐⭐⭐
+                    </option>
+
+                    <option value="3 Stars">
+                        ⭐⭐⭐
+                    </option>
+
+                    <option value="2 Stars">
+                        ⭐⭐
+                    </option>
+
+                    <option value="1 Star">
+                        ⭐
+                    </option>
+
+                </select>
+
+
+                <label for="message">
+                    Describe the problem or feedback
+                </label>
+
+                <textarea
+                    id="message"
+                    placeholder="Tell us what happened..."
+                    required
+                ></textarea>
+
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+                    Submit Feedback
+                </button>
+
+            </form>
+
+
+            <p class="note">
+                Your feedback will be submitted through GitHub Issues.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
     <footer>
+
         © 2026 Tensei
+
     </footer>
 
+
+    <!-- GitHub Feedback System -->
+
+    <script>
+
+        document
+            .getElementById("feedbackForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+
+                const type =
+                    document.getElementById("type").value;
+
+
+                const wallpaper =
+                    document.getElementById("wallpaper").value;
+
+
+                const rating =
+                    document.getElementById("rating").value;
+
+
+                const message =
+                    document.getElementById("message").value;
+
+
+                const title =
+                    "[" + type + "] Tensei Website Feedback";
+
+
+                const body =
+`## Tensei Website Feedback
+
+**Report Type:** ${type}
+
+**Wallpaper URL:**
+${wallpaper || "Not provided"}
+
+**Website Rating:**
+${rating}
+
+**Feedback / Problem:**
+${message}
+
+---
+
+Thank you for helping improve Tensei.`;
+
+
+                const githubURL =
+                    "https://github.com/Tensei380/tensei380.github.io/issues/new" +
+                    "?title=" +
+                    encodeURIComponent(title) +
+                    "&body=" +
+                    encodeURIComponent(body);
+
+
+                window.open(
+                    githubURL,
+                    "_blank"
+                );
+
+            });
+
+    </script>
+
 </body>
-</html>
+    </html>
