@@ -1,753 +1,1424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Tensei</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0a0a0a;
-            color: white;
-            text-align: center;
-            overflow-x: hidden;
-        }
-
-        /* =========================
-           ANIMATED BACKGROUND
-        ========================= */
-
-        .background {
-            position: fixed;
-            inset: 0;
-            z-index: -10;
-
-            background-image:
-                linear-gradient(
-                    rgba(0, 0, 0, 0.45),
-                    rgba(0, 0, 0, 0.78)
-                ),
-                url("https://raw.githubusercontent.com/Tensei380/tensei380.github.io/main/wallpapers/Red%20Spider%20Lily_Aesthetic_Dark_Nature.jpeg");
-
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-
-            animation: backgroundMove 18s ease-in-out infinite alternate;
-        }
-
-        @keyframes backgroundMove {
-            0% {
-                transform: scale(1);
-                background-position: center;
-            }
-
-            100% {
-                transform: scale(1.08);
-                background-position: center top;
-            }
-        }
-
-        /* =========================
-           DARK OVERLAY
-        ========================= */
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            z-index: -9;
-
-            background:
-                radial-gradient(
-                    circle at center,
-                    rgba(0, 0, 0, 0.05),
-                    rgba(0, 0, 0, 0.45)
-                );
-        }
-
-        /* =========================
-           MIST
-        ========================= */
-
-        .mist {
-            position: fixed;
-            width: 200%;
-            height: 35%;
-            left: -50%;
-            bottom: 5%;
-            z-index: -8;
-
-            background: radial-gradient(
-                ellipse,
-                rgba(255, 255, 255, 0.10),
-                transparent 70%
-            );
-
-            filter: blur(25px);
-
-            animation: mistMove 20s ease-in-out infinite alternate;
-            pointer-events: none;
-        }
-
-        @keyframes mistMove {
-            0% {
-                transform: translateX(-5%) translateY(0);
-            }
-
-            100% {
-                transform: translateX(5%) translateY(-20px);
-            }
-        }
-
-        /* =========================
-           FLOATING PARTICLES
-        ========================= */
-
-        .particles {
-            position: fixed;
-            inset: 0;
-            z-index: -7;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            background: rgba(255, 255, 255, 0.45);
+<title>Tensei</title>
 
-            border-radius: 50%;
+<style>
 
-            animation: floatParticle 10s linear infinite;
-        }
+/* =========================
+   BASIC
+========================= */
 
-        .particle:nth-child(1) {
-            left: 10%;
-            bottom: -10px;
-            animation-delay: 0s;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        .particle:nth-child(2) {
-            left: 25%;
-            bottom: -20px;
-            animation-delay: 2s;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        .particle:nth-child(3) {
-            left: 45%;
-            bottom: -10px;
-            animation-delay: 4s;
-        }
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
 
-        .particle:nth-child(4) {
-            left: 65%;
-            bottom: -20px;
-            animation-delay: 1s;
-        }
+    font-family: Arial, sans-serif;
 
-        .particle:nth-child(5) {
-            left: 80%;
-            bottom: -10px;
-            animation-delay: 3s;
-        }
+    background:
+        linear-gradient(
+            180deg,
+            #050609 0%,
+            #10100f 45%,
+            #090b08 100%
+        );
 
-        .particle:nth-child(6) {
-            left: 90%;
-            bottom: -20px;
-            animation-delay: 5s;
-        }
+    color: white;
+}
 
-        @keyframes floatParticle {
-            0% {
-                transform: translateY(0);
-                opacity: 0;
-            }
 
-            20% {
-                opacity: 1;
-            }
+/* =========================
+   ANIMATED GARDEN
+========================= */
 
-            80% {
-                opacity: 1;
-            }
+.garden {
+    position: fixed;
+    inset: 0;
 
-            100% {
-                transform: translateY(-100vh);
-                opacity: 0;
-            }
-        }
+    overflow: hidden;
 
-        /* =========================
-           HEADER
-        ========================= */
+    z-index: -10;
 
-        header {
-            padding: 22px 20px;
+    background:
+        radial-gradient(
+            ellipse at 50% 80%,
+            #282018 0%,
+            #11130f 40%,
+            #050608 100%
+        );
+}
 
-            background: rgba(10, 10, 10, 0.55);
 
-            backdrop-filter: blur(10px);
+/* =========================
+   DISTANT GRASS
+========================= */
 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+.grass-layer {
+    position: absolute;
 
-            position: relative;
-            z-index: 10;
-        }
+    left: -5%;
+    bottom: 0;
 
-        header h1 {
-            margin: 0;
+    width: 110%;
+    height: 42%;
 
-            font-size: 34px;
+    transform-origin: bottom center;
 
-            letter-spacing: 5px;
-        }
+    background:
+        repeating-linear-gradient(
+            80deg,
+            transparent 0px,
+            transparent 12px,
+            rgba(45, 58, 35, 0.8) 13px,
+            transparent 15px
+        );
 
-        nav {
-            margin-top: 15px;
-        }
+    animation:
+        grassWind 4s ease-in-out infinite alternate;
+}
 
-        nav a {
-            color: white;
+@keyframes grassWind {
 
-            text-decoration: none;
+    0% {
+        transform: skewX(-1deg);
+    }
+
+    50% {
+        transform: skewX(2deg);
+    }
+
+    100% {
+        transform: skewX(-2deg);
+    }
+}
+
+
+/* =========================
+   GRASS BLADES
+========================= */
+
+.blades {
+    position: absolute;
+
+    bottom: -20px;
+    left: 0;
+
+    width: 100%;
+    height: 35%;
+}
+
+.blade {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 3px;
+    height: 100px;
+
+    background:
+        linear-gradient(
+            to top,
+            #182216,
+            #536342
+        );
+
+    border-radius: 100% 0 100% 0;
+
+    transform-origin: bottom center;
+
+    animation:
+        bladeWind 3s ease-in-out infinite alternate;
+}
 
-            margin: 0 12px;
+.blade:nth-child(1) {
+    left: 5%;
+    height: 110px;
+    animation-delay: -1s;
+}
 
-            font-size: 15px;
+.blade:nth-child(2) {
+    left: 12%;
+    height: 150px;
+    animation-delay: -2s;
+}
 
-            transition: 0.3s;
-        }
+.blade:nth-child(3) {
+    left: 19%;
+    height: 90px;
+    animation-delay: -0.5s;
+}
 
-        nav a:hover {
-            opacity: 0.65;
-        }
+.blade:nth-child(4) {
+    left: 28%;
+    height: 130px;
+    animation-delay: -1.5s;
+}
 
-        /* =========================
-           HERO
-        ========================= */
+.blade:nth-child(5) {
+    left: 37%;
+    height: 100px;
+    animation-delay: -3s;
+}
 
-        .hero {
-            min-height: 80vh;
+.blade:nth-child(6) {
+    left: 46%;
+    height: 145px;
+    animation-delay: -2s;
+}
 
-            display: flex;
+.blade:nth-child(7) {
+    left: 56%;
+    height: 95px;
+    animation-delay: -1s;
+}
 
-            flex-direction: column;
+.blade:nth-child(8) {
+    left: 65%;
+    height: 135px;
+    animation-delay: -2.5s;
+}
 
-            justify-content: center;
+.blade:nth-child(9) {
+    left: 75%;
+    height: 105px;
+    animation-delay: -0.8s;
+}
 
-            align-items: center;
+.blade:nth-child(10) {
+    left: 84%;
+    height: 145px;
+    animation-delay: -1.8s;
+}
 
-            padding: 80px 20px;
-        }
+.blade:nth-child(11) {
+    left: 94%;
+    height: 115px;
+    animation-delay: -2.8s;
+}
 
-        .hero h2 {
-            font-size: clamp(38px, 7vw, 70px);
+@keyframes bladeWind {
 
-            margin: 0 0 20px;
+    0% {
+        transform: rotate(-5deg);
+    }
 
-            letter-spacing: 2px;
+    100% {
+        transform: rotate(7deg);
+    }
+}
 
-            text-shadow:
-                0 4px 20px rgba(0, 0, 0, 0.9);
-        }
 
-        .hero p {
-            color: #dddddd;
+/* =========================
+   SPIDER LILY
+========================= */
 
-            font-size: 19px;
+.lily {
+    position: absolute;
 
-            max-width: 650px;
+    width: 110px;
+    height: 150px;
 
-            line-height: 1.7;
+    transform-origin: bottom center;
 
-            text-shadow:
-                0 2px 10px rgba(0, 0, 0, 0.9);
-        }
+    animation:
+        lilyWind var(--speed) ease-in-out infinite alternate;
 
-        /* =========================
-           BUTTON
-        ========================= */
+    animation-delay: var(--delay);
+}
 
-        .button {
-            display: inline-block;
 
-            margin-top: 28px;
+/* Flower center */
 
-            padding: 14px 30px;
+.lily-center {
+    position: absolute;
 
-            background: rgba(255, 255, 255, 0.92);
+    width: 16px;
+    height: 16px;
 
-            color: black;
+    left: 47px;
+    top: 48px;
 
-            text-decoration: none;
+    border-radius: 50%;
 
-            border-radius: 8px;
+    background:
+        radial-gradient(
+            circle,
+            #ffdca8 0%,
+            #d8a75e 45%,
+            #70291f 100%
+        );
 
-            font-weight: bold;
+    z-index: 5;
+}
 
-            transition: 0.3s;
-        }
 
-        .button:hover {
-            transform: translateY(-3px);
+/* Petals */
 
-            opacity: 0.85;
-        }
+.petal {
+    position: absolute;
 
-        /* =========================
-           FEEDBACK SECTION
-        ========================= */
+    left: 50%;
+    top: 50%;
 
-        .feedback {
-            max-width: 700px;
+    width: 14px;
+    height: 65px;
 
-            margin: 40px auto 80px;
+    border-radius:
+        100% 0 100% 0;
 
-            padding: 35px 25px;
+    transform-origin:
+        50% 100%;
 
-            background: rgba(0, 0, 0, 0.58);
+    background:
+        linear-gradient(
+            to top,
+            #8b0714,
+            #e31b2e 55%,
+            #ff5960
+        );
 
-            backdrop-filter: blur(12px);
+    box-shadow:
+        0 0 12px rgba(255, 30, 50, 0.45);
 
-            border: 1px solid rgba(255, 255, 255, 0.12);
+    z-index: 3;
+}
 
-            border-radius: 16px;
 
-            box-shadow:
-                0 15px 50px rgba(0, 0, 0, 0.5);
-        }
+/* Individual petals */
 
-        .feedback h2 {
-            margin-top: 0;
+.petal:nth-child(1) {
+    transform: translate(-50%, -100%) rotate(-70deg);
+}
 
-            font-size: 30px;
-        }
+.petal:nth-child(2) {
+    transform: translate(-50%, -100%) rotate(-45deg);
+}
 
-        .feedback p {
-            color: #bbbbbb;
+.petal:nth-child(3) {
+    transform: translate(-50%, -100%) rotate(-20deg);
+}
 
-            line-height: 1.6;
-        }
+.petal:nth-child(4) {
+    transform: translate(-50%, -100%) rotate(10deg);
+}
 
-        .feedback form {
-            margin-top: 25px;
+.petal:nth-child(5) {
+    transform: translate(-50%, -100%) rotate(40deg);
+}
 
-            text-align: left;
-        }
+.petal:nth-child(6) {
+    transform: translate(-50%, -100%) rotate(70deg);
+}
 
-        .feedback label {
-            display: block;
 
-            margin: 15px 0 7px;
+/* Curved stamens */
 
-            font-weight: bold;
-        }
+.stamen {
+    position: absolute;
 
-        .feedback input,
-        .feedback select,
-        .feedback textarea {
-            width: 100%;
+    width: 70px;
+    height: 35px;
 
-            padding: 12px;
+    left: 20px;
+    top: 25px;
 
-            border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top:
+        2px solid #f4b28d;
 
-            border-radius: 8px;
+    border-radius: 50%;
 
-            background: rgba(255, 255, 255, 0.08);
+    transform-origin: center;
 
-            color: white;
+    z-index: 4;
+}
 
-            outline: none;
+.stamen:nth-child(8) {
+    transform: rotate(-25deg);
+}
 
-            font-size: 15px;
-        }
+.stamen:nth-child(9) {
+    transform: rotate(25deg);
+}
 
-        .feedback select option {
-            background: #181818;
+.stamen:nth-child(10) {
+    transform: rotate(0deg);
+}
 
-            color: white;
-        }
+@keyframes lilyWind {
 
-        .feedback textarea {
-            min-height: 120px;
+    0% {
+        transform: rotate(-3deg);
+    }
 
-            resize: vertical;
-        }
+    50% {
+        transform: rotate(1deg);
+    }
 
-        .submit-button {
-            width: 100%;
+    100% {
+        transform: rotate(4deg);
+    }
+}
 
-            margin-top: 22px;
 
-            padding: 14px;
+/* =========================
+   LILY POSITIONS
+========================= */
 
-            border: none;
+.lily1 {
+    left: 4%;
+    bottom: 20%;
 
-            border-radius: 8px;
+    --speed: 5s;
+    --delay: -2s;
 
-            background: white;
+    transform: scale(0.75);
+}
 
-            color: black;
+.lily2 {
+    left: 16%;
+    bottom: 14%;
 
-            font-weight: bold;
+    --speed: 6s;
+    --delay: -4s;
 
-            font-size: 15px;
+    transform: scale(1);
+}
 
-            cursor: pointer;
+.lily3 {
+    left: 31%;
+    bottom: 18%;
 
-            transition: 0.3s;
-        }
+    --speed: 4.5s;
+    --delay: -1s;
 
-        .submit-button:hover {
-            opacity: 0.8;
-        }
+    transform: scale(0.8);
+}
 
-        /* =========================
-           FOOTER
-        ========================= */
+.lily4 {
+    left: 46%;
+    bottom: 12%;
 
-        footer {
-            padding: 25px 20px;
+    --speed: 5.5s;
+    --delay: -3s;
 
-            color: #888888;
+    transform: scale(1.15);
+}
 
-            background: rgba(0, 0, 0, 0.5);
+.lily5 {
+    left: 62%;
+    bottom: 19%;
 
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
+    --speed: 4.8s;
+    --delay: -2.5s;
 
-        /* =========================
-           MOBILE
-        ========================= */
+    transform: scale(0.85);
+}
 
-        @media (max-width: 600px) {
+.lily6 {
+    left: 76%;
+    bottom: 14%;
 
-            header h1 {
-                font-size: 28px;
-            }
+    --speed: 6.2s;
+    --delay: -5s;
 
-            nav a {
-                margin: 0 7px;
+    transform: scale(1.05);
+}
 
-                font-size: 14px;
-            }
+.lily7 {
+    left: 90%;
+    bottom: 21%;
 
-            .hero {
-                min-height: 75vh;
+    --speed: 5s;
+    --delay: -1.5s;
 
-                padding: 60px 18px;
-            }
+    transform: scale(0.75);
+}
 
-            .hero p {
-                font-size: 16px;
-            }
 
-            .feedback {
-                margin: 30px 15px 60px;
+/* =========================
+   LEAVES
+========================= */
 
-                padding: 28px 18px;
-            }
-        }
-    </style>
+.leaf {
+    position: absolute;
+
+    width: 22px;
+    height: 150px;
+
+    bottom: 0;
+
+    border-radius:
+        100% 0 100% 0;
+
+    background:
+        linear-gradient(
+            to top,
+            #0c1a0d,
+            #49613b
+        );
+
+    transform-origin: bottom center;
+
+    animation:
+        leafWind var(--leaf-speed) ease-in-out infinite alternate;
+
+    animation-delay: var(--leaf-delay);
+}
+
+.leaf1 {
+    left: 8%;
+    --leaf-speed: 4s;
+    --leaf-delay: -1s;
+}
+
+.leaf2 {
+    left: 25%;
+    height: 190px;
+    --leaf-speed: 5s;
+    --leaf-delay: -2s;
+}
+
+.leaf3 {
+    left: 42%;
+    height: 140px;
+    --leaf-speed: 3.8s;
+    --leaf-delay: -0.5s;
+}
+
+.leaf4 {
+    left: 58%;
+    height: 180px;
+    --leaf-speed: 4.7s;
+    --leaf-delay: -3s;
+}
+
+.leaf5 {
+    left: 73%;
+    height: 145px;
+    --leaf-speed: 5.5s;
+    --leaf-delay: -2s;
+}
+
+.leaf6 {
+    left: 91%;
+    height: 175px;
+    --leaf-speed: 4.2s;
+    --leaf-delay: -4s;
+}
+
+@keyframes leafWind {
+
+    0% {
+        transform: rotate(-8deg);
+    }
+
+    100% {
+        transform: rotate(10deg);
+    }
+}
+
+
+/* =========================
+   FOG
+========================= */
+
+.fog {
+    position: absolute;
+
+    width: 160%;
+    height: 180px;
+
+    left: -30%;
+    bottom: 12%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(255,255,255,0.13),
+            transparent 65%
+        );
+
+    filter: blur(25px);
+
+    animation:
+        fogMove 16s ease-in-out infinite alternate;
+}
+
+.fog2 {
+    bottom: 28%;
+
+    opacity: 0.5;
+
+    animation-duration: 23s;
+}
+
+@keyframes fogMove {
+
+    0% {
+        transform: translateX(-8%);
+    }
+
+    100% {
+        transform: translateX(8%);
+    }
+}
+
+
+/* =========================
+   FLOATING PARTICLES
+========================= */
+
+.particles {
+    position: absolute;
+    inset: 0;
+}
+
+.particle {
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.55);
+
+    animation:
+        particleFloat var(--particle-speed)
+        linear infinite;
+
+    animation-delay: var(--particle-delay);
+}
+
+@keyframes particleFloat {
+
+    0% {
+        transform:
+            translate3d(0, 20px, 0);
+
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.8;
+    }
+
+    80% {
+        opacity: 0.7;
+    }
+
+    100% {
+        transform:
+            translate3d(80px, -100vh, 0);
+
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   DARK CINEMATIC OVERLAY
+========================= */
+
+.dark-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.35),
+            rgba(0,0,0,0.65)
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+header {
+    position: relative;
+
+    padding: 22px;
+
+    background:
+        rgba(0,0,0,0.45);
+
+    backdrop-filter: blur(8px);
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.1);
+}
+
+header h1 {
+    margin: 0;
+
+    font-size: 34px;
+
+    letter-spacing: 6px;
+}
+
+nav {
+    margin-top: 15px;
+}
+
+nav a {
+    color: white;
+
+    text-decoration: none;
+
+    margin: 0 12px;
+
+    font-size: 15px;
+
+    transition: 0.3s;
+}
+
+nav a:hover {
+    opacity: 0.6;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 75vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 80px 20px;
+}
+
+.hero h2 {
+    margin: 0;
+
+    font-size:
+        clamp(40px, 8vw, 72px);
+
+    text-shadow:
+        0 5px 25px rgba(0,0,0,0.9);
+}
+
+.hero p {
+    max-width: 650px;
+
+    color: #dddddd;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    text-shadow:
+        0 3px 15px black;
+}
+
+.button {
+    display: inline-block;
+
+    margin-top: 25px;
+
+    padding: 14px 28px;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: black;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.button:hover {
+    transform: translateY(-3px);
+
+    opacity: 0.85;
+}
+
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.feedback {
+    max-width: 700px;
+
+    margin: 30px auto 80px;
+
+    padding: 35px 25px;
+
+    background:
+        rgba(0,0,0,0.6);
+
+    backdrop-filter: blur(12px);
+
+    border:
+        1px solid rgba(255,255,255,0.12);
+
+    border-radius: 16px;
+}
+
+.feedback h2 {
+    margin-top: 0;
+
+    font-size: 30px;
+}
+
+.feedback p {
+    color: #bbb;
+
+    line-height: 1.6;
+}
+
+.feedback form {
+    text-align: left;
+
+    margin-top: 25px;
+}
+
+.feedback label {
+    display: block;
+
+    margin: 15px 0 7px;
+
+    font-weight: bold;
+}
+
+.feedback input,
+.feedback select,
+.feedback textarea {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid
+        rgba(255,255,255,0.15);
+
+    border-radius: 8px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    color: white;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+.feedback select option {
+    background: #181818;
+
+    color: white;
+}
+
+.feedback textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+.submit-button {
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: black;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 25px;
+
+    text-align: center;
+
+    color: #888;
+
+    background:
+        rgba(0,0,0,0.5);
+
+    border-top:
+        1px solid rgba(255,255,255,0.08);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    nav a {
+        margin: 0 7px;
+
+        font-size: 14px;
+    }
+
+    .lily {
+        transform: scale(0.7);
+    }
+
+    .hero {
+        min-height: 70vh;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .feedback {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+</style>
 </head>
+
 
 <body>
 
-    <!-- Animated Red Spider Lily Background -->
-    <div class="background"></div>
 
-    <!-- Dark Overlay -->
-    <div class="overlay"></div>
+<!-- =========================
+     GARDEN
+========================= -->
 
-    <!-- Moving Mist -->
-    <div class="mist"></div>
+<div class="garden">
 
-    <!-- Floating Particles -->
-    <div class="particles">
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
+    <!-- Grass -->
+    <div class="grass-layer"></div>
+
+
+    <!-- Grass Blades -->
+
+    <div class="blades">
+
+        <span class="blade"></span>
+        <span class="blade"></span>
+        <span class="blade"></span>
+        <span class="blade"></span>
+        <span class="blade"></span>
+        <span class="blade"></span>
+        <span class="blade"></span>
+        <span class="blade"></span>
+        <span class="blade"></span>
+        <span class="blade"></span>
+        <span class="blade"></span>
+
     </div>
 
 
-    <!-- =========================
-         HEADER
-    ========================== -->
+    <!-- Leaves -->
 
-    <header>
-
-        <h1>TENSEI</h1>
-
-        <nav>
-            <a href="index.html">Home</a>
-
-            <a href="wallpapers.html">
-                Wallpapers
-            </a>
-
-            <a href="#feedback">
-                Feedback
-            </a>
-        </nav>
-
-    </header>
+    <span class="leaf leaf1"></span>
+    <span class="leaf leaf2"></span>
+    <span class="leaf leaf3"></span>
+    <span class="leaf leaf4"></span>
+    <span class="leaf leaf5"></span>
+    <span class="leaf leaf6"></span>
 
 
-    <!-- =========================
-         HERO
-    ========================== -->
+    <!-- =====================
+         SPIDER LILIES
+    ====================== -->
 
-    <section class="hero">
 
-        <h2>
-            Welcome to Tensei
-        </h2>
+    <div class="lily lily1">
 
-        <p>
-            Discover beautiful wallpapers,
-            aesthetic visuals and dark cinematic
-            backgrounds from Tensei.
-        </p>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
 
-        <a
-            href="wallpapers.html"
-            class="button"
-        >
-            Explore Wallpapers
+        <span class="lily-center"></span>
+
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+
+    </div>
+
+
+    <div class="lily lily2">
+
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+
+        <span class="lily-center"></span>
+
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+
+    </div>
+
+
+    <div class="lily lily3">
+
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+
+        <span class="lily-center"></span>
+
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+
+    </div>
+
+
+    <div class="lily lily4">
+
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+
+        <span class="lily-center"></span>
+
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+
+    </div>
+
+
+    <div class="lily lily5">
+
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+
+        <span class="lily-center"></span>
+
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+
+    </div>
+
+
+    <div class="lily lily6">
+
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+
+        <span class="lily-center"></span>
+
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+
+    </div>
+
+
+    <div class="lily lily7">
+
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+        <span class="petal"></span>
+
+        <span class="lily-center"></span>
+
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+        <span class="stamen"></span>
+
+    </div>
+
+
+    <!-- Fog -->
+
+    <div class="fog"></div>
+    <div class="fog fog2"></div>
+
+
+    <!-- Particles -->
+
+    <div class="particles">
+
+        <span class="particle"
+            style="left:5%;--particle-speed:14s;--particle-delay:-3s">
+        </span>
+
+        <span class="particle"
+            style="left:15%;--particle-speed:18s;--particle-delay:-8s">
+        </span>
+
+        <span class="particle"
+            style="left:25%;--particle-speed:13s;--particle-delay:-5s">
+        </span>
+
+        <span class="particle"
+            style="left:35%;--particle-speed:20s;--particle-delay:-10s">
+        </span>
+
+        <span class="particle"
+            style="left:45%;--particle-speed:15s;--particle-delay:-2s">
+        </span>
+
+        <span class="particle"
+            style="left:55%;--particle-speed:17s;--particle-delay:-7s">
+        </span>
+
+        <span class="particle"
+            style="left:65%;--particle-speed:12s;--particle-delay:-4s">
+        </span>
+
+        <span class="particle"
+            style="left:75%;--particle-speed:19s;--particle-delay:-9s">
+        </span>
+
+        <span class="particle"
+            style="left:85%;--particle-speed:14s;--particle-delay:-6s">
+        </span>
+
+        <span class="particle"
+            style="left:95%;--particle-speed:16s;--particle-delay:-11s">
+        </span>
+
+    </div>
+
+
+    <!-- Dark cinematic overlay -->
+
+    <div class="dark-overlay"></div>
+
+</div>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <h1>TENSEI</h1>
+
+    <nav>
+
+        <a href="index.html">
+            Home
         </a>
 
-    </section>
+        <a href="wallpapers.html">
+            Wallpapers
+        </a>
+
+        <a href="#feedback">
+            Feedback
+        </a>
+
+    </nav>
+
+</header>
 
 
-    <!-- =========================
-         FEEDBACK
-    ========================== -->
+<!-- =========================
+     HERO
+========================= -->
 
-    <section
-        class="feedback"
-        id="feedback"
+<section class="hero">
+
+    <h2>
+        Welcome to Tensei
+    </h2>
+
+    <p>
+        Discover beautiful wallpapers,
+        aesthetic visuals and dark cinematic
+        backgrounds from Tensei.
+    </p>
+
+    <a
+        href="wallpapers.html"
+        class="button"
     >
+        Explore Wallpapers
+    </a>
 
-        <h2>
-            Report a Problem
-        </h2>
-
-        <p>
-            Found a broken wallpaper, download
-            link or another website problem?
-            Let us know.
-        </p>
+</section>
 
 
-        <form
-            id="feedbackForm"
+<!-- =========================
+     FEEDBACK
+========================= -->
+
+<section
+    class="feedback"
+    id="feedback"
+>
+
+    <h2>
+        Report a Problem
+    </h2>
+
+    <p>
+        Found a broken wallpaper, download link
+        or another website problem?
+        Let us know.
+    </p>
+
+
+    <form id="feedbackForm">
+
+        <label>
+            Problem Type
+        </label>
+
+        <select
+            id="category"
+            required
         >
 
-            <label for="category">
-                Problem Type
-            </label>
+            <option value="">
+                Select a problem
+            </option>
 
-            <select
-                id="category"
-                required
-            >
+            <option>
+                Broken Download Link
+            </option>
 
-                <option value="">
-                    Select a problem
-                </option>
+            <option>
+                Wallpaper Not Loading
+            </option>
 
-                <option>
-                    Broken Download Link
-                </option>
+            <option>
+                Wrong Resolution
+            </option>
 
-                <option>
-                    Wallpaper Not Loading
-                </option>
+            <option>
+                Low Quality Wallpaper
+            </option>
 
-                <option>
-                    Wrong Resolution
-                </option>
+            <option>
+                Website Bug
+            </option>
 
-                <option>
-                    Low Quality Wallpaper
-                </option>
+            <option>
+                Other Feedback
+            </option>
 
-                <option>
-                    Website Bug
-                </option>
-
-                <option>
-                    Other Feedback
-                </option>
-
-            </select>
+        </select>
 
 
-            <label for="wallpaper">
-                Wallpaper URL (Optional)
-            </label>
+        <label>
+            Wallpaper URL
+            (Optional)
+        </label>
 
-            <input
-                type="text"
-                id="wallpaper"
-                placeholder="Paste wallpaper URL"
-            >
-
-
-            <label for="rating">
-                Rating
-            </label>
-
-            <select id="rating">
-
-                <option value="5">
-                    ⭐⭐⭐⭐⭐
-                </option>
-
-                <option value="4">
-                    ⭐⭐⭐⭐
-                </option>
-
-                <option value="3">
-                    ⭐⭐⭐
-                </option>
-
-                <option value="2">
-                    ⭐⭐
-                </option>
-
-                <option value="1">
-                    ⭐
-                </option>
-
-            </select>
+        <input
+            id="wallpaper"
+            type="text"
+            placeholder="Paste wallpaper URL"
+        >
 
 
-            <label for="message">
-                Message
-            </label>
+        <label>
+            Rating
+        </label>
 
-            <textarea
-                id="message"
-                placeholder="Describe the problem..."
-                required
-            ></textarea>
+        <select id="rating">
 
+            <option value="5">
+                ⭐⭐⭐⭐⭐
+            </option>
 
-            <button
-                type="submit"
-                class="submit-button"
-            >
-                Submit Report
-            </button>
+            <option value="4">
+                ⭐⭐⭐⭐
+            </option>
 
-        </form>
+            <option value="3">
+                ⭐⭐⭐
+            </option>
 
-    </section>
+            <option value="2">
+                ⭐⭐
+            </option>
 
+            <option value="1">
+                ⭐
+            </option>
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer>
-
-        © 2026 Tensei
-        <br>
-        Wallpaper Collection
-
-    </footer>
+        </select>
 
 
-    <!-- =========================
-         GITHUB ISSUE SYSTEM
-    ========================== -->
+        <label>
+            Message
+        </label>
 
-    <script>
-
-        document
-            .getElementById("feedbackForm")
-            .addEventListener("submit", function(event) {
-
-                event.preventDefault();
+        <textarea
+            id="message"
+            placeholder="Describe the problem..."
+            required
+        ></textarea>
 
 
-                const category =
-                    document.getElementById("category").value;
+        <button
+            class="submit-button"
+            type="submit"
+        >
+            Submit Report
+        </button>
+
+    </form>
+
+</section>
 
 
-                const wallpaper =
-                    document.getElementById("wallpaper").value;
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    © 2026 Tensei
+    <br>
+    Wallpaper Collection
+
+</footer>
 
 
-                const rating =
-                    document.getElementById("rating").value;
+<!-- =========================
+     GITHUB REPORT SYSTEM
+========================= -->
+
+<script>
+
+document
+.getElementById("feedbackForm")
+.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const category =
+        document.getElementById("category").value;
+
+    const wallpaper =
+        document.getElementById("wallpaper").value;
+
+    const rating =
+        document.getElementById("rating").value;
+
+    const message =
+        document.getElementById("message").value;
 
 
-                const message =
-                    document.getElementById("message").value;
+    const title =
+        "Website Feedback: " + category;
 
 
-                const title =
-                    "Website Feedback: " + category;
+    const body =
+        "## Tensei Website Feedback\n\n" +
+
+        "**Problem Type:** " +
+        category +
+        "\n\n" +
+
+        "**Wallpaper URL:** " +
+        (wallpaper || "Not provided") +
+        "\n\n" +
+
+        "**Rating:** " +
+        rating +
+        "/5\n\n" +
+
+        "**Message:**\n" +
+        message +
+        "\n\n" +
+
+        "---\n" +
+
+        "Submitted through the Tensei website.";
 
 
-                const body =
-                    "## Tensei Website Feedback\n\n" +
+    const githubURL =
+        "https://github.com/Tensei380/tensei380.github.io/issues/new" +
 
-                    "**Problem Type:** " +
-                    category +
-                    "\n\n" +
+        "?title=" +
+        encodeURIComponent(title) +
 
-                    "**Wallpaper URL:** " +
-                    (wallpaper || "Not provided") +
-                    "\n\n" +
-
-                    "**Rating:** " +
-                    rating +
-                    "/5\n\n" +
-
-                    "**Message:**\n" +
-                    message +
-                    "\n\n" +
-
-                    "---\n" +
-
-                    "Submitted through the Tensei website.";
+        "&body=" +
+        encodeURIComponent(body);
 
 
-                const githubURL =
-                    "https://github.com/Tensei380/tensei380.github.io/issues/new" +
-                    "?title=" +
-                    encodeURIComponent(title) +
-                    "&body=" +
-                    encodeURIComponent(body);
+    window.open(
+        githubURL,
+        "_blank"
+    );
 
+});
 
-                window.open(
-                    githubURL,
-                    "_blank"
-                );
+</script>
 
-            });
-
-    </script>
 
 </body>
-    </html>
+</html>
