@@ -18,14 +18,15 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #0f0f0f;
+            background: #0a0a0a;
             color: white;
             text-align: center;
+            overflow-x: hidden;
         }
 
         /* =========================
            ANIMATED BACKGROUND
-        ========================== */
+        ========================= */
 
         .background {
             position: fixed;
@@ -34,10 +35,10 @@
 
             background-image:
                 linear-gradient(
-                    rgba(0, 0, 0, 0.48),
-                    rgba(0, 0, 0, 0.72)
+                    rgba(0, 0, 0, 0.45),
+                    rgba(0, 0, 0, 0.78)
                 ),
-                url("YOUR_RAW_IMAGE_URL_HERE");
+                url("https://raw.githubusercontent.com/Tensei380/tensei380.github.io/main/wallpapers/Red%20Spider%20Lily_Aesthetic_Dark_Nature.jpeg");
 
             background-size: cover;
             background-position: center;
@@ -49,115 +50,126 @@
         @keyframes backgroundMove {
             0% {
                 transform: scale(1);
+                background-position: center;
             }
 
             100% {
                 transform: scale(1.08);
+                background-position: center top;
             }
         }
 
-
         /* =========================
-           MIST
-        ========================== */
+           DARK OVERLAY
+        ========================= */
 
-        .mist {
+        .overlay {
             position: fixed;
-            inset: -20%;
-            z-index: -5;
+            inset: 0;
+            z-index: -9;
 
             background:
                 radial-gradient(
-                    ellipse at 20% 70%,
-                    rgba(255, 255, 255, 0.08),
-                    transparent 45%
-                ),
-                radial-gradient(
-                    ellipse at 80% 30%,
-                    rgba(255, 255, 255, 0.05),
-                    transparent 45%
+                    circle at center,
+                    rgba(0, 0, 0, 0.05),
+                    rgba(0, 0, 0, 0.45)
                 );
+        }
 
-            filter: blur(30px);
+        /* =========================
+           MIST
+        ========================= */
+
+        .mist {
+            position: fixed;
+            width: 200%;
+            height: 35%;
+            left: -50%;
+            bottom: 5%;
+            z-index: -8;
+
+            background: radial-gradient(
+                ellipse,
+                rgba(255, 255, 255, 0.10),
+                transparent 70%
+            );
+
+            filter: blur(25px);
 
             animation: mistMove 20s ease-in-out infinite alternate;
-
             pointer-events: none;
         }
 
         @keyframes mistMove {
             0% {
-                transform: translateX(-3%) translateY(2%);
+                transform: translateX(-5%) translateY(0);
             }
 
             100% {
-                transform: translateX(3%) translateY(-2%);
+                transform: translateX(5%) translateY(-20px);
             }
         }
 
-
         /* =========================
            FLOATING PARTICLES
-        ========================== */
+        ========================= */
 
         .particles {
             position: fixed;
             inset: 0;
-            z-index: -2;
+            z-index: -7;
             pointer-events: none;
-            overflow: hidden;
         }
 
         .particle {
             position: absolute;
+            width: 4px;
+            height: 4px;
 
-            width: 3px;
-            height: 3px;
-
-            background: rgba(255, 255, 255, 0.55);
+            background: rgba(255, 255, 255, 0.45);
 
             border-radius: 50%;
 
-            animation: float 8s linear infinite;
+            animation: floatParticle 10s linear infinite;
         }
 
         .particle:nth-child(1) {
             left: 10%;
-            top: 80%;
+            bottom: -10px;
             animation-delay: 0s;
         }
 
         .particle:nth-child(2) {
             left: 25%;
-            top: 60%;
+            bottom: -20px;
             animation-delay: 2s;
         }
 
         .particle:nth-child(3) {
-            left: 40%;
-            top: 90%;
+            left: 45%;
+            bottom: -10px;
             animation-delay: 4s;
         }
 
         .particle:nth-child(4) {
-            left: 60%;
-            top: 70%;
+            left: 65%;
+            bottom: -20px;
             animation-delay: 1s;
         }
 
         .particle:nth-child(5) {
-            left: 75%;
-            top: 85%;
+            left: 80%;
+            bottom: -10px;
             animation-delay: 3s;
         }
 
         .particle:nth-child(6) {
             left: 90%;
-            top: 55%;
+            bottom: -20px;
             animation-delay: 5s;
         }
 
-        @keyframes float {
+        @keyframes floatParticle {
             0% {
                 transform: translateY(0);
                 opacity: 0;
@@ -172,32 +184,34 @@
             }
 
             100% {
-                transform: translateY(-180px);
+                transform: translateY(-100vh);
                 opacity: 0;
             }
         }
 
-
         /* =========================
            HEADER
-        ========================== */
+        ========================= */
 
         header {
-            padding: 25px;
+            padding: 22px 20px;
 
-            background: rgba(24, 24, 24, 0.72);
+            background: rgba(10, 10, 10, 0.55);
 
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+
+            position: relative;
+            z-index: 10;
         }
 
         header h1 {
             margin: 0;
 
-            font-size: 32px;
+            font-size: 34px;
 
-            letter-spacing: 4px;
+            letter-spacing: 5px;
         }
 
         nav {
@@ -213,22 +227,19 @@
 
             font-size: 15px;
 
-            transition: 0.2s;
+            transition: 0.3s;
         }
 
         nav a:hover {
-            opacity: 0.7;
+            opacity: 0.65;
         }
-
 
         /* =========================
            HERO
-        ========================== */
+        ========================= */
 
         .hero {
-            min-height: 70vh;
-
-            padding: 100px 20px;
+            min-height: 80vh;
 
             display: flex;
 
@@ -237,32 +248,46 @@
             justify-content: center;
 
             align-items: center;
+
+            padding: 80px 20px;
         }
 
         .hero h2 {
-            font-size: 42px;
+            font-size: clamp(38px, 7vw, 70px);
 
-            margin-bottom: 15px;
+            margin: 0 0 20px;
 
-            animation: fadeUp 1.2s ease;
+            letter-spacing: 2px;
+
+            text-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.9);
         }
 
         .hero p {
             color: #dddddd;
 
-            font-size: 18px;
+            font-size: 19px;
 
-            animation: fadeUp 1.5s ease;
+            max-width: 650px;
+
+            line-height: 1.7;
+
+            text-shadow:
+                0 2px 10px rgba(0, 0, 0, 0.9);
         }
+
+        /* =========================
+           BUTTON
+        ========================= */
 
         .button {
             display: inline-block;
 
-            margin-top: 25px;
+            margin-top: 28px;
 
-            padding: 14px 28px;
+            padding: 14px 30px;
 
-            background: white;
+            background: rgba(255, 255, 255, 0.92);
 
             color: black;
 
@@ -272,7 +297,7 @@
 
             font-weight: bold;
 
-            transition: 0.25s;
+            transition: 0.3s;
         }
 
         .button:hover {
@@ -281,103 +306,85 @@
             opacity: 0.85;
         }
 
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-
-                transform: translateY(25px);
-            }
-
-            to {
-                opacity: 1;
-
-                transform: translateY(0);
-            }
-        }
-
-
         /* =========================
            FEEDBACK SECTION
-        ========================== */
+        ========================= */
 
         .feedback {
-            padding: 70px 20px;
+            max-width: 700px;
 
-            background: rgba(8, 8, 8, 0.78);
+            margin: 40px auto 80px;
 
-            backdrop-filter: blur(5px);
+            padding: 35px 25px;
+
+            background: rgba(0, 0, 0, 0.58);
+
+            backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(255, 255, 255, 0.12);
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, 0.5);
         }
 
-        .feedback-box {
-            max-width: 600px;
-
-            margin: auto;
-
-            background: rgba(24, 24, 24, 0.90);
-
-            padding: 30px;
-
-            border-radius: 14px;
-
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .feedback-box h2 {
+        .feedback h2 {
             margin-top: 0;
 
-            font-size: 28px;
+            font-size: 30px;
         }
 
-        .feedback-box > p {
-            color: #aaaaaa;
+        .feedback p {
+            color: #bbbbbb;
 
             line-height: 1.6;
         }
 
-        .feedback-box label {
-            display: block;
+        .feedback form {
+            margin-top: 25px;
 
             text-align: left;
+        }
 
-            margin-top: 18px;
+        .feedback label {
+            display: block;
 
-            margin-bottom: 7px;
-
-            font-size: 14px;
+            margin: 15px 0 7px;
 
             font-weight: bold;
         }
 
-        .feedback-box input,
-        .feedback-box select,
-        .feedback-box textarea {
+        .feedback input,
+        .feedback select,
+        .feedback textarea {
             width: 100%;
 
             padding: 12px;
 
-            background: #0f0f0f;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            border-radius: 8px;
+
+            background: rgba(255, 255, 255, 0.08);
 
             color: white;
 
-            border: 1px solid #333333;
+            outline: none;
 
-            border-radius: 7px;
-
-            font-family: Arial, sans-serif;
+            font-size: 15px;
         }
 
-        .feedback-box textarea {
+        .feedback select option {
+            background: #181818;
+
+            color: white;
+        }
+
+        .feedback textarea {
             min-height: 120px;
 
             resize: vertical;
-        }
-
-        .feedback-box input:focus,
-        .feedback-box select:focus,
-        .feedback-box textarea:focus {
-            outline: none;
-
-            border-color: #777777;
         }
 
         .submit-button {
@@ -385,61 +392,51 @@
 
             margin-top: 22px;
 
-            padding: 13px;
+            padding: 14px;
 
             border: none;
 
-            border-radius: 7px;
+            border-radius: 8px;
 
             background: white;
 
             color: black;
 
-            font-size: 15px;
-
             font-weight: bold;
+
+            font-size: 15px;
 
             cursor: pointer;
 
-            transition: 0.2s;
+            transition: 0.3s;
         }
 
         .submit-button:hover {
             opacity: 0.8;
-
-            transform: translateY(-1px);
         }
-
-        .note {
-            font-size: 12px !important;
-
-            color: #666666 !important;
-
-            margin-top: 15px;
-        }
-
 
         /* =========================
            FOOTER
-        ========================== */
+        ========================= */
 
         footer {
-            padding: 25px;
+            padding: 25px 20px;
 
-            color: #777777;
+            color: #888888;
 
-            background: rgba(10, 10, 10, 0.85);
+            background: rgba(0, 0, 0, 0.5);
+
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
-
 
         /* =========================
            MOBILE
-        ========================== */
+        ========================= */
 
         @media (max-width: 600px) {
 
             header h1 {
-                font-size: 27px;
+                font-size: 28px;
             }
 
             nav a {
@@ -449,56 +446,56 @@
             }
 
             .hero {
-                padding: 80px 20px;
-            }
+                min-height: 75vh;
 
-            .hero h2 {
-                font-size: 32px;
+                padding: 60px 18px;
             }
 
             .hero p {
                 font-size: 16px;
             }
 
-            .feedback-box {
-                padding: 22px;
+            .feedback {
+                margin: 30px 15px 60px;
+
+                padding: 28px 18px;
             }
         }
     </style>
 </head>
 
-
 <body>
 
-    <!-- Animated Background -->
-
+    <!-- Animated Red Spider Lily Background -->
     <div class="background"></div>
 
+    <!-- Dark Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Moving Mist -->
     <div class="mist"></div>
 
+    <!-- Floating Particles -->
     <div class="particles">
-
         <span class="particle"></span>
         <span class="particle"></span>
         <span class="particle"></span>
         <span class="particle"></span>
         <span class="particle"></span>
         <span class="particle"></span>
-
     </div>
 
 
-    <!-- Header -->
+    <!-- =========================
+         HEADER
+    ========================== -->
 
     <header>
 
         <h1>TENSEI</h1>
 
         <nav>
-
-            <a href="index.html">
-                Home
-            </a>
+            <a href="index.html">Home</a>
 
             <a href="wallpapers.html">
                 Wallpapers
@@ -507,13 +504,14 @@
             <a href="#feedback">
                 Feedback
             </a>
-
         </nav>
 
     </header>
 
 
-    <!-- Hero -->
+    <!-- =========================
+         HERO
+    ========================== -->
 
     <section class="hero">
 
@@ -522,7 +520,9 @@
         </h2>
 
         <p>
-            Discover wallpapers from Tensei.
+            Discover beautiful wallpapers,
+            aesthetic visuals and dark cinematic
+            backgrounds from Tensei.
         </p>
 
         <a
@@ -535,151 +535,149 @@
     </section>
 
 
-    <!-- Feedback & Report -->
+    <!-- =========================
+         FEEDBACK
+    ========================== -->
 
     <section
         class="feedback"
         id="feedback"
     >
 
-        <div class="feedback-box">
+        <h2>
+            Report a Problem
+        </h2>
 
-            <h2>
-                Feedback & Report
-            </h2>
-
-            <p>
-                Found a problem with a wallpaper or the website?
-                Let us know so we can fix it.
-            </p>
-
-
-            <form id="feedbackForm">
-
-                <label for="type">
-                    What would you like to report?
-                </label>
-
-                <select
-                    id="type"
-                    required
-                >
-
-                    <option value="">
-                        Select an option
-                    </option>
-
-                    <option value="Broken Download Link">
-                        Broken Download Link
-                    </option>
-
-                    <option value="Wallpaper Not Loading">
-                        Wallpaper Not Loading
-                    </option>
-
-                    <option value="Wrong Resolution">
-                        Wrong Resolution
-                    </option>
-
-                    <option value="Low Quality Wallpaper">
-                        Low Quality Wallpaper
-                    </option>
-
-                    <option value="Website Bug">
-                        Website Bug
-                    </option>
-
-                    <option value="Other Feedback">
-                        Other Feedback
-                    </option>
-
-                </select>
+        <p>
+            Found a broken wallpaper, download
+            link or another website problem?
+            Let us know.
+        </p>
 
 
-                <label for="wallpaper">
-                    Wallpaper URL (optional)
-                </label>
+        <form
+            id="feedbackForm"
+        >
 
-                <input
-                    type="url"
-                    id="wallpaper"
-                    placeholder="https://..."
-                >
+            <label for="category">
+                Problem Type
+            </label>
 
+            <select
+                id="category"
+                required
+            >
 
-                <label for="rating">
-                    Website Rating
-                </label>
+                <option value="">
+                    Select a problem
+                </option>
 
-                <select id="rating">
+                <option>
+                    Broken Download Link
+                </option>
 
-                    <option value="Not rated">
-                        No rating
-                    </option>
+                <option>
+                    Wallpaper Not Loading
+                </option>
 
-                    <option value="5 Stars">
-                        ⭐⭐⭐⭐⭐
-                    </option>
+                <option>
+                    Wrong Resolution
+                </option>
 
-                    <option value="4 Stars">
-                        ⭐⭐⭐⭐
-                    </option>
+                <option>
+                    Low Quality Wallpaper
+                </option>
 
-                    <option value="3 Stars">
-                        ⭐⭐⭐
-                    </option>
+                <option>
+                    Website Bug
+                </option>
 
-                    <option value="2 Stars">
-                        ⭐⭐
-                    </option>
+                <option>
+                    Other Feedback
+                </option>
 
-                    <option value="1 Star">
-                        ⭐
-                    </option>
-
-                </select>
-
-
-                <label for="message">
-                    Describe the problem or feedback
-                </label>
-
-                <textarea
-                    id="message"
-                    placeholder="Tell us what happened..."
-                    required
-                ></textarea>
+            </select>
 
 
-                <button
-                    type="submit"
-                    class="submit-button"
-                >
-                    Submit Feedback
-                </button>
+            <label for="wallpaper">
+                Wallpaper URL (Optional)
+            </label>
 
-            </form>
+            <input
+                type="text"
+                id="wallpaper"
+                placeholder="Paste wallpaper URL"
+            >
 
 
-            <p class="note">
-                Your feedback will be submitted through GitHub Issues.
-            </p>
+            <label for="rating">
+                Rating
+            </label>
 
-        </div>
+            <select id="rating">
+
+                <option value="5">
+                    ⭐⭐⭐⭐⭐
+                </option>
+
+                <option value="4">
+                    ⭐⭐⭐⭐
+                </option>
+
+                <option value="3">
+                    ⭐⭐⭐
+                </option>
+
+                <option value="2">
+                    ⭐⭐
+                </option>
+
+                <option value="1">
+                    ⭐
+                </option>
+
+            </select>
+
+
+            <label for="message">
+                Message
+            </label>
+
+            <textarea
+                id="message"
+                placeholder="Describe the problem..."
+                required
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="submit-button"
+            >
+                Submit Report
+            </button>
+
+        </form>
 
     </section>
 
 
-    <!-- Footer -->
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
     <footer>
 
         © 2026 Tensei
+        <br>
+        Wallpaper Collection
 
     </footer>
 
 
-    <!-- GitHub Feedback System -->
+    <!-- =========================
+         GITHUB ISSUE SYSTEM
+    ========================== -->
 
     <script>
 
@@ -690,8 +688,8 @@
                 event.preventDefault();
 
 
-                const type =
-                    document.getElementById("type").value;
+                const category =
+                    document.getElementById("category").value;
 
 
                 const wallpaper =
@@ -707,26 +705,31 @@
 
 
                 const title =
-                    "[" + type + "] Tensei Website Feedback";
+                    "Website Feedback: " + category;
 
 
                 const body =
-`## Tensei Website Feedback
+                    "## Tensei Website Feedback\n\n" +
 
-**Report Type:** ${type}
+                    "**Problem Type:** " +
+                    category +
+                    "\n\n" +
 
-**Wallpaper URL:**
-${wallpaper || "Not provided"}
+                    "**Wallpaper URL:** " +
+                    (wallpaper || "Not provided") +
+                    "\n\n" +
 
-**Website Rating:**
-${rating}
+                    "**Rating:** " +
+                    rating +
+                    "/5\n\n" +
 
-**Feedback / Problem:**
-${message}
+                    "**Message:**\n" +
+                    message +
+                    "\n\n" +
 
----
+                    "---\n" +
 
-Thank you for helping improve Tensei.`;
+                    "Submitted through the Tensei website.";
 
 
                 const githubURL =
