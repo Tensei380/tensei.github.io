@@ -1,30 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Tensei Wallpapers</title>
 
-
 <style>
-
-/* =========================
-   BASIC
-========================= */
-
 *{
     box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
 }
 
 body{
@@ -33,11 +17,6 @@ body{
     background:#0f0f0f;
     color:white;
 }
-
-
-/* =========================
-   HEADER
-========================= */
 
 header{
     padding:25px;
@@ -48,7 +27,6 @@ header{
 header h1{
     margin:0;
     font-size:32px;
-    letter-spacing:2px;
 }
 
 nav{
@@ -66,11 +44,6 @@ nav a:hover{
     text-decoration:underline;
 }
 
-
-/* =========================
-   CONTAINER
-========================= */
-
 .container{
     max-width:1200px;
     margin:auto;
@@ -81,11 +54,6 @@ h2{
     text-align:center;
     margin-bottom:25px;
 }
-
-
-/* =========================
-   CONTROLS
-========================= */
 
 .controls{
     display:flex;
@@ -101,7 +69,6 @@ h2{
     border:0;
     border-radius:8px;
     outline:none;
-    font-size:14px;
 }
 
 .filter{
@@ -111,7 +78,6 @@ h2{
     cursor:pointer;
     background:#222;
     color:white;
-    font-weight:bold;
 }
 
 .filter.active,
@@ -120,90 +86,30 @@ h2{
     color:black;
 }
 
-
-/* =========================
-   WALLPAPER GRID
-========================= */
-
 .grid{
     display:grid;
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(240px,1fr)
-        );
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
     gap:22px;
 }
-
-
-/* =========================
-   CARD
-========================= */
 
 .card{
     background:#181818;
     border-radius:12px;
     overflow:hidden;
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
+    transition:.2s;
 }
 
 .card:hover{
     transform:translateY(-4px);
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.35);
 }
 
-
-/* =========================
-   MEDIA
-========================= */
-
-.media-wrap{
-    position:relative;
-}
-
-.card img,
-.card video{
+.card img{
     width:100%;
     height:320px;
     object-fit:contain;
     background:#111;
     display:block;
-    cursor:pointer;
 }
-
-
-/* =========================
-   LIVE BADGE
-========================= */
-
-.live-badge{
-    position:absolute;
-
-    top:10px;
-    left:10px;
-
-    padding:6px 10px;
-
-    border-radius:6px;
-
-    background:white;
-    color:black;
-
-    font-size:11px;
-    font-weight:bold;
-
-    z-index:2;
-
-    pointer-events:none;
-}
-
-
-/* =========================
-   INFO
-========================= */
 
 .info{
     padding:16px;
@@ -220,47 +126,23 @@ h2{
     line-height:1.7;
 }
 
-
-/* =========================
-   CARD BUTTONS
-========================= */
-
-.buttons{
-    display:flex;
-    gap:8px;
+.download{
+    display:block;
+    width:100%;
     margin-top:14px;
-}
-
-.button{
-    flex:1;
     padding:11px;
-    border:0;
+    background:white;
+    color:black;
+    text-align:center;
+    text-decoration:none;
     border-radius:7px;
     font-weight:bold;
     cursor:pointer;
-    text-align:center;
-    text-decoration:none;
-    font-size:14px;
 }
 
-.preview{
-    background:#333;
-    color:white;
-}
-
-.download{
-    background:white;
-    color:black;
-}
-
-.button:hover{
+.download:hover{
     opacity:.8;
 }
-
-
-/* =========================
-   LOADING / EMPTY
-========================= */
 
 .loading,
 .empty{
@@ -270,359 +152,29 @@ h2{
     grid-column:1/-1;
 }
 
-#loadMore{
-    width:100%;
-    text-align:center;
-    padding:30px;
-    color:#aaa;
-    grid-column:1/-1;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
 footer{
     padding:30px;
     text-align:center;
     color:#777;
 }
-
-
-/* =========================
-   FULLSCREEN PREVIEW
-========================= */
-
-.modal{
-    position:fixed;
-    inset:0;
-
-    background:
-        rgba(0,0,0,.94);
-
-    display:none;
-
-    align-items:center;
-    justify-content:center;
-
-    z-index:9999;
-
-    padding:20px;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-content{
-    width:100%;
-    max-width:1100px;
-    max-height:95vh;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:center;
-
-    position:relative;
-
-    overflow:auto;
-}
-
-
-/* =========================
-   PREVIEW MEDIA
-========================= */
-
-.modal-image{
-    max-width:100%;
-    max-height:65vh;
-
-    object-fit:contain;
-
-    border-radius:8px;
-
-    box-shadow:
-        0 0 30px rgba(0,0,0,.8);
-}
-
-
-/* =========================
-   CLOSE BUTTON
-========================= */
-
-.close{
-    position:fixed;
-
-    top:20px;
-    right:20px;
-
-    width:44px;
-    height:44px;
-
-    border:0;
-    border-radius:50%;
-
-    background:white;
-    color:black;
-
-    font-size:26px;
-
-    cursor:pointer;
-
-    z-index:10000;
-}
-
-
-/* =========================
-   PREVIEW INFO
-========================= */
-
-.preview-info{
-    width:100%;
-    max-width:800px;
-
-    margin-top:18px;
-
-    background:#181818;
-
-    padding:18px;
-
-    border-radius:10px;
-}
-
-.preview-title{
-    font-size:20px;
-    font-weight:bold;
-
-    margin-bottom:10px;
-}
-
-
-/* =========================
-   URL BOX
-========================= */
-
-.preview-url{
-    display:flex;
-    gap:8px;
-    margin-top:14px;
-}
-
-.preview-url input{
-    flex:1;
-
-    min-width:0;
-
-    padding:11px;
-
-    border:0;
-    border-radius:7px;
-
-    background:#252525;
-
-    color:#ddd;
-
-    outline:none;
-}
-
-.copy{
-    padding:11px 16px;
-
-    border:0;
-    border-radius:7px;
-
-    background:white;
-
-    color:black;
-
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-
-/* =========================
-   MODAL BUTTONS
-========================= */
-
-.modal-buttons{
-    display:flex;
-
-    gap:10px;
-
-    margin-top:12px;
-}
-
-.modal-buttons a,
-.modal-buttons button{
-
-    padding:11px 18px;
-
-    border:0;
-
-    border-radius:7px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-
-    text-decoration:none;
-}
-
-.modal-download{
-    background:white;
-    color:black;
-}
-
-.modal-close{
-    background:#333;
-    color:white;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px){
-
-    header{
-        padding:20px 15px;
-    }
-
-    header h1{
-        font-size:28px;
-    }
-
-    nav a{
-        margin:0 7px;
-        font-size:14px;
-    }
-
-    .container{
-        padding:30px 12px;
-    }
-
-    .grid{
-        grid-template-columns:
-            repeat(2,1fr);
-
-        gap:12px;
-    }
-
-    .card img,
-    .card video{
-        height:230px;
-    }
-
-    .info{
-        padding:12px;
-    }
-
-    .info h3{
-        font-size:15px;
-    }
-
-    .meta{
-        font-size:12px;
-    }
-
-    .buttons{
-        flex-direction:column;
-    }
-
-    .modal{
-        padding:12px;
-    }
-
-    .modal-image{
-        max-height:55vh;
-    }
-
-    .preview-url{
-        flex-direction:column;
-    }
-
-    .copy{
-        width:100%;
-    }
-
-    .modal-buttons{
-        width:100%;
-        flex-direction:column;
-    }
-
-    .modal-buttons a,
-    .modal-buttons button{
-        width:100%;
-    }
-
-}
-
-
-/* =========================
-   REDUCED MOTION
-========================= */
-
-@media(prefers-reduced-motion:reduce){
-
-    *{
-        scroll-behavior:auto !important;
-        transition:none !important;
-    }
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
-
     <h1>TENSEI</h1>
 
     <nav>
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="wallpapers.html">
-            Wallpapers
-        </a>
-
-        <a href="#">
-            About
-        </a>
-
+        <a href="index.html">Home</a>
+        <a href="wallpapers.html">Wallpapers</a>
+        <a href="#">About</a>
     </nav>
-
 </header>
-
-
-
-<!-- =========================
-     MAIN
-========================= -->
 
 <div class="container">
 
-    <h2>
-        Wallpapers
-    </h2>
-
-
-    <!-- CONTROLS -->
+    <h2>Wallpapers</h2>
 
     <div class="controls">
 
@@ -632,1045 +184,265 @@ footer{
             placeholder="Search wallpapers..."
         >
 
-
-        <button
-            class="filter active"
-            data-cat="all"
-        >
+        <button class="filter active" data-cat="all">
             All
         </button>
 
-
-        <button
-            class="filter"
-            data-cat="anime"
-        >
+        <button class="filter" data-cat="anime">
             Anime
         </button>
 
-
-        <button
-            class="filter"
-            data-cat="aesthetic"
-        >
+        <button class="filter" data-cat="aesthetic">
             Aesthetic
         </button>
 
-
-        <button
-            class="filter"
-            data-cat="dark"
-        >
+        <button class="filter" data-cat="dark">
             Dark
         </button>
 
-
-        <button
-            class="filter"
-            data-cat="gaming"
-        >
+        <button class="filter" data-cat="gaming">
             Gaming
         </button>
 
-
-        <button
-            class="filter"
-            data-cat="nature"
-        >
+        <button class="filter" data-cat="nature">
             Nature
         </button>
 
-
-        <button
-            class="filter"
-            data-cat="live"
-        >
-            Live
-        </button>
-
     </div>
 
-
-
-    <!-- WALLPAPER GRID -->
-
-    <div
-        id="grid"
-        class="grid"
-    >
-
+    <div id="grid" class="grid">
         <div class="loading">
             Loading wallpapers...
         </div>
-
     </div>
 
 </div>
-
-
-
-<!-- =========================
-     FOOTER
-========================= -->
 
 <footer>
-
     © 2026 Tensei
-
 </footer>
-
-
-
-<!-- =========================
-     PREVIEW MODAL
-========================= -->
-
-<div
-    id="modal"
-    class="modal"
->
-
-    <div class="modal-content">
-
-
-        <!-- CLOSE -->
-
-        <button
-            id="closeModal"
-            class="close"
-            aria-label="Close preview"
-        >
-            ×
-        </button>
-
-
-
-        <!-- IMAGE -->
-
-        <img
-            id="modalImage"
-            class="modal-image"
-            src=""
-            alt=""
-        >
-
-
-        <!-- LIVE VIDEO -->
-
-        <video
-            id="modalVideo"
-            class="modal-image"
-            controls
-            loop
-            playsinline
-            style="display:none;"
-        ></video>
-
-
-
-        <!-- INFORMATION -->
-
-        <div class="preview-info">
-
-
-            <div
-                id="modalTitle"
-                class="preview-title"
-            >
-                Wallpaper
-            </div>
-
-
-            <div
-                id="modalMeta"
-                class="meta"
-            ></div>
-
-
-
-            <!-- INDIVIDUAL URL -->
-
-            <div class="preview-url">
-
-                <input
-                    id="imageUrl"
-                    type="text"
-                    readonly
-                >
-
-
-                <button
-                    id="copyUrl"
-                    class="copy"
-                >
-                    Copy URL
-                </button>
-
-            </div>
-
-
-
-            <!-- ACTIONS -->
-
-            <div class="modal-buttons">
-
-
-                <a
-                    id="modalDownload"
-                    class="modal-download"
-                    href=""
-                    download
-                >
-                    Download
-                </a>
-
-
-                <button
-                    id="modalCloseButton"
-                    class="modal-close"
-                >
-                    Close
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
 
 <script>
 
-
-/* =========================
-   GITHUB API
-========================= */
-
 const API =
-"https://api.github.com/repos/Tensei380/tensei380.github.io/contents/wallpapers";
-
-
-/* =========================
-   CATEGORIES
-========================= */
+"https://api.github.com/repos/Tensei380/Tensei380.github.io/contents/wallpapers";
 
 const categories = [
-
     "anime",
     "aesthetic",
     "dark",
     "gaming",
-    "nature",
-    "live"
-
+    "nature"
 ];
 
-
-/* =========================
-   VARIABLES
-========================= */
-
 let wallpapers = [];
-
 let selectedCategory = "all";
 
-const batchSize = 12;
-
-let displayedCount = 0;
-
-let isLoadingBatch = false;
-
-
-/* =========================
-   CLEAN TITLE
-========================= */
 
 function cleanTitle(filename){
 
-    let name =
-        filename.replace(
-            /\.[^/.]+$/,
-            ""
-        );
+    let name = filename.replace(/\.[^/.]+$/,"");
 
-
-    name =
-        name
+    name = name
+        .replace(/[_-]/g," ")
         .replace(
-            /[_-]/g,
-            " "
-        )
-        .replace(
-            /\b(anime|aesthetic|dark|gaming|nature|live)\b/gi,
+            /\b(anime|aesthetic|dark|gaming|nature)\b/gi,
             ""
         )
-        .replace(
-            /\s+/g,
-            " "
-        )
+        .replace(/\s+/g," ")
         .trim();
 
-
     return name
-        .replace(
-            /\b\w/g,
-            c => c.toUpperCase()
-        )
+        .replace(/\b\w/g,c=>c.toUpperCase())
         || "Wallpaper";
-
 }
 
-
-/* =========================
-   GET CATEGORIES
-========================= */
 
 function getCategories(filename){
 
-    const lower =
-        filename.toLowerCase();
+    const lower = filename.toLowerCase();
 
-
-    const result =
-        categories.filter(
-            cat =>
-
-                new RegExp(
-                    "(^|[_\\-\\s])" +
-                    cat +
-                    "([_\\-\\s.]|$)",
-                    "i"
-                ).test(lower)
-
-        );
-
-
-    /* VIDEO = LIVE */
-
-    if(
-        /\.(mp4|webm|mov)$/i.test(
-            filename
-        )
-        &&
-        !result.includes("live")
-    ){
-
-        result.push(
-            "live"
-        );
-
-    }
-
-
-    return result;
-
+    return categories.filter(cat =>
+        new RegExp(
+            "(^|[_\\-\\s])" +
+            cat +
+            "([_\\-\\s.]|$)",
+            "i"
+        ).test(lower)
+    );
 }
 
 
-/* =========================
-   GET FORMAT
-========================= */
-
 function getFormat(filename){
 
-    const match =
-        filename.match(
-            /\.([^.]+)$/
-        );
-
+    const match = filename.match(/\.([^.]+)$/);
 
     return match
         ? match[1].toUpperCase()
         : "IMAGE";
-
 }
 
-
-/* =========================
-   IS LIVE WALLPAPER
-========================= */
-
-function isLiveWallpaper(file){
-
-    return (
-
-        file.type === "live"
-
-        ||
-
-        /\.(mp4|webm|mov)$/i.test(
-            file.name
-        )
-
-    );
-
-}
-
-
-/* =========================
-   CREATE CARD
-========================= */
 
 function createCard(file){
 
-    const live =
-        isLiveWallpaper(
-            file
-        );
+    const imageUrl =
+        "wallpapers/" + encodeURIComponent(file.name);
 
+    const card = document.createElement("div");
+    card.className = "card";
 
-    const mediaUrl =
-        file.url
-        ||
-        (
-            "wallpapers/" +
-            encodeURIComponent(
-                file.name
-            )
-        );
 
+    const img = document.createElement("img");
 
-    const card =
-        document.createElement(
-            "div"
-        );
+    img.src = imageUrl;
+    img.alt = cleanTitle(file.name);
+    img.loading = "lazy";
 
-    card.className =
-        "card";
 
+    const info = document.createElement("div");
+    info.className = "info";
 
-    /* MEDIA WRAPPER */
 
-    const mediaWrap =
-        document.createElement(
-            "div"
-        );
-
-    mediaWrap.className =
-        "media-wrap";
-
-
-    /* =========================
-       LIVE VIDEO
-    ========================= */
-
-    if(live){
-
-        const video =
-            document.createElement(
-                "video"
-            );
-
-
-        video.src =
-            mediaUrl;
-
-
-        video.muted =
-            true;
-
-
-        video.autoplay =
-            true;
-
-
-        video.loop =
-            true;
-
-
-        video.playsInline =
-            true;
-
-
-        video.preload =
-            "metadata";
-
-
-        video.addEventListener(
-            "click",
-            () => {
-
-                openPreview(
-                    file,
-                    mediaUrl
-                );
-
-            }
-        );
-
-
-        /* LIVE BADGE */
-
-        const badge =
-            document.createElement(
-                "div"
-            );
-
-
-        badge.className =
-            "live-badge";
-
-
-        badge.textContent =
-            "▶ LIVE";
-
-
-        mediaWrap.appendChild(
-            badge
-        );
-
-
-        mediaWrap.appendChild(
-            video
-        );
-
-
-    }else{
-
-
-        /* =========================
-           STATIC IMAGE
-        ========================= */
-
-        const img =
-            document.createElement(
-                "img"
-            );
-
-
-        img.src =
-            mediaUrl;
-
-
-        img.alt =
-            cleanTitle(
-                file.name
-            );
-
-
-        img.loading =
-            "lazy";
-
-
-        img.addEventListener(
-            "click",
-            () => {
-
-                openPreview(
-                    file,
-                    mediaUrl
-                );
-
-            }
-        );
-
-
-        mediaWrap.appendChild(
-            img
-        );
-
-    }
-
-
-    /* =========================
-       INFO
-    ========================= */
-
-    const info =
-        document.createElement(
-            "div"
-        );
-
-    info.className =
-        "info";
-
-
-    /* TITLE */
-
-    const title =
-        document.createElement(
-            "h3"
-        );
-
+    const title = document.createElement("h3");
 
     title.textContent =
-        cleanTitle(
-            file.name
-        );
+        cleanTitle(file.name);
 
 
-    /* META */
+    const meta = document.createElement("div");
 
-    const meta =
-        document.createElement(
-            "div"
-        );
-
-
-    meta.className =
-        "meta";
+    meta.className = "meta";
 
 
     const cats =
-        getCategories(
-            file.name
-        );
+        getCategories(file.name);
 
 
     meta.textContent =
         "Category: " +
-
-        (
-            cats.length
+        (cats.length
             ? cats.join(" • ")
-            : "Wallpaper"
-        )
-
-        +
-
+            : "Wallpaper") +
         " | Format: " +
+        getFormat(file.name);
 
-        getFormat(
-            file.name
-        );
-
-
-    /* RESOLUTION */
 
     const resolution =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
 
-    if(!live){
+    img.onload = () => {
 
-        const img =
-            mediaWrap.querySelector(
-                "img"
-            );
+        resolution.textContent =
+            "Resolution: " +
+            img.naturalWidth +
+            " × " +
+            img.naturalHeight;
 
+        meta.appendChild(resolution);
+    };
 
-        img.onload =
-            () => {
-
-                resolution.textContent =
-                    "Resolution: " +
-
-                    img.naturalWidth +
-
-                    " × " +
-
-                    img.naturalHeight;
-
-
-                if(
-                    !resolution.parentNode
-                ){
-
-                    meta.appendChild(
-                        resolution
-                    );
-
-                }
-
-            };
-
-    }else{
-
-        const video =
-            mediaWrap.querySelector(
-                "video"
-            );
-
-
-        video.addEventListener(
-            "loadedmetadata",
-            () => {
-
-                resolution.textContent =
-                    "Resolution: " +
-
-                    video.videoWidth +
-
-                    " × " +
-
-                    video.videoHeight;
-
-
-                if(
-                    !resolution.parentNode
-                ){
-
-                    meta.appendChild(
-                        resolution
-                    );
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* =========================
-       BUTTONS
-    ========================= */
-
-    const buttons =
-        document.createElement(
-            "div"
-        );
-
-
-    buttons.className =
-        "buttons";
-
-
-    /* PREVIEW */
-
-    const preview =
-        document.createElement(
-            "button"
-        );
-
-
-    preview.className =
-        "button preview";
-
-
-    preview.textContent =
-        live
-        ? "▶ Preview"
-        : "Preview";
-
-
-    preview.addEventListener(
-        "click",
-        () => {
-
-            openPreview(
-                file,
-                mediaUrl
-            );
-
-        }
-    );
-
-
-    /* DOWNLOAD */
 
     const download =
-        document.createElement(
-            "a"
-        );
+        document.createElement("a");
+
+    download.className = "download";
+
+    download.href = imageUrl;
+
+    download.download = file.name;
+
+    download.textContent = "Download";
 
 
-    download.className =
-        "button download";
+    info.appendChild(title);
+    info.appendChild(meta);
+    info.appendChild(download);
 
-
-    download.href =
-        mediaUrl;
-
-
-    download.download =
-        file.name;
-
-
-    download.textContent =
-        "Download";
-
-
-    buttons.appendChild(
-        preview
-    );
-
-
-    buttons.appendChild(
-        download
-    );
-
-
-    /* ADD INFO */
-
-    info.appendChild(
-        title
-    );
-
-
-    info.appendChild(
-        meta
-    );
-
-
-    info.appendChild(
-        buttons
-    );
-
-
-    /* ADD CARD */
-
-    card.appendChild(
-        mediaWrap
-    );
-
-
-    card.appendChild(
-        info
-    );
+    card.appendChild(img);
+    card.appendChild(info);
 
 
     return card;
-
 }
 
 
-/* =========================
-   FILTER WALLPAPERS
-========================= */
+function displayWallpapers(){
 
-function getFilteredWallpapers(){
+    const grid =
+        document.getElementById("grid");
 
     const search =
         document
-        .getElementById(
-            "search"
-        )
-        .value
-        .toLowerCase()
-        .trim();
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
 
 
-    return wallpapers.filter(
-        file => {
+    grid.innerHTML = "";
+
+
+    const filtered =
+        wallpapers.filter(file => {
 
             const title =
-                cleanTitle(
-                    file.name
-                )
-                .toLowerCase();
-
+                cleanTitle(file.name)
+                    .toLowerCase();
 
             const cats =
-                getCategories(
-                    file.name
-                );
+                getCategories(file.name);
 
 
             const searchMatch =
                 !search ||
-                title.includes(
-                    search
-                );
+                title.includes(search);
 
 
             const categoryMatch =
-                selectedCategory ===
-                "all"
-
-                ||
-
-                cats.includes(
-                    selectedCategory
-                );
+                selectedCategory === "all" ||
+                cats.includes(selectedCategory);
 
 
-            return (
-                searchMatch &&
-                categoryMatch
-            );
-
-        }
-    );
-
-}
+            return searchMatch &&
+                   categoryMatch;
+        });
 
 
-/* =========================
-   RENDER BATCH
-========================= */
+    if(!filtered.length){
 
-function renderNextBatch(){
-
-    if(isLoadingBatch){
-        return;
-    }
-
-    const filtered =
-        getFilteredWallpapers();
-
-    if(
-        displayedCount >=
-        filtered.length
-    ){
-        return;
-    }
-
-    isLoadingBatch = true;
-
-    const grid =
-        document.getElementById(
-            "grid"
-        );
-
-    const end =
-        Math.min(
-            displayedCount + batchSize,
-            filtered.length
-        );
-
-    for(
-        let i = displayedCount;
-        i < end;
-        i++
-    ){
-
-        grid.appendChild(
-            createCard(
-                filtered[i]
-            )
-        );
-
-    }
-
-    displayedCount = end;
-
-    isLoadingBatch = false;
-
-    updateLoadMore();
-
-}
-
-
-/* =========================
-   LOAD MORE MESSAGE
-========================= */
-
-function updateLoadMore(){
-
-    const grid =
-        document.getElementById(
-            "grid"
-        );
-
-    const old =
-        document.getElementById(
-            "loadMore"
-        );
-
-    if(old){
-        old.remove();
-    }
-
-
-    const filtered =
-        getFilteredWallpapers();
-
-
-    if(
-        displayedCount <
-        filtered.length
-    ){
-
-        const loadMore =
-            document.createElement(
-                "div"
-            );
-
-        loadMore.id =
-            "loadMore";
-
-        loadMore.textContent =
-            "Scroll down to load more...";
-
-        grid.appendChild(
-            loadMore
-        );
-
-    }
-
-}
-
-
-/* =========================
-   RESET & RENDER
-========================= */
-
-function resetAndRender(){
-
-    const grid =
-        document.getElementById(
-            "grid"
-        );
-
-    grid.innerHTML = "";
-
-    displayedCount = 0;
-
-    isLoadingBatch = false;
-
-
-    const filtered =
-        getFilteredWallpapers();
-
-
-    if(
-        filtered.length === 0
-    ){
-
-        const empty =
-            document.createElement(
-                "div"
-            );
-
-        empty.className =
-            "empty";
-
-        empty.textContent =
-            "No wallpapers found.";
-
-        grid.appendChild(
-            empty
-        );
+        grid.innerHTML =
+            '<div class="empty">' +
+            'No wallpapers found.' +
+            '</div>';
 
         return;
-
     }
 
 
-    renderNextBatch();
+    filtered.forEach(file => {
 
+        grid.appendChild(
+            createCard(file)
+        );
+
+    });
 }
 
-
-/* =========================
-   LOAD WALLPAPERS
-========================= */
 
 async function loadWallpapers(){
 
     const grid =
-        document.getElementById(
-            "grid"
-        );
+        document.getElementById("grid");
 
 
     try{
 
         const response =
-            await fetch(
-                API
-            );
+            await fetch(API);
 
 
-        if(
-            !response.ok
-        ){
+        if(!response.ok){
 
             throw new Error(
                 "GitHub API error"
@@ -1684,518 +456,65 @@ async function loadWallpapers(){
 
 
         wallpapers =
-            files.filter(
-                file => {
-
-                    return (
-                        file.type === "file" &&
-                        /\.(jpg|jpeg|png|webp|gif|mp4|webm|mov)$/i
-                        .test(file.name)
-                    );
-
-                }
+            files.filter(file =>
+                file.type === "file" &&
+                /\.(jpg|jpeg|png|webp|gif)$/i
+                    .test(file.name)
             );
 
 
-        if(
-            wallpapers.length === 0
-        ){
-
-            grid.innerHTML =
-                `
-                <div class="empty">
-                    No wallpapers available.
-                </div>
-                `;
-
-            return;
-
-        }
-
-
-        resetAndRender();
+        displayWallpapers();
 
 
     }catch(error){
 
-        console.error(
-            error
-        );
+        console.error(error);
 
 
         grid.innerHTML =
-            `
-            <div class="empty">
-                Failed to load wallpapers.
-                <br><br>
-                Please try again later.
-            </div>
-            `;
-
+            '<div class="empty">' +
+            'Unable to load wallpapers.' +
+            '</div>';
     }
-
 }
 
 
-/* =========================
-   PREVIEW MODAL
-========================= */
-
-function openPreview(
-    file,
-    mediaUrl
-){
-
-    const modal =
-        document.getElementById(
-            "modal"
-        );
-
-    const modalImage =
-        document.getElementById(
-            "modalImage"
-        );
-
-    const modalVideo =
-        document.getElementById(
-            "modalVideo"
-        );
-
-    const modalTitle =
-        document.getElementById(
-            "modalTitle"
-        );
-
-    const modalMeta =
-        document.getElementById(
-            "modalMeta"
-        );
-
-    const imageUrl =
-        document.getElementById(
-            "imageUrl"
-        );
-
-    const modalDownload =
-        document.getElementById(
-            "modalDownload"
-        );
-
-
-    const live =
-        isLiveWallpaper(
-            file
-        );
-
-
-    /* TITLE */
-
-    modalTitle.textContent =
-        cleanTitle(
-            file.name
-        );
-
-
-    /* URL */
-
-    imageUrl.value =
-        mediaUrl;
-
-
-    /* DOWNLOAD */
-
-    modalDownload.href =
-        mediaUrl;
-
-    modalDownload.download =
-        file.name;
-
-
-    /* META */
-
-    modalMeta.textContent =
-        "Format: " +
-        getFormat(
-            file.name
-        );
-
-
-    /* =========================
-       STATIC IMAGE
-    ========================= */
-
-    if(!live){
-
-        modalVideo.pause();
-
-        modalVideo.removeAttribute(
-            "src"
-        );
-
-        modalVideo.load();
-
-        modalVideo.style.display =
-            "none";
-
-
-        modalImage.src =
-            mediaUrl;
-
-        modalImage.alt =
-            cleanTitle(
-                file.name
-            );
-
-        modalImage.style.display =
-            "block";
-
-
-        modalImage.onload =
-            () => {
-
-                modalMeta.textContent =
-                    "Format: " +
-                    getFormat(
-                        file.name
-                    ) +
-                    " | Resolution: " +
-                    modalImage.naturalWidth +
-                    " × " +
-                    modalImage.naturalHeight;
-
-            };
-
-    }
-
-
-    /* =========================
-       LIVE VIDEO
-    ========================= */
-
-    else{
-
-        modalImage.style.display =
-            "none";
-
-        modalImage.src =
-            "";
-
-
-        modalVideo.style.display =
-            "block";
-
-
-        modalVideo.src =
-            mediaUrl;
-
-
-        modalVideo.muted =
-            true;
-
-        modalVideo.loop =
-            true;
-
-        modalVideo.playsInline =
-            true;
-
-
-        modalVideo.play()
-            .catch(
-                () => {}
-            );
-
-
-        modalVideo.onloadedmetadata =
-            () => {
-
-                modalMeta.textContent =
-                    "LIVE Wallpaper | " +
-                    "Format: " +
-                    getFormat(
-                        file.name
-                    ) +
-                    " | Resolution: " +
-                    modalVideo.videoWidth +
-                    " × " +
-                    modalVideo.videoHeight;
-
-            };
-
-    }
-
-
-    modal.classList.add(
-        "show"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-/* =========================
-   CLOSE MODAL
-========================= */
-
-function closePreview(){
-
-    const modal =
-        document.getElementById(
-            "modal"
-        );
-
-    const modalVideo =
-        document.getElementById(
-            "modalVideo"
-        );
-
-    modalVideo.pause();
-
-    modalVideo.removeAttribute(
-        "src"
-    );
-
-    modalVideo.load();
-
-
-    modal.classList.remove(
-        "show"
-    );
-
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-/* =========================
-   COPY URL
-========================= */
-
 document
-.getElementById(
-    "copyUrl"
-)
-.addEventListener(
-    "click",
-    async function(){
-
-        const input =
-            document.getElementById(
-                "imageUrl"
-            );
-
-
-        try{
-
-            await navigator.clipboard.writeText(
-                input.value
-            );
-
-
-            this.textContent =
-                "Copied!";
-
-
-            setTimeout(
-                () => {
-
-                    this.textContent =
-                        "Copy URL";
-
-                },
-                1500
-            );
-
-
-        }catch(error){
-
-            input.select();
-
-            document.execCommand(
-                "copy"
-            );
-
-
-            this.textContent =
-                "Copied!";
-
-
-            setTimeout(
-                () => {
-
-                    this.textContent =
-                        "Copy URL";
-
-                },
-                1500
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================
-   CLOSE EVENTS
-========================= */
-
-document
-.getElementById(
-    "closeModal"
-)
-.addEventListener(
-    "click",
-    closePreview
-);
-
-
-document
-.getElementById(
-    "modalCloseButton"
-)
-.addEventListener(
-    "click",
-    closePreview
-);
-
-
-document
-.getElementById(
-    "modal"
-)
-.addEventListener(
-    "click",
-    function(event){
-
-        if(
-            event.target === this
-        ){
-
-            closePreview();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   ESCAPE KEY
-========================= */
-
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(
-            event.key === "Escape"
-        ){
-
-            closePreview();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   CATEGORY FILTER
-========================= */
-
-document
-.querySelectorAll(
-    ".filter"
-)
-.forEach(
-    button => {
+    .querySelectorAll(".filter")
+    .forEach(button => {
 
         button.addEventListener(
             "click",
-            function(){
+            () => {
 
                 document
-                .querySelectorAll(
-                    ".filter"
-                )
-                .forEach(
-                    btn => {
-
-                        btn.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
+                    .querySelectorAll(".filter")
+                    .forEach(b =>
+                        b.classList.remove("active")
+                    );
 
 
-                this.classList.add(
-                    "active"
-                );
+                button.classList.add("active");
 
 
                 selectedCategory =
-                    this.dataset.cat;
+                    button.dataset.cat;
 
 
-                resetAndRender();
-
+                displayWallpapers();
             }
         );
 
-    }
-);
+    });
 
-
-/* =========================
-   SEARCH
-========================= */
 
 document
-.getElementById(
-    "search"
-)
-.addEventListener(
-    "input",
-    function(){
+    .getElementById("search")
+    .addEventListener(
+        "input",
+        displayWallpapers
+    );
 
-        resetAndRender();
-
-    }
-);
-
-
-/* =========================
-   INFINITE SCROLL
-========================= */
-
-window.addEventListener(
-    "scroll",
-    function(){
-
-        if(
-            window.innerHeight +
-            window.scrollY >=
-            document.documentElement.scrollHeight -
-            500
-        ){
-
-            renderNextBatch();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   START
-========================= */
 
 loadWallpapers();
 
