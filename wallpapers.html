@@ -157,16 +157,47 @@ h2{
 
 
 /* =========================
-   WALLPAPER IMAGE
+   MEDIA
 ========================= */
 
-.card img{
+.media-wrap{
+    position:relative;
+}
+
+.card img,
+.card video{
     width:100%;
     height:320px;
     object-fit:contain;
     background:#111;
     display:block;
     cursor:pointer;
+}
+
+
+/* =========================
+   LIVE BADGE
+========================= */
+
+.live-badge{
+    position:absolute;
+
+    top:10px;
+    left:10px;
+
+    padding:6px 10px;
+
+    border-radius:6px;
+
+    background:white;
+    color:black;
+
+    font-size:11px;
+    font-weight:bold;
+
+    z-index:2;
+
+    pointer-events:none;
 }
 
 
@@ -301,7 +332,7 @@ footer{
 
 
 /* =========================
-   PREVIEW IMAGE
+   PREVIEW MEDIA
 ========================= */
 
 .modal-image{
@@ -481,7 +512,8 @@ footer{
         gap:12px;
     }
 
-    .card img{
+    .card img,
+    .card video{
         height:230px;
     }
 
@@ -648,6 +680,14 @@ footer{
             Nature
         </button>
 
+
+        <button
+            class="filter"
+            data-cat="live"
+        >
+            Live
+        </button>
+
     </div>
 
 
@@ -713,6 +753,18 @@ footer{
             src=""
             alt=""
         >
+
+
+        <!-- LIVE VIDEO -->
+
+        <video
+            id="modalVideo"
+            class="modal-image"
+            controls
+            loop
+            playsinline
+            style="display:none;"
+        ></video>
 
 
 
@@ -811,7 +863,8 @@ const categories = [
     "aesthetic",
     "dark",
     "gaming",
-    "nature"
+    "nature",
+    "live"
 
 ];
 
@@ -851,7 +904,7 @@ function cleanTitle(filename){
             " "
         )
         .replace(
-            /\b(anime|aesthetic|dark|gaming|nature)\b/gi,
+            /\b(anime|aesthetic|dark|gaming|nature|live)\b/gi,
             ""
         )
         .replace(
@@ -881,17 +934,38 @@ function getCategories(filename){
         filename.toLowerCase();
 
 
-    return categories.filter(
-        cat =>
+    const result =
+        categories.filter(
+            cat =>
 
-            new RegExp(
-                "(^|[_\\-\\s])" +
-                cat +
-                "([_\\-\\s.]|$)",
-                "i"
-            ).test(lower)
+                new RegExp(
+                    "(^|[_\\-\\s])" +
+                    cat +
+                    "([_\\-\\s.]|$)",
+                    "i"
+                ).test(lower)
 
-    );
+        );
+
+
+    /* VIDEO = LIVE */
+
+    if(
+        /\.(mp4|webm|mov)$/i.test(
+            filename
+        )
+        &&
+        !result.includes("live")
+    ){
+
+        result.push(
+            "live"
+        );
+
+    }
+
+
+    return result;
 
 }
 
@@ -916,15 +990,46 @@ function getFormat(filename){
 
 
 /* =========================
+   IS LIVE WALLPAPER
+========================= */
+
+function isLiveWallpaper(file){
+
+    return (
+
+        file.type === "live"
+
+        ||
+
+        /\.(mp4|webm|mov)$/i.test(
+            file.name
+        )
+
+    );
+
+}
+
+
+/* =========================
    CREATE CARD
 ========================= */
 
 function createCard(file){
 
-    const imageUrl =
-        "wallpapers/" +
-        encodeURIComponent(
-            file.name
+    const live =
+        isLiveWallpaper(
+            file
+        );
+
+
+    const mediaUrl =
+        file.url
+        ||
+        (
+            "wallpapers/" +
+            encodeURIComponent(
+                file.name
+            )
         );
 
 
@@ -937,44 +1042,142 @@ function createCard(file){
         "card";
 
 
-    /* IMAGE */
+    /* MEDIA WRAPPER */
 
-    const img =
+    const mediaWrap =
         document.createElement(
-            "img"
+            "div"
         );
 
-
-    img.src =
-        imageUrl;
-
-
-    img.alt =
-        cleanTitle(
-            file.name
-        );
+    mediaWrap.className =
+        "media-wrap";
 
 
-    img.loading =
-        "lazy";
+    /* =========================
+       LIVE VIDEO
+    ========================= */
 
+    if(live){
 
-    /* PREVIEW */
-
-    img.addEventListener(
-        "click",
-        () => {
-
-            openPreview(
-                file,
-                imageUrl
+        const video =
+            document.createElement(
+                "video"
             );
 
-        }
-    );
+
+        video.src =
+            mediaUrl;
 
 
-    /* INFO */
+        video.muted =
+            true;
+
+
+        video.autoplay =
+            true;
+
+
+        video.loop =
+            true;
+
+
+        video.playsInline =
+            true;
+
+
+        video.preload =
+            "metadata";
+
+
+        video.addEventListener(
+            "click",
+            () => {
+
+                openPreview(
+                    file,
+                    mediaUrl
+                );
+
+            }
+        );
+
+
+        /* LIVE BADGE */
+
+        const badge =
+            document.createElement(
+                "div"
+            );
+
+
+        badge.className =
+            "live-badge";
+
+
+        badge.textContent =
+            "▶ LIVE";
+
+
+        mediaWrap.appendChild(
+            badge
+        );
+
+
+        mediaWrap.appendChild(
+            video
+        );
+
+
+    }else{
+
+
+        /* =========================
+           STATIC IMAGE
+        ========================= */
+
+        const img =
+            document.createElement(
+                "img"
+            );
+
+
+        img.src =
+            mediaUrl;
+
+
+        img.alt =
+            cleanTitle(
+                file.name
+            );
+
+
+        img.loading =
+            "lazy";
+
+
+        img.addEventListener(
+            "click",
+            () => {
+
+                openPreview(
+                    file,
+                    mediaUrl
+                );
+
+            }
+        );
+
+
+        mediaWrap.appendChild(
+            img
+        );
+
+    }
+
+
+    /* =========================
+       INFO
+    ========================= */
 
     const info =
         document.createElement(
@@ -1005,6 +1208,7 @@ function createCard(file){
         document.createElement(
             "div"
         );
+
 
     meta.className =
         "meta";
@@ -1042,38 +1246,92 @@ function createCard(file){
         );
 
 
-    img.onload =
-        () => {
+    if(!live){
 
-            resolution.textContent =
-                "Resolution: " +
-
-                img.naturalWidth +
-
-                " × " +
-
-                img.naturalHeight;
-
-
-            meta.appendChild(
-                resolution
+        const img =
+            mediaWrap.querySelector(
+                "img"
             );
 
-        };
+
+        img.onload =
+            () => {
+
+                resolution.textContent =
+                    "Resolution: " +
+
+                    img.naturalWidth +
+
+                    " × " +
+
+                    img.naturalHeight;
 
 
-    /* BUTTONS */
+                if(
+                    !resolution.parentNode
+                ){
+
+                    meta.appendChild(
+                        resolution
+                    );
+
+                }
+
+            };
+
+    }else{
+
+        const video =
+            mediaWrap.querySelector(
+                "video"
+            );
+
+
+        video.addEventListener(
+            "loadedmetadata",
+            () => {
+
+                resolution.textContent =
+                    "Resolution: " +
+
+                    video.videoWidth +
+
+                    " × " +
+
+                    video.videoHeight;
+
+
+                if(
+                    !resolution.parentNode
+                ){
+
+                    meta.appendChild(
+                        resolution
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       BUTTONS
+    ========================= */
 
     const buttons =
         document.createElement(
             "div"
         );
 
+
     buttons.className =
         "buttons";
 
 
-    /* PREVIEW BUTTON */
+    /* PREVIEW */
 
     const preview =
         document.createElement(
@@ -1086,7 +1344,9 @@ function createCard(file){
 
 
     preview.textContent =
-        "Preview";
+        live
+        ? "▶ Preview"
+        : "Preview";
 
 
     preview.addEventListener(
@@ -1095,7 +1355,7 @@ function createCard(file){
 
             openPreview(
                 file,
-                imageUrl
+                mediaUrl
             );
 
         }
@@ -1115,7 +1375,7 @@ function createCard(file){
 
 
     download.href =
-        imageUrl;
+        mediaUrl;
 
 
     download.download =
@@ -1136,7 +1396,7 @@ function createCard(file){
     );
 
 
-    /* ADD */
+    /* ADD INFO */
 
     info.appendChild(
         title
@@ -1153,8 +1413,10 @@ function createCard(file){
     );
 
 
+    /* ADD CARD */
+
     card.appendChild(
-        img
+        mediaWrap
     );
 
 
@@ -1209,7 +1471,9 @@ function getFilteredWallpapers(){
 
             const categoryMatch =
                 selectedCategory ===
-                "all" ||
+                "all"
+
+                ||
 
                 cats.includes(
                     selectedCategory
@@ -1217,6 +1481,7 @@ function getFilteredWallpapers(){
 
 
             return (
+               return (
                 searchMatch &&
                 categoryMatch
             );
@@ -1228,83 +1493,76 @@ function getFilteredWallpapers(){
 
 
 /* =========================
-   LOAD NEXT BATCH
+   RENDER BATCH
 ========================= */
 
-function loadNextBatch(){
+function renderNextBatch(){
 
     if(isLoadingBatch){
         return;
     }
 
-
     const filtered =
         getFilteredWallpapers();
-
 
     if(
         displayedCount >=
         filtered.length
     ){
-
-        updateLoadingIndicator();
-
         return;
-
     }
 
-
     isLoadingBatch = true;
-
 
     const grid =
         document.getElementById(
             "grid"
         );
 
-
-    const nextItems =
-        filtered.slice(
-            displayedCount,
-            displayedCount +
-            batchSize
+    const end =
+        Math.min(
+            displayedCount + batchSize,
+            filtered.length
         );
 
+    for(
+        let i = displayedCount;
+        i < end;
+        i++
+    ){
 
-    nextItems.forEach(
-        file => {
+        grid.appendChild(
+            createCard(
+                filtered[i]
+            )
+        );
 
-            grid.appendChild(
-                createCard(file)
-            );
+    }
 
-        }
-    );
-
-
-    displayedCount +=
-        nextItems.length;
-
+    displayedCount = end;
 
     isLoadingBatch = false;
 
-
-    updateLoadingIndicator();
+    updateLoadMore();
 
 }
 
 
 /* =========================
-   LOADING INDICATOR
+   LOAD MORE MESSAGE
 ========================= */
 
-function updateLoadingIndicator(){
+function updateLoadMore(){
+
+    const grid =
+        document.getElementById(
+            "grid"
+        );
 
     const old =
         document.getElementById(
             "loadMore"
         );
-
 
     if(old){
         old.remove();
@@ -1320,31 +1578,20 @@ function updateLoadingIndicator(){
         filtered.length
     ){
 
-        const indicator =
+        const loadMore =
             document.createElement(
                 "div"
             );
 
-
-        indicator.id =
+        loadMore.id =
             "loadMore";
 
-
-        indicator.className =
-            "loading";
-
-
-        indicator.textContent =
+        loadMore.textContent =
             "Scroll down to load more...";
 
-
-        document
-            .getElementById(
-                "grid"
-            )
-            .appendChild(
-                indicator
-            );
+        grid.appendChild(
+            loadMore
+        );
 
     }
 
@@ -1352,431 +1599,54 @@ function updateLoadingIndicator(){
 
 
 /* =========================
-   RESET GALLERY
+   RESET & RENDER
 ========================= */
 
-function resetGallery(){
+function resetAndRender(){
 
     const grid =
         document.getElementById(
             "grid"
         );
 
+    grid.innerHTML = "";
 
-    grid.innerHTML =
-        "";
+    displayedCount = 0;
 
-
-    displayedCount =
-        0;
-
-
-    isLoadingBatch =
-        false;
+    isLoadingBatch = false;
 
 
     const filtered =
         getFilteredWallpapers();
 
 
-    if(!filtered.length){
+    if(
+        filtered.length === 0
+    ){
 
-        grid.innerHTML =
-            '<div class="empty">' +
-            'No wallpapers found.' +
-            '</div>';
+        const empty =
+            document.createElement(
+                "div"
+            );
+
+        empty.className =
+            "empty";
+
+        empty.textContent =
+            "No wallpapers found.";
+
+        grid.appendChild(
+            empty
+        );
 
         return;
 
     }
 
 
-    loadNextBatch();
+    renderNextBatch();
 
 }
-
-
-/* =========================
-   INFINITE SCROLL
-========================= */
-
-window.addEventListener(
-    "scroll",
-    () => {
-
-        const distanceFromBottom =
-            document.documentElement
-                .scrollHeight -
-
-            (
-                window.scrollY +
-                window.innerHeight
-            );
-
-
-        if(
-            distanceFromBottom <
-            600
-        ){
-
-            loadNextBatch();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   OPEN PREVIEW
-========================= */
-
-function openPreview(
-    file,
-    imageUrl
-){
-
-    const modal =
-        document.getElementById(
-            "modal"
-        );
-
-
-    const modalImage =
-        document.getElementById(
-            "modalImage"
-        );
-
-
-    const modalTitle =
-        document.getElementById(
-            "modalTitle"
-        );
-
-
-    const modalMeta =
-        document.getElementById(
-            "modalMeta"
-        );
-
-
-    const imageUrlInput =
-        document.getElementById(
-            "imageUrl"
-        );
-
-
-    const modalDownload =
-        document.getElementById(
-            "modalDownload"
-        );
-
-
-    /* FULL URL */
-
-    const fullUrl =
-        new URL(
-            imageUrl,
-            window.location.href
-        ).href;
-
-
-    /* IMAGE */
-
-    modalImage.src =
-        fullUrl;
-
-
-    modalImage.alt =
-        cleanTitle(
-            file.name
-        );
-
-
-    /* TITLE */
-
-    modalTitle.textContent =
-        cleanTitle(
-            file.name
-        );
-
-
-    /* META */
-
-    modalMeta.textContent =
-        "Format: " +
-        getFormat(
-            file.name
-        );
-
-
-    /* RESOLUTION */
-
-    modalImage.onload =
-        () => {
-
-            modalMeta.textContent =
-                "Resolution: " +
-                modalImage.naturalWidth +
-                " × " +
-                modalImage.naturalHeight +
-                " | Format: " +
-                getFormat(file.name);
-
-        };
-
-
-    /* URL */
-
-    imageUrlInput.value =
-        fullUrl;
-
-
-    /* DOWNLOAD */
-
-    modalDownload.href =
-        fullUrl;
-
-    modalDownload.download =
-        file.name;
-
-
-    /* SHOW MODAL */
-
-    modal.classList.add(
-        "show"
-    );
-
-
-    /* STOP BACKGROUND SCROLL */
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-/* =========================
-   CLOSE PREVIEW
-========================= */
-
-function closePreview(){
-
-    const modal =
-        document.getElementById(
-            "modal"
-        );
-
-
-    modal.classList.remove(
-        "show"
-    );
-
-
-    document.body.style.overflow =
-        "";
-
-
-    document.getElementById(
-        "modalImage"
-    ).src = "";
-
-}
-
-
-/* =========================
-   COPY URL
-========================= */
-
-document
-.getElementById("copyUrl")
-.addEventListener(
-    "click",
-    async () => {
-
-        const input =
-            document.getElementById(
-                "imageUrl"
-            );
-
-        const button =
-            document.getElementById(
-                "copyUrl"
-            );
-
-
-        try{
-
-            await navigator.clipboard
-                .writeText(
-                    input.value
-                );
-
-
-            button.textContent =
-                "Copied!";
-
-
-            setTimeout(
-                () => {
-
-                    button.textContent =
-                        "Copy URL";
-
-                },
-                1500
-            );
-
-
-        }catch(error){
-
-            input.select();
-
-            document.execCommand(
-                "copy"
-            );
-
-
-            button.textContent =
-                "Copied!";
-
-
-            setTimeout(
-                () => {
-
-                    button.textContent =
-                        "Copy URL";
-
-                },
-                1500
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================
-   CLOSE BUTTON
-========================= */
-
-document
-.getElementById("closeModal")
-.addEventListener(
-    "click",
-    closePreview
-);
-
-
-document
-.getElementById("modalCloseButton")
-.addEventListener(
-    "click",
-    closePreview
-);
-
-
-/* =========================
-   CLICK OUTSIDE
-========================= */
-
-document
-.getElementById("modal")
-.addEventListener(
-    "click",
-    event => {
-
-        if(
-            event.target.id ===
-            "modal"
-        ){
-
-            closePreview();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   ESC KEY
-========================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if(
-            event.key ===
-            "Escape"
-        ){
-
-            closePreview();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   FILTER BUTTONS
-========================= */
-
-document
-.querySelectorAll(".filter")
-.forEach(
-    button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                document
-                .querySelectorAll(
-                    ".filter"
-                )
-                .forEach(
-                    b => {
-
-                        b.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                button.classList.add(
-                    "active"
-                );
-
-
-                selectedCategory =
-                    button.dataset.cat;
-
-
-                resetGallery();
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================
-   SEARCH
-========================= */
-
-document
-.getElementById("search")
-.addEventListener(
-    "input",
-    resetGallery
-);
 
 
 /* =========================
@@ -1794,7 +1664,9 @@ async function loadWallpapers(){
     try{
 
         const response =
-            await fetch(API);
+            await fetch(
+                API
+            );
 
 
         if(
@@ -1814,22 +1686,35 @@ async function loadWallpapers(){
 
         wallpapers =
             files.filter(
-                file =>
+                file => {
 
-                    file.type ===
-                    "file"
+                    return (
+                        file.type === "file" &&
+                        /\.(jpg|jpeg|png|webp|gif|mp4|webm|mov)$/i
+                        .test(file.name)
+                    );
 
-                    &&
-
-                    /\.(jpg|jpeg|png|webp|gif)$/i
-                    .test(
-                        file.name
-                    )
-
+                }
             );
 
 
-        resetGallery();
+        if(
+            wallpapers.length === 0
+        ){
+
+            grid.innerHTML =
+                `
+                <div class="empty">
+                    No wallpapers available.
+                </div>
+                `;
+
+            return;
+
+        }
+
+
+        resetAndRender();
 
 
     }catch(error){
@@ -1840,13 +1725,473 @@ async function loadWallpapers(){
 
 
         grid.innerHTML =
-            '<div class="empty">' +
-            'Unable to load wallpapers.' +
-            '</div>';
+            `
+            <div class="empty">
+                Failed to load wallpapers.
+                <br><br>
+                Please try again later.
+            </div>
+            `;
 
     }
 
 }
+
+
+/* =========================
+   PREVIEW MODAL
+========================= */
+
+function openPreview(
+    file,
+    mediaUrl
+){
+
+    const modal =
+        document.getElementById(
+            "modal"
+        );
+
+    const modalImage =
+        document.getElementById(
+            "modalImage"
+        );
+
+    const modalVideo =
+        document.getElementById(
+            "modalVideo"
+        );
+
+    const modalTitle =
+        document.getElementById(
+            "modalTitle"
+        );
+
+    const modalMeta =
+        document.getElementById(
+            "modalMeta"
+        );
+
+    const imageUrl =
+        document.getElementById(
+            "imageUrl"
+        );
+
+    const modalDownload =
+        document.getElementById(
+            "modalDownload"
+        );
+
+
+    const live =
+        isLiveWallpaper(
+            file
+        );
+
+
+    /* TITLE */
+
+    modalTitle.textContent =
+        cleanTitle(
+            file.name
+        );
+
+
+    /* URL */
+
+    imageUrl.value =
+        mediaUrl;
+
+
+    /* DOWNLOAD */
+
+    modalDownload.href =
+        mediaUrl;
+
+    modalDownload.download =
+        file.name;
+
+
+    /* META */
+
+    modalMeta.textContent =
+        "Format: " +
+        getFormat(
+            file.name
+        );
+
+
+    /* =========================
+       STATIC IMAGE
+    ========================= */
+
+    if(!live){
+
+        modalVideo.pause();
+
+        modalVideo.removeAttribute(
+            "src"
+        );
+
+        modalVideo.load();
+
+        modalVideo.style.display =
+            "none";
+
+
+        modalImage.src =
+            mediaUrl;
+
+        modalImage.alt =
+            cleanTitle(
+                file.name
+            );
+
+        modalImage.style.display =
+            "block";
+
+
+        modalImage.onload =
+            () => {
+
+                modalMeta.textContent =
+                    "Format: " +
+                    getFormat(
+                        file.name
+                    ) +
+                    " | Resolution: " +
+                    modalImage.naturalWidth +
+                    " × " +
+                    modalImage.naturalHeight;
+
+            };
+
+    }
+
+
+    /* =========================
+       LIVE VIDEO
+    ========================= */
+
+    else{
+
+        modalImage.style.display =
+            "none";
+
+        modalImage.src =
+            "";
+
+
+        modalVideo.style.display =
+            "block";
+
+
+        modalVideo.src =
+            mediaUrl;
+
+
+        modalVideo.muted =
+            true;
+
+        modalVideo.loop =
+            true;
+
+        modalVideo.playsInline =
+            true;
+
+
+        modalVideo.play()
+            .catch(
+                () => {}
+            );
+
+
+        modalVideo.onloadedmetadata =
+            () => {
+
+                modalMeta.textContent =
+                    "LIVE Wallpaper | " +
+                    "Format: " +
+                    getFormat(
+                        file.name
+                    ) +
+                    " | Resolution: " +
+                    modalVideo.videoWidth +
+                    " × " +
+                    modalVideo.videoHeight;
+
+            };
+
+    }
+
+
+    modal.classList.add(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closePreview(){
+
+    const modal =
+        document.getElementById(
+            "modal"
+        );
+
+    const modalVideo =
+        document.getElementById(
+            "modalVideo"
+        );
+
+    modalVideo.pause();
+
+    modalVideo.removeAttribute(
+        "src"
+    );
+
+    modalVideo.load();
+
+
+    modal.classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =========================
+   COPY URL
+========================= */
+
+document
+.getElementById(
+    "copyUrl"
+)
+.addEventListener(
+    "click",
+    async function(){
+
+        const input =
+            document.getElementById(
+                "imageUrl"
+            );
+
+
+        try{
+
+            await navigator.clipboard.writeText(
+                input.value
+            );
+
+
+            this.textContent =
+                "Copied!";
+
+
+            setTimeout(
+                () => {
+
+                    this.textContent =
+                        "Copy URL";
+
+                },
+                1500
+            );
+
+
+        }catch(error){
+
+            input.select();
+
+            document.execCommand(
+                "copy"
+            );
+
+
+            this.textContent =
+                "Copied!";
+
+
+            setTimeout(
+                () => {
+
+                    this.textContent =
+                        "Copy URL";
+
+                },
+                1500
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================
+   CLOSE EVENTS
+========================= */
+
+document
+.getElementById(
+    "closeModal"
+)
+.addEventListener(
+    "click",
+    closePreview
+);
+
+
+document
+.getElementById(
+    "modalCloseButton"
+)
+.addEventListener(
+    "click",
+    closePreview
+);
+
+
+document
+.getElementById(
+    "modal"
+)
+.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target === this
+        ){
+
+            closePreview();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   ESCAPE KEY
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key === "Escape"
+        ){
+
+            closePreview();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   CATEGORY FILTER
+========================= */
+
+document
+.querySelectorAll(
+    ".filter"
+)
+.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                document
+                .querySelectorAll(
+                    ".filter"
+                )
+                .forEach(
+                    btn => {
+
+                        btn.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                this.classList.add(
+                    "active"
+                );
+
+
+                selectedCategory =
+                    this.dataset.cat;
+
+
+                resetAndRender();
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================
+   SEARCH
+========================= */
+
+document
+.getElementById(
+    "search"
+)
+.addEventListener(
+    "input",
+    function(){
+
+        resetAndRender();
+
+    }
+);
+
+
+/* =========================
+   INFINITE SCROLL
+========================= */
+
+window.addEventListener(
+    "scroll",
+    function(){
+
+        if(
+            window.innerHeight +
+            window.scrollY >=
+            document.documentElement.scrollHeight -
+            500
+        ){
+
+            renderNextBatch();
+
+        }
+
+    }
+);
 
 
 /* =========================
@@ -1858,5 +2203,4 @@ loadWallpapers();
 </script>
 
 </body>
-
 </html>
