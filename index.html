@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,6 @@
 <title>Tensei</title>
 
 <style>
-
 /* =========================
    BASIC
 ========================= */
@@ -24,652 +24,74 @@ body {
     margin: 0;
     min-height: 100vh;
     overflow-x: hidden;
-
     font-family: Arial, sans-serif;
-
-    background:
-        linear-gradient(
-            180deg,
-            #050609 0%,
-            #10100f 45%,
-            #090b08 100%
-        );
-
+    background: #050609;
     color: white;
 }
 
-
 /* =========================
-   ANIMATED GARDEN
+   VIDEO BACKGROUND
 ========================= */
 
-.garden {
+.video-background {
     position: fixed;
     inset: 0;
-
-    overflow: hidden;
-
-    z-index: -10;
-
-    background:
-        radial-gradient(
-            ellipse at 50% 80%,
-            #282018 0%,
-            #11130f 40%,
-            #050608 100%
-        );
-}
-
-
-/* =========================
-   DISTANT GRASS
-========================= */
-
-.grass-layer {
-    position: absolute;
-
-    left: -5%;
-    bottom: 0;
-
-    width: 110%;
-    height: 42%;
-
-    transform-origin: bottom center;
-
-    background:
-        repeating-linear-gradient(
-            80deg,
-            transparent 0px,
-            transparent 12px,
-            rgba(45, 58, 35, 0.8) 13px,
-            transparent 15px
-        );
-
-    animation:
-        grassWind 4s ease-in-out infinite alternate;
-}
-
-@keyframes grassWind {
-
-    0% {
-        transform: skewX(-1deg);
-    }
-
-    50% {
-        transform: skewX(2deg);
-    }
-
-    100% {
-        transform: skewX(-2deg);
-    }
-}
-
-
-/* =========================
-   GRASS BLADES
-========================= */
-
-.blades {
-    position: absolute;
-
-    bottom: -20px;
-    left: 0;
-
     width: 100%;
-    height: 35%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    background: #050609;
 }
 
-.blade {
-    position: absolute;
-
-    bottom: 0;
-
-    width: 3px;
-    height: 100px;
-
-    background:
-        linear-gradient(
-            to top,
-            #182216,
-            #536342
-        );
-
-    border-radius: 100% 0 100% 0;
-
-    transform-origin: bottom center;
-
-    animation:
-        bladeWind 3s ease-in-out infinite alternate;
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
-
-.blade:nth-child(1) {
-    left: 5%;
-    height: 110px;
-    animation-delay: -1s;
-}
-
-.blade:nth-child(2) {
-    left: 12%;
-    height: 150px;
-    animation-delay: -2s;
-}
-
-.blade:nth-child(3) {
-    left: 19%;
-    height: 90px;
-    animation-delay: -0.5s;
-}
-
-.blade:nth-child(4) {
-    left: 28%;
-    height: 130px;
-    animation-delay: -1.5s;
-}
-
-.blade:nth-child(5) {
-    left: 37%;
-    height: 100px;
-    animation-delay: -3s;
-}
-
-.blade:nth-child(6) {
-    left: 46%;
-    height: 145px;
-    animation-delay: -2s;
-}
-
-.blade:nth-child(7) {
-    left: 56%;
-    height: 95px;
-    animation-delay: -1s;
-}
-
-.blade:nth-child(8) {
-    left: 65%;
-    height: 135px;
-    animation-delay: -2.5s;
-}
-
-.blade:nth-child(9) {
-    left: 75%;
-    height: 105px;
-    animation-delay: -0.8s;
-}
-
-.blade:nth-child(10) {
-    left: 84%;
-    height: 145px;
-    animation-delay: -1.8s;
-}
-
-.blade:nth-child(11) {
-    left: 94%;
-    height: 115px;
-    animation-delay: -2.8s;
-}
-
-@keyframes bladeWind {
-
-    0% {
-        transform: rotate(-5deg);
-    }
-
-    100% {
-        transform: rotate(7deg);
-    }
-}
-
 
 /* =========================
-   SPIDER LILY
-========================= */
-
-.lily {
-    position: absolute;
-
-    width: 110px;
-    height: 150px;
-
-    transform-origin: bottom center;
-
-    animation:
-        lilyWind var(--speed) ease-in-out infinite alternate;
-
-    animation-delay: var(--delay);
-}
-
-
-/* Flower center */
-
-.lily-center {
-    position: absolute;
-
-    width: 16px;
-    height: 16px;
-
-    left: 47px;
-    top: 48px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            #ffdca8 0%,
-            #d8a75e 45%,
-            #70291f 100%
-        );
-
-    z-index: 5;
-}
-
-
-/* Petals */
-
-.petal {
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 14px;
-    height: 65px;
-
-    border-radius:
-        100% 0 100% 0;
-
-    transform-origin:
-        50% 100%;
-
-    background:
-        linear-gradient(
-            to top,
-            #8b0714,
-            #e31b2e 55%,
-            #ff5960
-        );
-
-    box-shadow:
-        0 0 12px rgba(255, 30, 50, 0.45);
-
-    z-index: 3;
-}
-
-
-/* Individual petals */
-
-.petal:nth-child(1) {
-    transform: translate(-50%, -100%) rotate(-70deg);
-}
-
-.petal:nth-child(2) {
-    transform: translate(-50%, -100%) rotate(-45deg);
-}
-
-.petal:nth-child(3) {
-    transform: translate(-50%, -100%) rotate(-20deg);
-}
-
-.petal:nth-child(4) {
-    transform: translate(-50%, -100%) rotate(10deg);
-}
-
-.petal:nth-child(5) {
-    transform: translate(-50%, -100%) rotate(40deg);
-}
-
-.petal:nth-child(6) {
-    transform: translate(-50%, -100%) rotate(70deg);
-}
-
-
-/* Curved stamens */
-
-.stamen {
-    position: absolute;
-
-    width: 70px;
-    height: 35px;
-
-    left: 20px;
-    top: 25px;
-
-    border-top:
-        2px solid #f4b28d;
-
-    border-radius: 50%;
-
-    transform-origin: center;
-
-    z-index: 4;
-}
-
-.stamen:nth-child(8) {
-    transform: rotate(-25deg);
-}
-
-.stamen:nth-child(9) {
-    transform: rotate(25deg);
-}
-
-.stamen:nth-child(10) {
-    transform: rotate(0deg);
-}
-
-@keyframes lilyWind {
-
-    0% {
-        transform: rotate(-3deg);
-    }
-
-    50% {
-        transform: rotate(1deg);
-    }
-
-    100% {
-        transform: rotate(4deg);
-    }
-}
-
-
-/* =========================
-   LILY POSITIONS
-========================= */
-
-.lily1 {
-    left: 4%;
-    bottom: 20%;
-
-    --speed: 5s;
-    --delay: -2s;
-
-    transform: scale(0.75);
-}
-
-.lily2 {
-    left: 16%;
-    bottom: 14%;
-
-    --speed: 6s;
-    --delay: -4s;
-
-    transform: scale(1);
-}
-
-.lily3 {
-    left: 31%;
-    bottom: 18%;
-
-    --speed: 4.5s;
-    --delay: -1s;
-
-    transform: scale(0.8);
-}
-
-.lily4 {
-    left: 46%;
-    bottom: 12%;
-
-    --speed: 5.5s;
-    --delay: -3s;
-
-    transform: scale(1.15);
-}
-
-.lily5 {
-    left: 62%;
-    bottom: 19%;
-
-    --speed: 4.8s;
-    --delay: -2.5s;
-
-    transform: scale(0.85);
-}
-
-.lily6 {
-    left: 76%;
-    bottom: 14%;
-
-    --speed: 6.2s;
-    --delay: -5s;
-
-    transform: scale(1.05);
-}
-
-.lily7 {
-    left: 90%;
-    bottom: 21%;
-
-    --speed: 5s;
-    --delay: -1.5s;
-
-    transform: scale(0.75);
-}
-
-
-/* =========================
-   LEAVES
-========================= */
-
-.leaf {
-    position: absolute;
-
-    width: 22px;
-    height: 150px;
-
-    bottom: 0;
-
-    border-radius:
-        100% 0 100% 0;
-
-    background:
-        linear-gradient(
-            to top,
-            #0c1a0d,
-            #49613b
-        );
-
-    transform-origin: bottom center;
-
-    animation:
-        leafWind var(--leaf-speed) ease-in-out infinite alternate;
-
-    animation-delay: var(--leaf-delay);
-}
-
-.leaf1 {
-    left: 8%;
-    --leaf-speed: 4s;
-    --leaf-delay: -1s;
-}
-
-.leaf2 {
-    left: 25%;
-    height: 190px;
-    --leaf-speed: 5s;
-    --leaf-delay: -2s;
-}
-
-.leaf3 {
-    left: 42%;
-    height: 140px;
-    --leaf-speed: 3.8s;
-    --leaf-delay: -0.5s;
-}
-
-.leaf4 {
-    left: 58%;
-    height: 180px;
-    --leaf-speed: 4.7s;
-    --leaf-delay: -3s;
-}
-
-.leaf5 {
-    left: 73%;
-    height: 145px;
-    --leaf-speed: 5.5s;
-    --leaf-delay: -2s;
-}
-
-.leaf6 {
-    left: 91%;
-    height: 175px;
-    --leaf-speed: 4.2s;
-    --leaf-delay: -4s;
-}
-
-@keyframes leafWind {
-
-    0% {
-        transform: rotate(-8deg);
-    }
-
-    100% {
-        transform: rotate(10deg);
-    }
-}
-
-
-/* =========================
-   FOG
-========================= */
-
-.fog {
-    position: absolute;
-
-    width: 160%;
-    height: 180px;
-
-    left: -30%;
-    bottom: 12%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(255,255,255,0.13),
-            transparent 65%
-        );
-
-    filter: blur(25px);
-
-    animation:
-        fogMove 16s ease-in-out infinite alternate;
-}
-
-.fog2 {
-    bottom: 28%;
-
-    opacity: 0.5;
-
-    animation-duration: 23s;
-}
-
-@keyframes fogMove {
-
-    0% {
-        transform: translateX(-8%);
-    }
-
-    100% {
-        transform: translateX(8%);
-    }
-}
-
-
-/* =========================
-   FLOATING PARTICLES
-========================= */
-
-.particles {
-    position: absolute;
-    inset: 0;
-}
-
-.particle {
-    position: absolute;
-
-    width: 3px;
-    height: 3px;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,0.55);
-
-    animation:
-        particleFloat var(--particle-speed)
-        linear infinite;
-
-    animation-delay: var(--particle-delay);
-}
-
-@keyframes particleFloat {
-
-    0% {
-        transform:
-            translate3d(0, 20px, 0);
-
-        opacity: 0;
-    }
-
-    20% {
-        opacity: 0.8;
-    }
-
-    80% {
-        opacity: 0.7;
-    }
-
-    100% {
-        transform:
-            translate3d(80px, -100vh, 0);
-
-        opacity: 0;
-    }
-}
-
-
-/* =========================
-   DARK CINEMATIC OVERLAY
+   DARK OVERLAY
 ========================= */
 
 .dark-overlay {
-    position: absolute;
-
+    position: fixed;
     inset: 0;
-
+    z-index: 1;
+    pointer-events: none;
     background:
         linear-gradient(
-            rgba(0,0,0,0.35),
-            rgba(0,0,0,0.65)
+            180deg,
+            rgba(5,6,9,0.55),
+            rgba(10,10,10,0.35) 45%,
+            rgba(5,6,9,0.75)
         );
-
-    pointer-events: none;
 }
 
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.site-content {
+    position: relative;
+    z-index: 2;
+}
 
 /* =========================
-   CONTENT
+   HEADER
 ========================= */
 
 header {
     position: relative;
-
     padding: 22px;
-
-    background:
-        rgba(0,0,0,0.45);
-
+    text-align: center;
+    background: rgba(0,0,0,0.45);
     backdrop-filter: blur(8px);
-
-    border-bottom:
-        1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 header h1 {
     margin: 0;
-
     font-size: 34px;
-
     letter-spacing: 6px;
 }
 
@@ -679,13 +101,9 @@ nav {
 
 nav a {
     color: white;
-
     text-decoration: none;
-
     margin: 0 12px;
-
     font-size: 15px;
-
     transition: 0.3s;
 }
 
@@ -693,74 +111,50 @@ nav a:hover {
     opacity: 0.6;
 }
 
-
 /* =========================
    HERO
 ========================= */
 
 .hero {
     min-height: 75vh;
-
     display: flex;
-
     flex-direction: column;
-
     justify-content: center;
-
     align-items: center;
-
     padding: 80px 20px;
+    text-align: center;
 }
 
 .hero h2 {
     margin: 0;
-
-    font-size:
-        clamp(40px, 8vw, 72px);
-
-    text-shadow:
-        0 5px 25px rgba(0,0,0,0.9);
+    font-size: clamp(40px, 8vw, 72px);
+    text-shadow: 0 5px 25px rgba(0,0,0,0.9);
 }
 
 .hero p {
     max-width: 650px;
-
     color: #dddddd;
-
     font-size: 18px;
-
     line-height: 1.7;
-
-    text-shadow:
-        0 3px 15px black;
+    text-shadow: 0 3px 15px black;
 }
 
 .button {
     display: inline-block;
-
     margin-top: 25px;
-
     padding: 14px 28px;
-
     border-radius: 8px;
-
     background: white;
-
     color: black;
-
     text-decoration: none;
-
     font-weight: bold;
-
     transition: 0.3s;
 }
 
 .button:hover {
     transform: translateY(-3px);
-
     opacity: 0.85;
 }
-
 
 /* =========================
    FEEDBACK
@@ -768,45 +162,32 @@ nav a:hover {
 
 .feedback {
     max-width: 700px;
-
     margin: 30px auto 80px;
-
     padding: 35px 25px;
-
-    background:
-        rgba(0,0,0,0.6);
-
+    background: rgba(0,0,0,0.6);
     backdrop-filter: blur(12px);
-
-    border:
-        1px solid rgba(255,255,255,0.12);
-
+    border: 1px solid rgba(255,255,255,0.12);
     border-radius: 16px;
 }
 
 .feedback h2 {
     margin-top: 0;
-
     font-size: 30px;
 }
 
 .feedback p {
     color: #bbb;
-
     line-height: 1.6;
 }
 
 .feedback form {
     text-align: left;
-
     margin-top: 25px;
 }
 
 .feedback label {
     display: block;
-
     margin: 15px 0 7px;
-
     font-weight: bold;
 }
 
@@ -814,56 +195,36 @@ nav a:hover {
 .feedback select,
 .feedback textarea {
     width: 100%;
-
     padding: 12px;
-
-    border: 1px solid
-        rgba(255,255,255,0.15);
-
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 8px;
-
-    background:
-        rgba(255,255,255,0.08);
-
+    background: rgba(255,255,255,0.08);
     color: white;
-
     outline: none;
-
     font-size: 15px;
 }
 
 .feedback select option {
     background: #181818;
-
     color: white;
 }
 
 .feedback textarea {
     min-height: 120px;
-
     resize: vertical;
 }
 
 .submit-button {
     width: 100%;
-
     margin-top: 22px;
-
     padding: 14px;
-
     border: none;
-
     border-radius: 8px;
-
     background: white;
-
     color: black;
-
     font-weight: bold;
-
     cursor: pointer;
 }
-
 
 /* =========================
    FOOTER
@@ -871,37 +232,24 @@ nav a:hover {
 
 footer {
     padding: 25px;
-
     text-align: center;
-
     color: #888;
-
-    background:
-        rgba(0,0,0,0.5);
-
-    border-top:
-        1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.5);
+    border-top: 1px solid rgba(255,255,255,0.08);
 }
-
 
 /* =========================
    MOBILE
 ========================= */
 
 @media (max-width: 600px) {
-
     header h1 {
         font-size: 28px;
     }
 
     nav a {
         margin: 0 7px;
-
         font-size: 14px;
-    }
-
-    .lily {
-        transform: scale(0.7);
     }
 
     .hero {
@@ -913,512 +261,140 @@ footer {
     }
 
     .feedback {
-        margin-left: 15px;
-        margin-right: 15px;
+        margin: 30px 15px 60px;
     }
 }
 
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
 </style>
 </head>
 
-
 <body>
 
+<!-- VIDEO BACKGROUND -->
 
-<!-- =========================
-     GARDEN
-========================= -->
+<div class="video-background">
+    <video autoplay muted loop playsinline preload="metadata">
+        <source src="root/background.mp4" type="video/mp4">
+    </video>
+</div>
 
-<div class="garden">
+<!-- DARK OVERLAY -->
 
-    <!-- Grass -->
-    <div class="grass-layer"></div>
+<div class="dark-overlay"></div>
 
+<!-- MAIN CONTENT -->
 
-    <!-- Grass Blades -->
+<div class="site-content">
 
-    <div class="blades">
+    <!-- HEADER -->
 
-        <span class="blade"></span>
-        <span class="blade"></span>
-        <span class="blade"></span>
-        <span class="blade"></span>
-        <span class="blade"></span>
-        <span class="blade"></span>
-        <span class="blade"></span>
-        <span class="blade"></span>
-        <span class="blade"></span>
-        <span class="blade"></span>
-        <span class="blade"></span>
+    <header>
+        <h1>TENSEI</h1>
 
-    </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="wallpapers.html">Wallpapers</a>
+            <a href="#feedback">Feedback</a>
+        </nav>
+    </header>
 
+    <!-- HERO -->
 
-    <!-- Leaves -->
+    <section class="hero">
+        <h2>Welcome to Tensei</h2>
 
-    <span class="leaf leaf1"></span>
-    <span class="leaf leaf2"></span>
-    <span class="leaf leaf3"></span>
-    <span class="leaf leaf4"></span>
-    <span class="leaf leaf5"></span>
-    <span class="leaf leaf6"></span>
+        <p>
+            Discover beautiful wallpapers,
+            aesthetic visuals and dark cinematic
+            backgrounds from Tensei.
+        </p>
 
+        <a href="wallpapers.html" class="button">
+            Explore Wallpapers
+        </a>
+    </section>
 
-    <!-- =====================
-         SPIDER LILIES
-    ====================== -->
+    <!-- FEEDBACK -->
 
+    <section class="feedback" id="feedback">
 
-    <div class="lily lily1">
+        <h2>Report a Problem</h2>
 
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
+        <p>
+            Found a broken wallpaper, download link
+            or another website problem?
+            Let us know.
+        </p>
 
-        <span class="lily-center"></span>
+        <form id="feedbackForm">
 
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-        <span class="stamen"></span>
+            <label for="category">Problem Type</label>
 
-    </div>
+            <select id="category" required>
+                <option value="">Select a problem</option>
+                <option>Broken Download Link</option>
+                <option>Wallpaper Not Loading</option>
+                <option>Wrong Resolution</option>
+                <option>Low Quality Wallpaper</option>
+                <option>Website Bug</option>
+                <option>Other Feedback</option>
+            </select>
 
+            <label for="wallpaper">
+                Wallpaper URL (Optional)
+            </label>
 
-    <div class="lily lily2">
+            <input
+                id="wallpaper"
+                type="text"
+                placeholder="Paste wallpaper URL"
+            >
 
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
+            <label for="rating">Rating</label>
 
-        <span class="lily-center"></span>
+            <select id="rating">
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+            </select>
 
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-        <span class="stamen"></span>
+            <label for="message">Message</label>
 
-    </div>
+            <textarea
+                id="message"
+                placeholder="Describe the problem..."
+                required
+            ></textarea>
 
+            <button class="submit-button" type="submit">
+                Submit Report
+            </button>
 
-    <div class="lily lily3">
+        </form>
 
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
+    </section>
 
-        <span class="lily-center"></span>
+    <!-- FOOTER -->
 
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-
-    </div>
-
-
-    <div class="lily lily4">
-
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-
-        <span class="lily-center"></span>
-
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-
-    </div>
-
-
-    <div class="lily lily5">
-
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-
-        <span class="lily-center"></span>
-
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-
-    </div>
-
-
-    <div class="lily lily6">
-
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-
-        <span class="lily-center"></span>
-
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-
-    </div>
-
-
-    <div class="lily lily7">
-
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-        <span class="petal"></span>
-
-        <span class="lily-center"></span>
-
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-        <span class="stamen"></span>
-
-    </div>
-
-
-    <!-- Fog -->
-
-    <div class="fog"></div>
-    <div class="fog fog2"></div>
-
-
-    <!-- Particles -->
-
-    <div class="particles">
-
-        <span class="particle"
-            style="left:5%;--particle-speed:14s;--particle-delay:-3s">
-        </span>
-
-        <span class="particle"
-            style="left:15%;--particle-speed:18s;--particle-delay:-8s">
-        </span>
-
-        <span class="particle"
-            style="left:25%;--particle-speed:13s;--particle-delay:-5s">
-        </span>
-
-        <span class="particle"
-            style="left:35%;--particle-speed:20s;--particle-delay:-10s">
-        </span>
-
-        <span class="particle"
-            style="left:45%;--particle-speed:15s;--particle-delay:-2s">
-        </span>
-
-        <span class="particle"
-            style="left:55%;--particle-speed:17s;--particle-delay:-7s">
-        </span>
-
-        <span class="particle"
-            style="left:65%;--particle-speed:12s;--particle-delay:-4s">
-        </span>
-
-        <span class="particle"
-            style="left:75%;--particle-speed:19s;--particle-delay:-9s">
-        </span>
-
-        <span class="particle"
-            style="left:85%;--particle-speed:14s;--particle-delay:-6s">
-        </span>
-
-        <span class="particle"
-            style="left:95%;--particle-speed:16s;--particle-delay:-11s">
-        </span>
-
-    </div>
-
-
-    <!-- Dark cinematic overlay -->
-
-    <div class="dark-overlay"></div>
+    <footer>
+        © 2026 Tensei
+        <br>
+        Wallpaper Collection
+    </footer>
 
 </div>
 
-
-<!-- =========================
-     HEADER
-========================= -->
-
-<header>
-
-    <h1>TENSEI</h1>
-
-    <nav>
-
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="wallpapers.html">
-            Wallpapers
-        </a>
-
-        <a href="#feedback">
-            Feedback
-        </a>
-
-    </nav>
-
-</header>
-
-
-<!-- =========================
-     HERO
-========================= -->
-
-<section class="hero">
-
-    <h2>
-        Welcome to Tensei
-    </h2>
-
-    <p>
-        Discover beautiful wallpapers,
-        aesthetic visuals and dark cinematic
-        backgrounds from Tensei.
-    </p>
-
-    <a
-        href="wallpapers.html"
-        class="button"
-    >
-        Explore Wallpapers
-    </a>
-
-</section>
-
-
-<!-- =========================
-     FEEDBACK
-========================= -->
-
-<section
-    class="feedback"
-    id="feedback"
->
-
-    <h2>
-        Report a Problem
-    </h2>
-
-    <p>
-        Found a broken wallpaper, download link
-        or another website problem?
-        Let us know.
-    </p>
-
-
-    <form id="feedbackForm">
-
-        <label>
-            Problem Type
-        </label>
-
-        <select
-            id="category"
-            required
-        >
-
-            <option value="">
-                Select a problem
-            </option>
-
-            <option>
-                Broken Download Link
-            </option>
-
-            <option>
-                Wallpaper Not Loading
-            </option>
-
-            <option>
-                Wrong Resolution
-            </option>
-
-            <option>
-                Low Quality Wallpaper
-            </option>
-
-            <option>
-                Website Bug
-            </option>
-
-            <option>
-                Other Feedback
-            </option>
-
-        </select>
-
-
-        <label>
-            Wallpaper URL
-            (Optional)
-        </label>
-
-        <input
-            id="wallpaper"
-            type="text"
-            placeholder="Paste wallpaper URL"
-        >
-
-
-        <label>
-            Rating
-        </label>
-
-        <select id="rating">
-
-            <option value="5">
-                ⭐⭐⭐⭐⭐
-            </option>
-
-            <option value="4">
-                ⭐⭐⭐⭐
-            </option>
-
-            <option value="3">
-                ⭐⭐⭐
-            </option>
-
-            <option value="2">
-                ⭐⭐
-            </option>
-
-            <option value="1">
-                ⭐
-            </option>
-
-        </select>
-
-
-        <label>
-            Message
-        </label>
-
-        <textarea
-            id="message"
-            placeholder="Describe the problem..."
-            required
-        ></textarea>
-
-
-        <button
-            class="submit-button"
-            type="submit"
-        >
-            Submit Report
-        </button>
-
-    </form>
-
-</section>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-
-    © 2026 Tensei
-    <br>
-    Wallpaper Collection
-
-</footer>
-
-
-<!-- =========================
-     GITHUB REPORT SYSTEM
-========================= -->
-
-<script>
-
-document
-.getElementById("feedbackForm")
-.addEventListener("submit", function(event) {
-
-    event.preventDefault();
-
-    const category =
-        document.getElementById("category").value;
-
-    const wallpaper =
-        document.getElementById("wallpaper").value;
-
-    const rating =
-        document.getElementById("rating").value;
-
-    const message =
-        document.getElementById("message").value;
-
-
-    const title =
-        "Website Feedback: " + category;
-
-
-    const body =
-        "## Tensei Website Feedback\n\n" +
-
-        "**Problem Type:** " +
-        category +
-        "\n\n" +
-
-        "**Wallpaper URL:** " +
-        (wallpaper || "Not provided") +
-        "\n\n" +
-
-        "**Rating:** " +
-        rating +
-        "/5\n\n" +
-
-        "**Message:**\n" +
-        message +
-        "\n\n" +
-
-        "---\n" +
-
-        "Submitted through the Tensei website.";
-
-
-    const githubURL =
-        "https://github.com/Tensei380/tensei380.github.io/issues/new" +
-
-        "?title=" +
-        encodeURIComponent(title) +
-
-        "&body=" +
-        encodeURIComponent(body);
-
-
-    window.open(
-        githubURL,
-        "_blank"
-    );
-
-});
-
-</script>
-
-
 </body>
-</html>
+   </html>
+   
